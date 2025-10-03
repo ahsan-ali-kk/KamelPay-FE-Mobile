@@ -48,11 +48,6 @@
         </intent-filter>
       </activity>
 
-      <!-- ✅ Maps API Key (keep this if you use Google Maps) -->
-      <meta-data
-          android:name="com.google.android.geo.API_KEY"
-          android:value="AIzaSyDU6P4-DbzZZd5smcHhTo4GUdhXtv6Y69U"/>
-
       <!-- ✅ Required: Firebase Messaging service -->
       <service
           android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingService"

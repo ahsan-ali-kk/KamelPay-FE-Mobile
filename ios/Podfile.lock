@@ -2234,6 +2234,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
+  - react-native-splash-screen (3.3.0):
+    - React-Core
   - react-native-video (6.16.1):
     - boost
     - DoubleConversion
@@ -3627,6 +3629,7 @@ DEPENDENCIES:
   - react-native-rsa-native (from `../node_modules/react-native-rsa-native`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-video (from `../node_modules/react-native-video`)
   - react-native-view-shot (from `../node_modules/react-native-view-shot`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -3860,6 +3863,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-slider:
     :path: "../node_modules/@react-native-community/slider"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   react-native-video:
     :path: "../node_modules/react-native-video"
   react-native-view-shot:
@@ -4076,6 +4081,7 @@ SPEC CHECKSUMS:
   react-native-rsa-native: a7931cdda1f73a8576a46d7f431378c5550f0c38
   react-native-safe-area-context: 4df6c897ab5bd841a5bba6f734785c0c9ef4c206
   react-native-slider: e005853a9391f5f0cacb9e957453bca982608eb9
+  react-native-splash-screen: 95994222cc95c236bd3cdc59fe45ed5f27969594
   react-native-video: 4da16bfca01a02aa2095e40683d74f2d6563207c
   react-native-view-shot: 2a3fb8aadfc702b79a168576c9b93d29f33ff1f3
   react-native-webview: 6a11548e3714dbf97a93003f5c95dd6fcc10234b
