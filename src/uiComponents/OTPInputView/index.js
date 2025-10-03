@@ -1,5 +1,7 @@
-const OTPInputView = ()=>{
-    return null
+import OTPInputView from "../../lib/react-native-otp-input";
+
+const OTPInputViewContainer = (props) => {
+    return <OTPInputView {...props}/>
 }
 
-export default OTPInputView;
+export default OTPInputViewContainer;
