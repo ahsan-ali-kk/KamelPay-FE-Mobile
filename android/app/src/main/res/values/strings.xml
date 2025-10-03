@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">NaqaD</string>
+    <string name="map_api_key">AIzaSyDU6P4-DbzZZd5smcHhTo4GUdhXtv6Y69U</string>
     <string name="default_notification_channel_id">naqad-channel</string>
+    <string name="notification_channel_name">Naqad Notifications</string>
     <string name="uq_api_base_url">https://id.uqudo.io</string>
 <!--     <string name="oneKyc_api_base_url">https://1kyc.tech/api/</string>-->
    <string name="oneKyc_api_base_url">https://uat.1kyc.tech/api/</string>
