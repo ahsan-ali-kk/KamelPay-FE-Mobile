@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Kamelpay</string>
+    <string name="app_name">NaqaD</string>
+    <string name="default_notification_channel_id">naqad-channel</string>
+    <string name="uq_api_base_url">https://id.uqudo.io</string>
+<!--     <string name="oneKyc_api_base_url">https://1kyc.tech/api/</string>-->
+   <string name="oneKyc_api_base_url">https://uat.1kyc.tech/api/</string>
 </resources>

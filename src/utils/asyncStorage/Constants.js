@@ -1,0 +1,11 @@
+export const USER = 'USER';
+export const TOKEN = 'TOKEN';
+export const IS_REGISTER_USER_IN_MOENGAGE = 'IS_REGISTER_USER_IN_MOENGAGE';
+export const WELCOME_SCREEN = 'WELCOME_SCREEN';
+export const LANGUAGE = 'LANGUAGE';
+export const USER_BIO_KEY = 'USER_BIO_KEY';
+export const USER_BIOMETRICS = 'USER_BIOMETRICS';
+export const FCM_TOKEN = 'FCM_TOKEN';
+export const CURRENT_PROMOTION_INDEX = 'CURRENT_PROMOTION_INDEX';
+export const DRAFT_SIGNUP_ID = "draftSignupId";
+export const PENDING_NOTIF = 'PENDING_NOTIF';

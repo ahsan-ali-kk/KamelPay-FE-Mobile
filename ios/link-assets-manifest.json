@@ -1,0 +1,73 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/JameelNooriKasheeda.ttf",
+      "sha1": "bfb15f4d5a0cbf22245554107dc43fea009d530b"
+    },
+    {
+      "path": "src/assets/fonts/JannaLT-Regular.ttf",
+      "sha1": "4c492e3f7ac90dc89231ca18b51318acb2dfaf79"
+    },
+    {
+      "path": "src/assets/fonts/MontserratBlack.ttf",
+      "sha1": "fca130f21601346cce37bb8a9526ff01af66d912"
+    },
+    {
+      "path": "src/assets/fonts/MontserratBold.ttf",
+      "sha1": "04052dc3b846609216de1e0cbcec337c6b6e74f6"
+    },
+    {
+      "path": "src/assets/fonts/MontserratExtraBold.ttf",
+      "sha1": "1914bc1981e6ceceadb2f6d72455b4e89e04965c"
+    },
+    {
+      "path": "src/assets/fonts/MontserratExtraLight.ttf",
+      "sha1": "7c594b126941460bd2f3b47097fd6222f52277e7"
+    },
+    {
+      "path": "src/assets/fonts/MontserratItalic.ttf",
+      "sha1": "4ee8f07c7414009645d03d87cd72df15658fe9f4"
+    },
+    {
+      "path": "src/assets/fonts/MontserratLight.ttf",
+      "sha1": "6f21894a80049259ef71fcba135218695b41b67a"
+    },
+    {
+      "path": "src/assets/fonts/MontserratMedium.ttf",
+      "sha1": "6b57d12e018c64352e202f8ef3bf7f431f76d935"
+    },
+    {
+      "path": "src/assets/fonts/MontserratRegular.ttf",
+      "sha1": "de57aa03e4821fdbe6c34ec2c895e8b5c914e837"
+    },
+    {
+      "path": "src/assets/fonts/MontserratSemiBold.ttf",
+      "sha1": "8580dec824bbdb6ce24d04d3aaf360776339f0a7"
+    },
+    {
+      "path": "src/assets/fonts/MontserratThin.ttf",
+      "sha1": "8c871991960f520a31635f95be6c346b659e2c8c"
+    },
+    {
+      "path": "src/assets/fonts/NotoNaskhArabic-Bold.ttf",
+      "sha1": "4853190a92c884920d863bfc4a74dbe1ea7189da"
+    },
+    {
+      "path": "src/assets/fonts/NotoNaskhArabic-Medium.ttf",
+      "sha1": "52ef27a9b1dd7d2bd77c0cbb8a37916ec50d5897"
+    },
+    {
+      "path": "src/assets/fonts/NotoNaskhArabic-Regular.ttf",
+      "sha1": "7768f6235454f9e3c8339306d29a3888e4886f1e"
+    },
+    {
+      "path": "src/assets/fonts/NotoNaskhArabic-SemiBold.ttf",
+      "sha1": "f31f50d21dbf54cc95eb94059de607d14cd1e600"
+    },
+    {
+      "path": "src/assets/icons/icomoon.ttf",
+      "sha1": "eee00e799f494b50cc57f2e5f3a0ef87a5c5f364"
+    }
+  ]
+}

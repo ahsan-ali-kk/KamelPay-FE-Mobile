@@ -1,0 +1,313 @@
+diff --git a/node_modules/react-native-snap-carousel/src/carousel/Carousel.js b/node_modules/react-native-snap-carousel/src/carousel/Carousel.js
+index dae71a3..1bd6672 100644
+--- a/node_modules/react-native-snap-carousel/src/carousel/Carousel.js
++++ b/node_modules/react-native-snap-carousel/src/carousel/Carousel.js
+@@ -1,6 +1,8 @@
+ import React, { Component } from 'react';
+-import { Animated, Easing, FlatList, I18nManager, Platform, ScrollView, View, ViewPropTypes } from 'react-native';
+-import PropTypes from 'prop-types';
++import { Animated, Easing, FlatList, I18nManager, Platform, ScrollView, View, 
++    // ViewPropTypes 
++} from 'react-native';
++// import PropTypes from 'prop-types';
+ import shallowCompare from 'react-addons-shallow-compare';
+ import {
+     defaultScrollInterpolator,
+@@ -27,48 +29,48 @@ const IS_RTL = I18nManager.isRTL;
+ 
+ export default class Carousel extends Component {
+ 
+-    static propTypes = {
+-        data: PropTypes.array.isRequired,
+-        renderItem: PropTypes.func.isRequired,
+-        itemWidth: PropTypes.number, // required for horizontal carousel
+-        itemHeight: PropTypes.number, // required for vertical carousel
+-        sliderWidth: PropTypes.number, // required for horizontal carousel
+-        sliderHeight: PropTypes.number, // required for vertical carousel
+-        activeAnimationType: PropTypes.string,
+-        activeAnimationOptions: PropTypes.object,
+-        activeSlideAlignment: PropTypes.oneOf(['center', 'end', 'start']),
+-        activeSlideOffset: PropTypes.number,
+-        apparitionDelay: PropTypes.number,
+-        autoplay: PropTypes.bool,
+-        autoplayDelay: PropTypes.number,
+-        autoplayInterval: PropTypes.number,
+-        callbackOffsetMargin: PropTypes.number,
+-        containerCustomStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+-        contentContainerCustomStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+-        enableMomentum: PropTypes.bool,
+-        enableSnap: PropTypes.bool,
+-        firstItem: PropTypes.number,
+-        hasParallaxImages: PropTypes.bool,
+-        inactiveSlideOpacity: PropTypes.number,
+-        inactiveSlideScale: PropTypes.number,
+-        inactiveSlideShift: PropTypes.number,
+-        layout: PropTypes.oneOf(['default', 'stack', 'tinder']),
+-        layoutCardOffset: PropTypes.number,
+-        lockScrollTimeoutDuration: PropTypes.number,
+-        lockScrollWhileSnapping: PropTypes.bool,
+-        loop: PropTypes.bool,
+-        loopClonesPerSide: PropTypes.number,
+-        scrollEnabled: PropTypes.bool,
+-        scrollInterpolator: PropTypes.func,
+-        slideInterpolatedStyle: PropTypes.func,
+-        slideStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+-        shouldOptimizeUpdates: PropTypes.bool,
+-        swipeThreshold: PropTypes.number,
+-        useScrollView: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+-        vertical: PropTypes.bool,
+-        onBeforeSnapToItem: PropTypes.func,
+-        onSnapToItem: PropTypes.func
+-    };
++    // static propTypes = {
++    //     data: PropTypes.array.isRequired,
++    //     renderItem: PropTypes.func.isRequired,
++    //     itemWidth: PropTypes.number, // required for horizontal carousel
++    //     itemHeight: PropTypes.number, // required for vertical carousel
++    //     sliderWidth: PropTypes.number, // required for horizontal carousel
++    //     sliderHeight: PropTypes.number, // required for vertical carousel
++    //     activeAnimationType: PropTypes.string,
++    //     activeAnimationOptions: PropTypes.object,
++    //     activeSlideAlignment: PropTypes.oneOf(['center', 'end', 'start']),
++    //     activeSlideOffset: PropTypes.number,
++    //     apparitionDelay: PropTypes.number,
++    //     autoplay: PropTypes.bool,
++    //     autoplayDelay: PropTypes.number,
++    //     autoplayInterval: PropTypes.number,
++    //     callbackOffsetMargin: PropTypes.number,
++    //     containerCustomStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++    //     contentContainerCustomStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++    //     enableMomentum: PropTypes.bool,
++    //     enableSnap: PropTypes.bool,
++    //     firstItem: PropTypes.number,
++    //     hasParallaxImages: PropTypes.bool,
++    //     inactiveSlideOpacity: PropTypes.number,
++    //     inactiveSlideScale: PropTypes.number,
++    //     inactiveSlideShift: PropTypes.number,
++    //     layout: PropTypes.oneOf(['default', 'stack', 'tinder']),
++    //     layoutCardOffset: PropTypes.number,
++    //     lockScrollTimeoutDuration: PropTypes.number,
++    //     lockScrollWhileSnapping: PropTypes.bool,
++    //     loop: PropTypes.bool,
++    //     loopClonesPerSide: PropTypes.number,
++    //     scrollEnabled: PropTypes.bool,
++    //     scrollInterpolator: PropTypes.func,
++    //     slideInterpolatedStyle: PropTypes.func,
++    //     slideStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++    //     shouldOptimizeUpdates: PropTypes.bool,
++    //     swipeThreshold: PropTypes.number,
++    //     useScrollView: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
++    //     vertical: PropTypes.bool,
++    //     onBeforeSnapToItem: PropTypes.func,
++    //     onSnapToItem: PropTypes.func
++    // };
+ 
+     static defaultProps = {
+         activeAnimationType: 'timing',
+@@ -151,9 +153,9 @@ export default class Carousel extends Component {
+         this._ignoreNextMomentum = false;
+ 
+         // Warnings
+-        if (!ViewPropTypes) {
+-            console.warn('react-native-snap-carousel: It is recommended to use at least version 0.44 of React Native with the plugin');
+-        }
++        // if (!ViewPropTypes) {
++        //     console.warn('react-native-snap-carousel: It is recommended to use at least version 0.44 of React Native with the plugin');
++        // }
+         if (!props.vertical && (!props.sliderWidth || !props.itemWidth)) {
+             console.error('react-native-snap-carousel: You need to specify both `sliderWidth` and `itemWidth` for horizontal carousels');
+         }
+@@ -328,7 +330,8 @@ export default class Carousel extends Component {
+ 
+     _needsRTLAdaptations () {
+         const { vertical } = this.props;
+-        return IS_RTL && !IS_IOS && !vertical;
++        // return IS_RTL && !IS_IOS && !vertical;
++        return false;
+     }
+ 
+     _canLockScroll () {
+diff --git a/node_modules/react-native-snap-carousel/src/pagination/Pagination.js b/node_modules/react-native-snap-carousel/src/pagination/Pagination.js
+index 5c021cf..d2d9675 100644
+--- a/node_modules/react-native-snap-carousel/src/pagination/Pagination.js
++++ b/node_modules/react-native-snap-carousel/src/pagination/Pagination.js
+@@ -1,6 +1,8 @@
+ import React, { PureComponent } from 'react';
+-import { I18nManager, Platform, View, ViewPropTypes } from 'react-native';
+-import PropTypes from 'prop-types';
++import { I18nManager, Platform, View, 
++    // ViewPropTypes 
++} from 'react-native';
++// import PropTypes from 'prop-types';
+ import PaginationDot from './PaginationDot';
+ import styles from './Pagination.style';
+ 
+@@ -9,30 +11,30 @@ const IS_RTL = I18nManager.isRTL;
+ 
+ export default class Pagination extends PureComponent {
+ 
+-    static propTypes = {
+-        activeDotIndex: PropTypes.number.isRequired,
+-        dotsLength: PropTypes.number.isRequired,
+-        activeOpacity: PropTypes.number,
+-        carouselRef: PropTypes.object,
+-        containerStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+-        dotColor: PropTypes.string,
+-        dotContainerStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+-        dotElement: PropTypes.element,
+-        dotStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+-        inactiveDotColor: PropTypes.string,
+-        inactiveDotElement: PropTypes.element,
+-        inactiveDotOpacity: PropTypes.number,
+-        inactiveDotScale: PropTypes.number,
+-        inactiveDotStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+-        renderDots: PropTypes.func,
+-        tappableDots: PropTypes.bool,
+-        vertical: PropTypes.bool,
+-        accessibilityLabel: PropTypes.string,
+-        animatedDuration: PropTypes.number,
+-        animatedFriction: PropTypes.number,
+-        animatedTension: PropTypes.number,
+-        delayPressInDot: PropTypes.number,
+-    };
++    // static propTypes = {
++    //     activeDotIndex: PropTypes.number.isRequired,
++    //     dotsLength: PropTypes.number.isRequired,
++    //     activeOpacity: PropTypes.number,
++    //     carouselRef: PropTypes.object,
++    //     containerStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++    //     dotColor: PropTypes.string,
++    //     dotContainerStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++    //     dotElement: PropTypes.element,
++    //     dotStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++    //     inactiveDotColor: PropTypes.string,
++    //     inactiveDotElement: PropTypes.element,
++    //     inactiveDotOpacity: PropTypes.number,
++    //     inactiveDotScale: PropTypes.number,
++    //     inactiveDotStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++    //     renderDots: PropTypes.func,
++    //     tappableDots: PropTypes.bool,
++    //     vertical: PropTypes.bool,
++    //     accessibilityLabel: PropTypes.string,
++    //     animatedDuration: PropTypes.number,
++    //     animatedFriction: PropTypes.number,
++    //     animatedTension: PropTypes.number,
++    //     delayPressInDot: PropTypes.number,
++    // };
+ 
+     static defaultProps = {
+         inactiveDotOpacity: 0.5,
+diff --git a/node_modules/react-native-snap-carousel/src/pagination/PaginationDot.js b/node_modules/react-native-snap-carousel/src/pagination/PaginationDot.js
+index e59d196..d59ffa6 100644
+--- a/node_modules/react-native-snap-carousel/src/pagination/PaginationDot.js
++++ b/node_modules/react-native-snap-carousel/src/pagination/PaginationDot.js
+@@ -1,24 +1,26 @@
+ import React, { PureComponent } from 'react';
+-import { View, Animated, Easing, TouchableOpacity, ViewPropTypes } from 'react-native';
+-import PropTypes from 'prop-types';
++import { View, Animated, Easing, TouchableOpacity, 
++    // ViewPropTypes 
++} from 'react-native';
++// import PropTypes from 'prop-types';
+ import styles from './Pagination.style';
+ 
+ export default class PaginationDot extends PureComponent {
+ 
+-    static propTypes = {
+-        inactiveOpacity: PropTypes.number.isRequired,
+-        inactiveScale: PropTypes.number.isRequired,
+-        active: PropTypes.bool,
+-        activeOpacity: PropTypes.number,
+-        carouselRef: PropTypes.object,
+-        color: PropTypes.string,
+-        containerStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+-        inactiveColor: PropTypes.string,
+-        inactiveStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+-        index: PropTypes.number,
+-        style: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+-        tappable: PropTypes.bool
+-    };
++    // static propTypes = {
++    //     inactiveOpacity: PropTypes.number.isRequired,
++    //     inactiveScale: PropTypes.number.isRequired,
++    //     active: PropTypes.bool,
++    //     activeOpacity: PropTypes.number,
++    //     carouselRef: PropTypes.object,
++    //     color: PropTypes.string,
++    //     containerStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++    //     inactiveColor: PropTypes.string,
++    //     inactiveStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++    //     index: PropTypes.number,
++    //     style: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++    //     tappable: PropTypes.bool
++    // };
+ 
+     constructor (props) {
+         super(props);
+diff --git a/node_modules/react-native-snap-carousel/src/parallaximage/ParallaxImage.js b/node_modules/react-native-snap-carousel/src/parallaximage/ParallaxImage.js
+index 8bc774a..c88f061 100644
+--- a/node_modules/react-native-snap-carousel/src/parallaximage/ParallaxImage.js
++++ b/node_modules/react-native-snap-carousel/src/parallaximage/ParallaxImage.js
+@@ -1,35 +1,37 @@
+ // Parallax effect inspired by https://github.com/oblador/react-native-parallax/
+ 
+ import React, { Component } from 'react';
+-import { View, ViewPropTypes, Image, Animated, Easing, ActivityIndicator, findNodeHandle } from 'react-native';
+-import PropTypes from 'prop-types';
++import { View,
++    // ViewPropTypes,
++    Image, Animated, Easing, ActivityIndicator, findNodeHandle } from 'react-native';
++// import PropTypes from 'prop-types';
+ import styles from './ParallaxImage.style';
+ 
+ export default class ParallaxImage extends Component {
+ 
+-    static propTypes = {
+-        ...Image.propTypes,
+-        carouselRef: PropTypes.object, // passed from <Carousel />
+-        itemHeight: PropTypes.number, // passed from <Carousel />
+-        itemWidth: PropTypes.number, // passed from <Carousel />
+-        scrollPosition: PropTypes.object, // passed from <Carousel />
+-        sliderHeight: PropTypes.number, // passed from <Carousel />
+-        sliderWidth: PropTypes.number, // passed from <Carousel />
+-        vertical: PropTypes.bool, // passed from <Carousel />
+-        containerStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+-        dimensions: PropTypes.shape({
+-            width: PropTypes.number,
+-            height: PropTypes.number
+-        }),
+-        fadeDuration: PropTypes.number,
+-        parallaxFactor: PropTypes.number,
+-        showSpinner: PropTypes.bool,
+-        spinnerColor: PropTypes.string,
+-        AnimatedImageComponent: PropTypes.oneOfType([
+-            PropTypes.func,
+-            PropTypes.object
+-        ])
+-    };
++    // static propTypes = {
++    //     ...Image.propTypes,
++    //     carouselRef: PropTypes.object, // passed from <Carousel />
++    //     itemHeight: PropTypes.number, // passed from <Carousel />
++    //     itemWidth: PropTypes.number, // passed from <Carousel />
++    //     scrollPosition: PropTypes.object, // passed from <Carousel />
++    //     sliderHeight: PropTypes.number, // passed from <Carousel />
++    //     sliderWidth: PropTypes.number, // passed from <Carousel />
++    //     vertical: PropTypes.bool, // passed from <Carousel />
++    //     containerStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++    //     dimensions: PropTypes.shape({
++    //         width: PropTypes.number,
++    //         height: PropTypes.number
++    //     }),
++    //     fadeDuration: PropTypes.number,
++    //     parallaxFactor: PropTypes.number,
++    //     showSpinner: PropTypes.bool,
++    //     spinnerColor: PropTypes.string,
++    //     AnimatedImageComponent: PropTypes.oneOfType([
++    //         PropTypes.func,
++    //         PropTypes.object
++    //     ])
++    // };
+ 
+     static defaultProps = {
+         containerStyle: {},

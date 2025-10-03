@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "589563291821",
+    "project_id": "kamelpay-5eac1",
+    "storage_bucket": "kamelpay-5eac1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589563291821:android:2bd7a1d363fe6ec247be24",
+        "android_client_info": {
+          "package_name": "com.kamelpay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589563291821-vfsfme0d5ensii9cnt2b3o6fn5u4flp0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWwbthI4LCkzpV5vpNWvOFRnlsVadhh8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589563291821-vfsfme0d5ensii9cnt2b3o6fn5u4flp0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589563291821-2i5vnt3tu59to9apl31m35pajlkosinn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kamelpay",
+                "app_store_id": "1599876879"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

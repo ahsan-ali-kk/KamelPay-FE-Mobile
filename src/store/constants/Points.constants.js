@@ -1,0 +1,12 @@
+const POINTS = {
+
+    GET_STATS: 'GET_STATS',
+
+    GET_LIST: 'GET_LIST',
+    GET_LOAD_MORE_LIST: 'GET_LOAD_MORE_LIST',
+
+    REDEEM_POINTS: 'REDEEM_POINTS',
+
+};
+
+export default POINTS;

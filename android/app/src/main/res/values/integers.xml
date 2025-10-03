@@ -1,0 +1,3 @@
+<resources>
+    <item name="uq_logo_icon" type="drawable">@drawable/uqudo_logo</item>
+</resources>

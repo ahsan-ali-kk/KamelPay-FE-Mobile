@@ -1,12 +1,37 @@
-# Resolve react_native_pods.rb with node to allow for hoisting
-require Pod::Executable.execute_command('node', ['-p',
-  'require.resolve(
-    "react-native/scripts/react_native_pods.rb",
-    {paths: [process.argv[1]]},
-  )', __dir__]).strip
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
+require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
+
+# require Pod::Executable.execute_command('node', ['-p',
+#   'require.resolve(
+#     "react-native/scripts/react_native_pods.rb",
+#     { paths: [process.argv[1]] },
+#   )', __dir__]).strip
+
+def node_require(script)
+  # Resolve script with node to allow for hoisting
+  require Pod::Executable.execute_command('node', ['-p',
+    "require.resolve(
+      '#{script}',
+      {paths: [process.argv[1]]},
+    )", __dir__]).strip
+end
+
+node_require('react-native/scripts/react_native_pods.rb')
+node_require('react-native-permissions/scripts/setup.rb')
+
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
+
+setup_permissions([
+  'LocationAccuracy',
+  'LocationAlways',
+  'LocationWhenInUse',
+])
+
+use_frameworks! :linkage => :static    
 
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
@@ -14,22 +39,68 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+# pod 'UqudoSDK', '3.6.0'
+
 target 'Kamelpay' do
-  config = use_native_modules!
+  use_expo_modules!
+
+  if ENV['EXPO_USE_COMMUNITY_AUTOLINKING'] == '1'
+    config_command = [
+      'node',
+      '-e',
+      "process.argv=['', '', 'config'];require('@react-native-community/cli').run()"
+    ]
+  else
+    config_command = [
+      'node',
+      '--no-warnings',
+      '--eval',
+      'require(require.resolve("expo-modules-autolinking", { paths: [require.resolve("expo/package.json")] }))(process.argv.slice(1))',
+      'react-native-config',
+      '--json',
+      '--platform',
+      'ios'
+    ]
+  end
+
+  config = use_native_modules!(config_command)
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
+    :app_path => "#{Pod::Config.instance.installation_root}/..",
   )
 
   post_install do |installer|
-    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+     require 'xcodeproj'
+  if Gem::Version.new(Xcodeproj::VERSION) >= Gem::Version.new('1.27.0')
+      UI.warn "⚠️ xcodeproj >= 1.27.0 may break RN scripts, consider downgrading"
+    end
     react_native_post_install(
       installer,
       config[:reactNativePath],
       :mac_catalyst_enabled => false,
-      # :ccache_enabled => true
     )
+
+    
+
+    installer.pods_project.targets.each do |target|
+      # Fix for UqudoSDK framework
+      # if target.name == "UqudoSDK"
+      #   target.build_configurations.each do |config|
+      #     config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+      #     config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
+      #     config.build_settings['DEFINES_MODULE'] = 'YES'
+      #   end
+      # end
+
+      # Fix header search paths for app target
+      if target.name == 'Kamelpay'
+        target.build_configurations.each do |config|
+          config.build_settings['HEADER_SEARCH_PATHS'] ||= '$(inherited)'
+          # M1/M2 arm64 simulator fix
+          config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] ||= 'arm64'
+        end
+      end
+    end
   end
 end
