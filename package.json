@@ -98,7 +98,7 @@
     "react-native-share": "^12.2.0",
     "react-native-signature-canvas": "^5.0.1",
     "react-native-snap-carousel": "^3.9.1",
-    "react-native-splash-screen": "^3.3.0",
+    "react-native-splash-view": "^0.0.19",
     "react-native-svg": "^15.12.1",
     "react-native-swiper": "^1.6.0",
     "react-native-toast-message": "^2.3.3",

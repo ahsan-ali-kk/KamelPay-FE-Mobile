@@ -2,4 +2,4 @@
 #import <React/RCTEventEmitter.h>
 
 // Splash Screen
-#import "RNSplashScreen.h"
+// #import "RNSplashScreen.h"

@@ -25,6 +25,8 @@ class AppDelegate: ExpoAppDelegate {
         // ✅ Configure Firebase
         FirebaseApp.configure()
 
+        showSplashScreen()
+
         // ✅ Push Notifications setup
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
@@ -60,7 +62,7 @@ class AppDelegate: ExpoAppDelegate {
         )
 
         // ✅ Show splash screen via Objective-C bridging header
-        RNSplashScreen.show() // Call directly, bridging header exposes it
+      showSplashScreen() // Call directly, bridging header exposes it
 
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
@@ -70,6 +72,17 @@ class AppDelegate: ExpoAppDelegate {
                               didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
         super.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
+    }
+
+    //Add below method in AppDelegate.swift
+    private func showSplashScreen() {
+      if let splashClass = NSClassFromString("SplashView") as? NSObject.Type,
+          let splashInstance = splashClass.perform(NSSelectorFromString("sharedInstance"))?.takeUnretainedValue() as? NSObject {
+          splashInstance.perform(NSSelectorFromString("showSplash"))
+          print("✅ Splash Screen Shown Successfully")
+      } else {
+          print("⚠️ SplashView module not found")
+      }
     }
 }
 
