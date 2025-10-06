@@ -3,12 +3,6 @@ Encoding.default_internal = Encoding::UTF_8
 
 require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
 
-# require Pod::Executable.execute_command('node', ['-p',
-#   'require.resolve(
-#     "react-native/scripts/react_native_pods.rb",
-#     { paths: [process.argv[1]] },
-#   )', __dir__]).strip
-
 def node_require(script)
   # Resolve script with node to allow for hoisting
   require Pod::Executable.execute_command('node', ['-p',
@@ -20,7 +14,6 @@ end
 
 node_require('react-native/scripts/react_native_pods.rb')
 node_require('react-native-permissions/scripts/setup.rb')
-
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
@@ -39,7 +32,10 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-# pod 'UqudoSDK', '3.6.0'
+# ✅ Only use the wrapper pod, since it already declares UqudoSDK dependency
+pod 'uqudosdk-react-native', :path => '../node_modules/uqudosdk-react-native'
+pod 'React-CoreModules', :path => '../node_modules/react-native/React/CoreModules'
+
 
 target 'Kamelpay' do
   use_expo_modules!
@@ -71,33 +67,36 @@ target 'Kamelpay' do
   )
 
   post_install do |installer|
-     require 'xcodeproj'
-  if Gem::Version.new(Xcodeproj::VERSION) >= Gem::Version.new('1.27.0')
+    require 'xcodeproj'
+    if Gem::Version.new(Xcodeproj::VERSION) >= Gem::Version.new('1.27.0')
       UI.warn "⚠️ xcodeproj >= 1.27.0 may break RN scripts, consider downgrading"
     end
+
     react_native_post_install(
       installer,
       config[:reactNativePath],
       :mac_catalyst_enabled => false,
     )
 
-    
-
     installer.pods_project.targets.each do |target|
-      # Fix for UqudoSDK framework
-      # if target.name == "UqudoSDK"
-      #   target.build_configurations.each do |config|
-      #     config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
-      #     config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
-      #     config.build_settings['DEFINES_MODULE'] = 'YES'
-      #   end
-      # end
+      # Ensure wrapper pod sees both device + simulator headers
+      if target.name == 'uqudosdk-react-native'
+        target.build_configurations.each do |config|
+          config.build_settings['HEADER_SEARCH_PATHS'] = (
+            Array(config.build_settings['HEADER_SEARCH_PATHS']) +
+            [
+              '$(inherited)',
+              '$(PODS_ROOT)/UqudoSDK/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers',
+              '$(PODS_ROOT)/UqudoSDK/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers'
+            ]
+          ).uniq
+        end
+      end
 
-      # Fix header search paths for app target
+      # Exclude arm64 for simulator (M1/M2 Macs)
       if target.name == 'Kamelpay'
         target.build_configurations.each do |config|
           config.build_settings['HEADER_SEARCH_PATHS'] ||= '$(inherited)'
-          # M1/M2 arm64 simulator fix
           config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] ||= 'arm64'
         end
       end

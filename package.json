@@ -120,6 +120,7 @@
     "rn-scratch-card": "^1.2.3",
     "socket.io-client": "^4.8.1",
     "text-encoding": "^0.7.0",
+    "uqudosdk-react-native": "^3.4.0",
     "use-count-up": "^3.0.1",
     "yup": "^1.7.0"
   },

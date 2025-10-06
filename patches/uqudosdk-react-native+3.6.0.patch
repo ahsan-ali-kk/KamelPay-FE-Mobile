@@ -1,0 +1,5813 @@
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoId.h b/node_modules/uqudosdk-react-native/ios/UqudoId.h
+index ffb9a2e..64794e1 100644
+--- a/node_modules/uqudosdk-react-native/ios/UqudoId.h
++++ b/node_modules/uqudosdk-react-native/ios/UqudoId.h
+@@ -1,8 +1,16 @@
++// UqudoId.h
++
+ #import <React/RCTBridgeModule.h>
+-#import <UqudoSDK/UqudoSDK.h>
+ #import <React/RCTEventEmitter.h>
+ 
++// ✅ Prefer module import for XCFrameworks instead of hard path include
++@import UqudoSDK;
++
++#import <UqudoSDK/UQBuilderController.h>
++
+ @interface UqudoId : RCTEventEmitter <RCTBridgeModule, UQBuilderControllerDelegate>
++
+ @property (nonatomic, strong) RCTPromiseResolveBlock promiseResolve;
+ @property (nonatomic, strong) RCTPromiseRejectBlock promiseReject;
++
+ @end
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/Info.plist b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/Info.plist
+new file mode 100644
+index 0000000..c36fdff
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/Info.plist
+@@ -0,0 +1,44 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>AvailableLibraries</key>
++	<array>
++		<dict>
++			<key>BinaryPath</key>
++			<string>UqudoSDK.framework/UqudoSDK</string>
++			<key>LibraryIdentifier</key>
++			<string>ios-arm64_x86_64-simulator</string>
++			<key>LibraryPath</key>
++			<string>UqudoSDK.framework</string>
++			<key>SupportedArchitectures</key>
++			<array>
++				<string>arm64</string>
++				<string>x86_64</string>
++			</array>
++			<key>SupportedPlatform</key>
++			<string>ios</string>
++			<key>SupportedPlatformVariant</key>
++			<string>simulator</string>
++		</dict>
++		<dict>
++			<key>BinaryPath</key>
++			<string>UqudoSDK.framework/UqudoSDK</string>
++			<key>LibraryIdentifier</key>
++			<string>ios-arm64</string>
++			<key>LibraryPath</key>
++			<string>UqudoSDK.framework</string>
++			<key>SupportedArchitectures</key>
++			<array>
++				<string>arm64</string>
++			</array>
++			<key>SupportedPlatform</key>
++			<string>ios</string>
++		</dict>
++	</array>
++	<key>CFBundlePackageType</key>
++	<string>XFWK</string>
++	<key>XCFrameworkFormatVersion</key>
++	<string>1.0</string>
++</dict>
++</plist>
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Assets.car b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Assets.car
+new file mode 100644
+index 0000000..2d2613b
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Assets.car differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQAccountRecoveryBuilder.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQAccountRecoveryBuilder.h
+new file mode 100644
+index 0000000..596948e
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQAccountRecoveryBuilder.h
+@@ -0,0 +1,94 @@
++//
++//  UQAccountRecoveryBuilder.h
++//  UqudoSDK
++//
++//  Created by NooN on 9/6/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQFacialRecognitionConfig.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++DEPRECATED_ATTRIBUTE
++@protocol UQAccountRecoveryBuilderDelegate;
++
++DEPRECATED_MSG_ATTRIBUTE("Use face session flow instead.")
++@interface UQAccountRecoveryBuilder : NSObject
++
++@property(weak, nonatomic)id <UQAccountRecoveryBuilderDelegate> delegate;
++
++/*!
++ @brief Application root view, required
++ */
++@property (strong, nonatomic) UIViewController *appViewController DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief The authorization token, required
++ */
++@property (strong, nonatomic) NSString *authorizationToken DEPRECATED_ATTRIBUTE;
++
++/**
++ @brief  the user identifier string in UUID v4 format
++*/
++@property (strong, nonatomic) NSString *enrollmentIdentifier DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief random nonce
++ */
++@property (strong, nonatomic) NSString *nonce DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief Option to return data for incomplete session
++ */
++@property (assign, nonatomic) BOOL returnDataForIncompleteSession DEPRECATED_ATTRIBUTE;
++
++
++/*!
++ @brief Option to allow SDK usage on devices jail break or not or not , defailt is not
++ */
++@property (assign, nonatomic) BOOL isRootedDeviceAllowed DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief The minimum match level of facial recognition, valid values are 1-5
++ */
++@property (assign, nonatomic) NSInteger minimumMatchLevel DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief The maximum number of attempts before dropping the facial recognition session,  valid values are 1, 2, and 3
++ */
++@property (assign, nonatomic) NSInteger maxAttempts DEPRECATED_ATTRIBUTE;
++
++
++@property (assign, nonatomic) BOOL disableHelpPage DEPRECATED_ATTRIBUTE;
++
++/**
++ @brief Allowed closed eyes during facial recognition default is NO
++*/
++@property (assign, nonatomic) BOOL allowClosedEyes DEPRECATED_ATTRIBUTE;
++
++- (void)startRecovery DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief Enable additional configuration for enrollment that allows to obfuscate the face recogntion audit trail image :
++ @param obfuscationType The obfuscation mode FILLED, BLURRED
++ */
++- (void)enableAuditTrailImageObfuscation:(ObfuscationType)obfuscationType DEPRECATED_ATTRIBUTE;
++
++@end
++
++@protocol UQAccountRecoveryBuilderDelegate <NSObject>
++
++- (void)didAccountRecoveryFailWithError:(NSError *)error;
++
++- (void)didAccountRecoveryCompleteWithInfo:(NSString *)info;
++
++- (void)didAccountRecoveryIncompleteWithStatus:(UQSessionStatus *)status;
++
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQBackgroundCheckConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQBackgroundCheckConfig.h
+new file mode 100644
+index 0000000..14a9d6f
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQBackgroundCheckConfig.h
+@@ -0,0 +1,21 @@
++//
++//  UQBackgroundCheckConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 30/12/2563 BE.
++//  Copyright © 2563 BE uqudo. All rights reserved.
++//
++
++#ifndef UQBackgroundCheckConfig_h
++#define UQBackgroundCheckConfig_h
++
++
++typedef enum : NSInteger {
++    /**  RDC background check*/
++    RDC,
++    /** DOW JONES background check */
++    DOW_JONES,
++}BackgroundCheckType;
++
++
++#endif /* UQBackgroundCheckConfig_h */
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQBuilderController.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQBuilderController.h
+new file mode 100644
+index 0000000..b373bca
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQBuilderController.h
+@@ -0,0 +1,155 @@
++//
++//  UQBuilderController.h
++//  UqudoCoreLib
++//
++//  Created by NooN on 6/4/20.
++//  Copyright © 2020 Uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQTracer.h"
++#import "UQInterfaceStyle.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@protocol UQBuilderControllerDelegate;
++
++@interface UQBuilderController : NSObject
++
++@property (strong, nonatomic) UIViewController *appViewController;
++
++@property(weak, nonatomic)id <UQBuilderControllerDelegate> delegate;
++
++
++/// The shared file builder object
+++ (instancetype)defaultBuilder;
++
++/*!
++@brief Get  SDK version string
++@return version 
++*/
+++ (NSString *)getSDKVersion;
++
++/*!
++@brief Initialize builder with analytic trace
++@param trace the tracer object"
++*/
++- (instancetype)initWithTracer:(UQTracer *)trace;
++
++/*!
++@brief Set enrollment builder
++@param enrollment the enrollment controller object"
++*/
++- (void)setEnrollment:(id)enrollment;
++
++/*!
++@brief Set account recovery
++@param accountRecovery the account recovery
++*/
++- (void)setAccountRecovery:(id)accountRecovery DEPRECATED_MSG_ATTRIBUTE("Use face session flow instead.");;
++
++
++/*!
++ @brief Perform enrollment with the document list
++ @discussion Please make sure that at least one doucumnet is require, if no document added,
++             it will throw exception  No document to enroll"
++ @param token  Aauth2 authorization token
++ @param nonce The random nonce, could be optional
++ */
++- (void)performEnrollmentWithToken:(nonnull NSString *)token
++                       optionNonce:(nullable NSString *)nonce DEPRECATED_MSG_ATTRIBUTE("Use performEnrollment: method instead.");
++
++/*!
++ @brief Perform enrollment with the document list
++ @discussion Please make sure that at least one doucumnet is require, if no document added,
++             it will throw exception  No document to enroll"
++ */
++- (void)performEnrollment;
++
++/*!
++@brief Perform account recovery
++*/
++- (void)performAccountRecovery DEPRECATED_MSG_ATTRIBUTE("Use face session flow instead.");
++
++/*!
++@brief Set face session
++@param faceSession the face session
++*/
++- (void)setFaceSession:(id)faceSession;
++
++/*!
++@brief Perform Face Session
++*/
++- (void)performFaceSession;
++
++/*!
++@brief set user interface style
++@param mode  user interface mode
++*/
++- (void)setAppearanceMode:(AppearanceMode)mode;
++
++/*!
++@brief Set face session
++@param lookup the lookup builder
++*/
++- (void)setLookup:(id)lookup;
++
++/*!
++ @brief Perform Lookup
++ @discussion Only one document is allowed
++ */
++- (void)performLookup;
++
++/*!
++@brief Set enrollment reading builder
++@param reading the reading builder"
++*/
++- (void)setReading:(id)reading;
++
++/*!
++ @brief Perform reading enrollment
++ @discussion Only one document is allowed
++ */
++- (void)performReading;
++
++
++@end
++
++
++@protocol UQBuilderControllerDelegate <NSObject>
++
++@optional
++
++- (void)didEnrollmentFailWithError:(NSError *)error DEPRECATED_ATTRIBUTE;
++
++- (void)didEnrollmentCompleteWithInfo:(NSString *)info;
++
++- (void)didEnrollmentIncompleteWithStatus:(UQSessionStatus *)status;
++
++- (void)didRootedDeviceDetected:(NSString *)info DEPRECATED_ATTRIBUTE;
++
++- (void)didAccountRecoveryCompleteWithInfo:(nonnull NSString *)info DEPRECATED_ATTRIBUTE;;
++
++- (void)didAccountRecoveryFailWithError:(nonnull NSError *)error DEPRECATED_ATTRIBUTE;
++
++- (void)didAccountRecoveryIncompleteWithStatus:(UQSessionStatus *)status DEPRECATED_ATTRIBUTE;;
++
++- (void)didFaceSessionFailWithError:(nonnull  NSError *)error DEPRECATED_ATTRIBUTE;
++
++- (void)didFaceSessionCompleteWithInfo:(nonnull  NSString *)info;
++
++- (void)didFaceSessionIncompleteWithStatus:(UQSessionStatus *)status;
++
++- (void)didLookupFlowCompleteWithInfo:(NSString *)info;
++
++- (void)didLookupFlowIncompleteWithStatus:(UQSessionStatus *)status;
++
++- (void)didReadingCompleteWithInfo:(NSString *)info;
++
++- (void)didReadingIncompleteWithStatus:(UQSessionStatus *)status;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQDocumentConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQDocumentConfig.h
+new file mode 100644
+index 0000000..3dc10b4
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQDocumentConfig.h
+@@ -0,0 +1,322 @@
++//
++//  UQDocumentConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 9/5/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import "UQReadingConfig.h"
++#import "UQScanConfig.h"
++NS_ASSUME_NONNULL_BEGIN
++
++
++/** Represents the options for document type support. */
++typedef enum : NSInteger {
++    /** Emirates ID */
++    UAE_ID,
++    /** UAE Driving License */
++    UAE_DL,
++    /** UAE Vehicle License */
++    UAE_VL,
++    /** UAE Visa */
++    UAE_VISA,
++    /** Omani ID */
++    OMN_ID,
++    /** Pakistan  ID */
++    PAK_ID,
++    /** Saudi National ID */
++    SAU_ID,
++    /** Bahrain  ID */
++    BHR_ID,
++    /** Kuwait ID */
++    KWT_ID,
++    /** Passport */
++    PASSPORT,
++    /** Generic  ID */
++    GENERIC_ID,
++    /** Qatar ID */
++    QAT_ID,
++    /** Dutch Driving License */
++    NLD_DL,
++    /** Germany ID */
++    DEU_ID,
++    /** Sudanese ID */
++    SDN_ID,
++    /** Sudanese Driving License */
++    SDN_DL,
++    /** Sudanese Vehicle License */
++    SDN_VL,
++    /** Ghanaian ID */
++    GHA_ID,
++    /** Nigerian  Driving License */
++    NGA_DL,
++    /** Nigerian Voter ID */
++    NGA_VOTER_ID,
++    /** Nigerian NIN */
++    NGA_NIN,
++    /** Saudi Arabia  Driving License*/
++    SAU_DL,
++    /** United Kingdom Driving License */
++    GBR_DL,
++    /** South African ID */
++    ZAF_ID,
++    /** South African Driving License */
++    ZAF_DL,
++    /** Egyptian ID */
++    EGY_ID,
++    /** Rwandan ID */
++    RWA_ID,
++    /** Kenyan ID */
++    KEN_ID,
++    /** Ghanaian Driving License*/
++    GHA_DL,
++    /** Ghanaian Voter ID */
++    GHA_VOTER_ID,
++    /** Ghanaian Social  Security & National Insurance Trust*/
++    GHA_SSNIT,
++    /** Ugandan ID */
++    UGA_ID,
++    /** indian Aadhaar ID */
++    IND_ID,
++    /** Omani ID for Citizen */
++    OMN_ID_NATIONAL,
++    /** Omani ID for Resident */
++    OMN_ID_RESIDENT,
++    /** Uganda Voter ID */
++    UGA_VOTER_ID,
++    /** Senegal ID */
++    SEN_ID,
++    /** Turkish ID */
++    TUR_ID,
++    /** Algerian ID */
++    DZA_ID,
++    /** Driving License */
++    COD_DL,
++    /** Resident ID */
++    GBR_ID,
++    /** Omani Driving License */
++    OMN_DL,
++    /** Omani Vehicle License */
++    OMN_VL,
++    /** Voter ID */
++    COD_VOTER_ID,
++    /** UAS Driving License */
++    USA_DL,
++    /** Qatar Driving License*/
++    QAT_DL,
++    /** Bahrain Driving License*/
++    BHR_DL,
++    /** Philippines Driving License*/
++    PHL_DL,
++    /** Somaliland ID */
++    RSL_ID,
++    /** Indian PAN card */
++    IND_PAN,
++    /** Saudi ID for Citizen*/
++    SAU_ID_NATIONAL,
++    /** Saudi ID for Resident */
++    SAU_ID_RESIDENT,
++    /** Nigerian Bank Verification Number */
++    NGA_BVN,
++    /** Lebanese ID */
++    LBN_ID,
++    /** Lebanese Driving License */
++    LBN_DL,
++    /** MRZ Document*/
++    MRZ,
++    /** Iraqi ID */
++    IRQ_ID,
++    /** Emirates ID Digital version */
++    UAE_ID_DIGITAL,
++    /** Qatar Vehicle License*/
++    QAT_VL,
++    /** Emirates Passport Digital version */
++    UAE_PASSPORT_DIGITAL,
++    /** Tunisian ID */
++    TUN_ID,
++    /** Bahrain Vehicle License */
++    BHR_VL,
++    /** Jordan Vehicle License */
++    JOR_VL,
++    /** Saudi Vehicle License */
++    SAU_VL,
++    /** Somalia ID */
++    SOM_ID,
++    /** Qatar ID for Citizen*/
++    QAT_ID_NATIONAL,
++    /** Qatar ID for Resident */
++    QAT_ID_RESIDENT,
++    /** Kuwait ID for Citizen*/
++    KWT_ID_NATIONAL,
++    /** Kuwait ID for Resident */
++    KWT_ID_RESIDENT,
++    /** Morocco ID */
++    MAR_ID,
++    /** Indonesia ID */
++    IDN_ID,
++    /** Iraqi ID for Citizen */
++    IRQ_ID_NATIONAL,
++    /** Iraqi ID for Resident */
++    IRQ_ID_RESIDENT,
++    /** Undefine */
++    UNSPECIFY,
++}DocumentTypeID;
++
++/** Represents the  document side that contain photo id. */
++typedef enum : NSInteger {
++    /** Photonon front side Id */
++    FRONT,
++    /** Photo on back side */
++    BACK,
++    /** No photo inside */
++    NONE,
++}PhotoSide;
++
++/** Represents the photo position on document. */
++typedef enum : NSInteger {
++    /** Photo at fthe left */
++    LEFT,
++    /** photo at the right */
++    RIGHT,
++    /** photo at the center */
++    CENTER,
++}PhotoPosition;
++
++
++@interface UQDocumentConfig : NSObject
++
++/**
++ @brief document type ID
++*/
++@property (strong, nonatomic) UQScanConfig *scan;
++
++
++/**
++ @brief document type ID
++*/
++@property (strong, nonatomic) UQReadingConfig *reading;
++
++/**
++ @brief document type ID
++*/
++@property (assign, nonatomic) BOOL singleSideDocument;
++
++/**
++ @brief Option to enable expired documents to be scanned
++*/
++@property (assign, nonatomic) BOOL disableExpiryValidation;
++
++/**
++ @brief Option to disable the user data review, default is enable
++*/
++@property (assign, nonatomic) BOOL disableUserDataReview DEPRECATED_ATTRIBUTE;
++
++
++/**
++ @brief Feature for the document scanning to allow scan rejection based on the age , default  is -1, therefore disabled
++*/
++@property (assign, nonatomic) int enableAgeVerification;
++
++
++/**
++ @brief Initialize the document object
++ @param docType The document type
++ @return document object
++*/
++- (instancetype)initWithDocumentType:(NSInteger)docType;
++
++
++/**
++ @brief Initialize the document object
++ @param docType The document name
++ @return document object
++*/
++- (instancetype)initWithDocumentTypeName:(NSString*)docType;
++
++/**
++ @brief get current document type
++ @return fdocument type
++*/
++- (NSInteger)documentType;
++
++/**
++ @brief Validate document is support for reding
++ @return YES if document is support reading feature
++*/
++- (BOOL)isSupportReading;
++
++/**
++ @brief Validate document is support for face recognition
++ @return YES if document is support reading feature
++*/
++- (BOOL)isSupportFaceRecognition;
++
++/**
++ @brief Validate document support for document classifier
++ @return YES if document supports document classifier
++*/
++- (BOOL)isSupportClassifier;
++
++/**
++ @brief Get the document name
++ @return string
++*/
++- (NSString *)documentName;
++
++/**
++ @brief Get the document description
++ @return string
++*/
++- (NSString *)documentDescription;
++
++
++/**
++ @brief Get the side of document that contain phot
++ @return PhotoSide
++*/
++- (PhotoSide)photoSide;
++
++/**
++ @brief Get the  photo position of the document
++ @return PhotoPosition
++*/
++- (PhotoPosition)photoPosition;
++
++/**
++ @brief Validate  documents  enrolment  is supported.
++ @return YES if document  is supported
++*/
++- (BOOL)isEnrollmentSupported;
++
++/**
++ @brief Validate  documents  lookup  is supported.
++ @return YES if document  is supported
++*/
++- (BOOL)isLookupSupported;
++
++/**
++ @brief Validate documents the lookup + facial recognition is supported.
++ @return YES if document  is supported
++*/
++- (BOOL)isLookupFacialRecognitionSupported;
++
++
++/**
++ @brief The integer value representing the standardized document types
++ * as defined by ICAO Document 9303.
++ * ICAO Document 9303 specifies standard formats for machine-readable travel
++ * documents (MRTDs), such as passports, visas, and identity cards.
++ * Document types:
++ * - 1: TD1
++ * - 3: TD3
++ * @return An integer that represents the ICAO standardized document type.
++ */
++- (int)travelDocumentType;
++
++@end
++
++
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQEnrollmentBuilder.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQEnrollmentBuilder.h
+new file mode 100644
+index 0000000..cf73c43
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQEnrollmentBuilder.h
+@@ -0,0 +1,198 @@
++//
++//  UQEnrollmentBuilder.h
++//  UqudoSDK
++//
++//  Created by NooN on 10/5/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQDocumentConfig.h"
++#import "UQFacialRecognitionConfig.h"
++#import "UQBackgroundCheckConfig.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@protocol UQEnrollmentBuilderDelegate;
++
++@interface UQEnrollmentBuilder : NSObject
++
++@property(weak, nonatomic)id <UQEnrollmentBuilderDelegate> delegate;
++
++/*!
++ @brief Application root view
++ */
++@property (strong, nonatomic) UIViewController *appViewController;
++
++/*!
++ @brief The authorization token, required
++ */
++@property (strong, nonatomic) NSString *authorizationToken;
++
++/*!
++ @brief Optional random nonce
++ */
++@property (strong, nonatomic) NSString *nonce;
++
++/*!
++ @brief The authorization token, required
++ */
++@property (strong, nonatomic) NSString *accessToken DEPRECATED_MSG_ATTRIBUTE("Use authorizationToken instead.");
++
++/*!
++ @brief Optional random nonce
++ */
++@property (strong, nonatomic) NSString *randomNonce DEPRECATED_MSG_ATTRIBUTE("Use nonce instead.");
++
++/*!
++ @brief Option to allow SDK usage on devices jail break or not or not , defailt is not
++ */
++@property (assign, nonatomic) BOOL isRootedDeviceAllowed DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief Option to enroll the face srecognition, default is NO
++ */
++@property (assign, nonatomic) BOOL enableFacialRecognition DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Face enrollment option, default is NO
++ */
++@property (assign, nonatomic) BOOL enrollFace DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Option to diable help page if enrollFace is enable, default is NO
++ */
++@property (assign, nonatomic) BOOL disbleFacialRecognitionHelpPage DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief The minimum match level of facial recognition for scan.
++ */
++@property (assign, nonatomic) NSInteger scanMinimumMatchLevel DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief The minimum match level of facial recognition for reading.
++ */
++@property (assign, nonatomic) NSInteger readMinimumMatchLevel DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief The  UUID Version 4 string enrollment session ID
++ */
++@property (strong, nonatomic) NSString *sessionID;
++
++/*!
++ @brief The maximum number of attempts before dropping the facial recognition session,  valid values are 1, 2, and 3
++ */
++@property (assign, nonatomic) NSInteger facialRecognitionMaxAttempts DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Option to return data for incomplete session
++ */
++@property (assign, nonatomic) BOOL returnDataForIncompleteSession;
++
++/**
++ @brief UUID v4 that represents the user identifier
++*/
++@property (strong, nonatomic) NSUUID *userIdentifier;
++
++/**
++ @brief Option to enable facial recognition
++*/
++@property (strong, nonatomic) UQFacialRecognitionConfig *facialRecognitionConfig;
++
++/*!
++ @brief Option to enabled allow to pass screens and printed copies, is disable by default
++ */
++@property (assign, nonatomic) BOOL allowNonPhysicalDocuments;
++
++/*!
++ @brief Option to refrain the SDK from rejecting the scan during ID photo tampering detection, is disable by default
++ */
++@property (assign, nonatomic) BOOL disableTamperingRejection;
++
++- (void)reset;
++/*!
++ @brief Adding the document fron enrollment flow
++ @param document The document object
++ */
++- (BOOL)add:(id)document;
++
++/*!
++ @brief Start the enrollment
++ */
++- (void)start;
++
++/*!
++ @brief Get avalable documents
++ @return The array of avalable document
++ */
++- (NSArray *)getDocuments;
++
++/*!
++ @brief Enable additional configuration for enrollment that allows to obfuscate the face recogntion audit trail image :
++ @param obfuscationType The obfuscation mode FILLED, BLURRED
++ */
++- (void)enableAuditTrailImageObfuscation:(ObfuscationType)obfuscationType DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++
++/*!
++ @brief Background check
++ @param disableConsent The user consent option, default is NO
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief Background check
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent type:(BackgroundCheckType)backgroundCheckType;
++
++/*!
++ @brief Enable Background check with type and monitoring option
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ @param enableMonitoring The option to enableBackgroundCheck method, default is NO
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent
++                         type:(BackgroundCheckType)backgroundCheckType
++                   monitoring:(BOOL)enableMonitoring;
++
++/*!
++ @brief Enable Background check with type, monitoring and skip option
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ @param enableMonitoring The option to enableBackgroundCheck method, default is NO
++ @param skipView The option to perform without view
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent
++                         type:(BackgroundCheckType)backgroundCheckType
++                   monitoring:(BOOL)enableMonitoring
++                     skipView:(BOOL)skipView;
++
++/*!
++ @brief Enable lookup feature for all the documents provided in the KYC session
++ */
++- (void)enableLookup;
++
++/*!
++ @brief Enable lookup feature for the documents provided
++ @param documentTypes The array of DocumentTypeID in the KYC session
++ */
++- (void)enableLookup:(NSArray *)documentTypes;
++
++@end
++
++@protocol UQEnrollmentBuilderDelegate <NSObject>
++
++- (void)didEnrollmentFailWithError:(NSError *)error;
++
++- (void)didEnrollmentCompleteWithInfo:(NSString *)info;
++
++- (void)didEnrollmentIncompleteWithStatus:(UQSessionStatus *)status;
++
++@end
++
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQFaceSessionBuilder.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQFaceSessionBuilder.h
+new file mode 100644
+index 0000000..f920536
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQFaceSessionBuilder.h
+@@ -0,0 +1,114 @@
++//
++//  UQFaceSessionBuilder.h
++//  UqudoSDK
++//
++//  Created by NooN on 14/12/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQObfuscationConfig.h"
++#import "UQLivenessGesture.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@protocol UQFaceSessionBuilderDelegate;
++
++@interface UQFaceSessionBuilder : NSObject
++
++@property (weak, nonatomic) id<UQFaceSessionBuilderDelegate> delegate;
++
++/*!
++ @brief Application root view, required
++ */
++@property (strong, nonatomic) UIViewController *appViewController;
++
++/*!
++ @brief The authorization token, required
++ */
++@property (strong, nonatomic) NSString *authorizationToken;
++
++/*!
++ @brief The  UUID Version 4 string enrollment session ID
++ */
++@property (strong, nonatomic) NSString *sessionId;
++
++/*!
++ @brief random nonce
++ */
++@property (strong, nonatomic) NSString *nonce;
++
++/*!
++ @brief Option to return data for incomplete session
++ */
++@property (assign, nonatomic) BOOL returnDataForIncompleteSession;
++
++/*!
++ @brief Option to allow SDK usage on devices jail break or not or not , defailt is not
++ */
++@property (assign, nonatomic) BOOL isRootedDeviceAllowed DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief The minimum match level of facial recognition, valid values are 1-5
++ */
++@property (assign, nonatomic) NSInteger minimumMatchLevel;
++
++/*!
++ @brief The maximum number of attempts before dropping the facial recognition session,  valid values are 1, 2, and 3
++ */
++@property (assign, nonatomic) NSInteger maxAttempts;
++
++/**
++ @brief Allowed closed eyes during facial recognition default is NO
++*/
++@property (assign, nonatomic) BOOL allowClosedEyes;
++
++/*!
++ @brief UUID v4 that represents the user identifier
++ */
++@property (strong, nonatomic) NSUUID *userIdentifier;
++
++/**
++ @brief Indicates whether active liveness detection is enabled.
++ *
++ * If set to YES, the facial recognition process will require the user to perform
++ * specific liveness gestures to verify their presence.
++ */
++@property (assign, nonatomic) BOOL enableActiveLiveness;
++
++/**
++ @brief  Specifies the liveness gesture type to be disabled during the facial recognition process.
++ *
++ * Use this property to prevent certain gestures (e.g., move, tilt, or turn) from being required for active liveness detection.
++ */
++@property (assign, nonatomic) LivenessGesture disableLivenessGesture;
++
++/**
++ Enables obfuscation for audit trail images with applying obfuscation to the audit trail images.
++
++ @param obfuscationType The liveness gesture to disable. Acceptable values are:
++    - BLURRED: blurring background.
++    - FILLED: gradient filled.
++    - FILLED_WHITE: filled white.
++*/
++- (void)enableAuditTrailImageObfuscation:(ObfuscationType)obfuscationType;
++
++
++- (void)startFaceSession;
++
++
++@end
++
++@protocol UQFaceSessionBuilderDelegate <NSObject>
++
++- (void)didFaceSessionFailWithError:(NSError *)error;
++
++- (void)didFaceSessionCompleteWithInfo:(NSString *)info;
++
++- (void)didFaceSessionIncompleteWithStatus:(UQSessionStatus *)status;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQFacialRecognitionConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQFacialRecognitionConfig.h
+new file mode 100644
+index 0000000..9b2a174
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQFacialRecognitionConfig.h
+@@ -0,0 +1,82 @@
++//
++//  UQFacialRecognitionConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 17/7/23.
++//  Copyright © 2023 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import "UQObfuscationConfig.h"
++#import "UQLivenessGesture.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@interface UQFacialRecognitionConfig : NSObject
++
++/*
++ @brief Enable facial srecognition, default is NO
++ */
++@property (assign, nonatomic) BOOL enableFacialRecognition;
++
++/*!
++ @brief Face enrollment option, default is NO
++ */
++@property (assign, nonatomic) BOOL enrollFace DEPRECATED_MSG_ATTRIBUTE("This is used for the Account Recovery flow that has been deprecated since version 3.0.0. Will be removed in a future release.");
++
++/*!
++ @brief The minimum match level of facial recognition for scan.
++ */
++@property (assign, nonatomic) NSInteger scanMinimumMatchLevel;
++
++/*!
++ @brief The minimum match level of facial recognition for reading.
++ */
++@property (assign, nonatomic) NSInteger readMinimumMatchLevel;
++
++/*!
++ @brief The minimum match level of facial recognition foor lookup, face session and account recovery, valid values are 1-5
++ */
++@property (assign, nonatomic) NSInteger minimumMatchLevel;
++
++/*!
++ @brief The maximum number of attempts before dropping the facial recognition session,  valid values are 1-3
++ */
++@property (assign, nonatomic) NSInteger maxAttempts;
++
++/**
++ @brief Allowed closed eyes during facial recognition default is NO
++*/
++@property (assign, nonatomic) BOOL allowClosedEyes;
++
++/*!
++ @brief For the facial recognition audit trail image obfuscation type, valid types are BLURRED, FILLED, and FILLED_WHITE otherwise the image will not be obfuscated
++ */
++@property (assign, nonatomic) ObfuscationType obfuscationType;
++
++/**
++ @brief A 1:n feature enbale to prevents a user to onboard multiple times with different identies, default is NO
++*/
++@property (assign, nonatomic) BOOL enableOneToNVerification;
++
++
++/**
++ @brief Indicates whether active liveness detection is enabled.
++ *
++ * If set to YES, the facial recognition process will require the user to perform
++ * specific liveness gestures to verify their presence.
++ */
++@property (assign, nonatomic) BOOL enableActiveLiveness;
++
++/**
++ @brief  Specifies the liveness gesture type to be disabled during the facial recognition process.
++ *
++ * Use this property to prevent certain gestures (e.g., move, tilt, or turn) from being required for active liveness detection.
++ */
++@property (assign, nonatomic) LivenessGesture disableLivenessGesture;
++
++
++@end
++
++NS_ASSUME_NONNULL_END
++
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQInterfaceStyle.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQInterfaceStyle.h
+new file mode 100644
+index 0000000..062b2a1
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQInterfaceStyle.h
+@@ -0,0 +1,23 @@
++//
++//  UQInterfaceStyle.h
++//  UqudoSDK
++//
++//  Created by NooN on 18/5/22.
++//  Copyright © 2022 uqudo. All rights reserved.
++//
++
++#ifndef UQInterfaceStyle_h
++#define UQInterfaceStyle_h
++
++/** User Interface Style. */
++typedef enum : NSInteger {
++    /** interface style base on system */
++    SYSTEM,
++    /** interface style light mode */
++    LIGHT,
++    /** interface style dark mode */
++    DARK,
++}AppearanceMode;
++
++
++#endif /* UQInterfaceStyle */
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQLivenessGesture.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQLivenessGesture.h
+new file mode 100644
+index 0000000..c95c12f
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQLivenessGesture.h
+@@ -0,0 +1,37 @@
++//
++//  UQLivenessGesture.h
++//  UqudoSDK
++//
++//  Created by NooN on 15/7/25.
++//  Copyright © 2025 uqudo. All rights reserved.
++//
++
++#ifndef UQLivenessGesture_h
++#define UQLivenessGesture_h
++
++/**
++ * @enum UQLivenessGesture
++ * @brief Types of liveness gestures for facial recognition.
++ *
++ * This enum defines the possible gestures used to verify that the user is actively present
++ * during a facial recognition process.
++ */
++typedef enum : NSInteger {
++    /**
++     * Move the face closer or further from the camera.
++     */
++    FACE_MOVE = 0,
++    
++    /**
++     * Tilt the face left or right.
++     */
++    FACE_TILT,
++    
++    /**
++     * Turn the face left or right.
++     */
++    FACE_TURN
++}LivenessGesture;
++
++
++#endif /* UQLivenessGesture_h */
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQLookupBuilder.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQLookupBuilder.h
+new file mode 100644
+index 0000000..716cbea
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQLookupBuilder.h
+@@ -0,0 +1,132 @@
++//
++//  UQLookupBuilder.h
++//  UqudoSDK
++//
++//  Created by NooN on 15/5/23.
++//  Copyright © 2023 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQDocumentConfig.h"
++#import "UQBackgroundCheckConfig.h"
++#import "UQFacialRecognitionConfig.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@protocol UQLookupBuilderDelegate;
++
++@interface UQLookupBuilder : NSObject
++
++@property(weak, nonatomic)id <UQLookupBuilderDelegate> delegate;
++
++@property (strong, nonatomic) UIViewController *appViewController;
++
++/*!
++ @brief The authorization token, required
++ */
++@property (strong, nonatomic) NSString *authorizationToken;
++
++/*!
++ @brief Optional random nonce
++ */
++@property (strong, nonatomic) NSString *nonce;
++
++/*!
++ @brief The  UUID Version 4 string enrollment session ID
++ */
++@property (strong, nonatomic) NSString *sessionID;
++
++/*!
++ @brief Face enrollment option, default is NO
++ */
++@property (assign, nonatomic) BOOL enrollFace DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Option to enroll the face srecognition, default is NO
++ */
++@property (assign, nonatomic) BOOL enableFacialRecognition DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief The maximum number of attempts before dropping the facial recognition session,  valid values are 1, 2, and 3
++ */
++@property (assign, nonatomic) NSInteger facialRecognitionMaxAttempts DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief The minimum match level of facial recognition.  valid values are 1 - 5
++ */
++@property (assign, nonatomic) NSInteger facialRecognitionMinimumMatchLevel DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Enablereturn data for incomplete session
++ */
++@property (assign, nonatomic) BOOL returnDataForIncompleteSession;
++
++/*!
++ @brief Required document type for lookup
++ */
++@property (assign, nonatomic) DocumentTypeID documentType;
++
++/*!
++ @brief UUID v4 that represents the user identifier
++ */
++@property (strong, nonatomic) NSUUID *userIdentifier;
++
++/*!
++ @brief Enable additional configuration for enrollment that allows to obfuscate the face recogntion audit trail image :
++ @param obfuscationType The obfuscation mode FILLED, BLURRED
++ */
++- (void)enableAuditTrailImageObfuscation:(ObfuscationType)obfuscationType DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Background check
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent type:(BackgroundCheckType)backgroundCheckType;
++
++/*!
++ @brief Enable Background check with type and monitoring option
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ @param enableMonitoring The option to enableBackgroundCheck method, default is NO
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent
++                         type:(BackgroundCheckType)backgroundCheckType
++                   monitoring:(BOOL)enableMonitoring;
++
++/*!
++ @brief Enable Background check with type, monitoring and skip option
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ @param enableMonitoring The option to enableBackgroundCheck method, default is NO
++ @param skipView The option to perform without view
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent
++                         type:(BackgroundCheckType)backgroundCheckType
++                   monitoring:(BOOL)enableMonitoring
++                     skipView:(BOOL)skipView;
++
++/**
++ @brief Option to enable facial recognition
++*/
++@property (strong, nonatomic) UQFacialRecognitionConfig *facialRecognitionConfig;
++
++/*!
++ @brief Start the สนนาีย ดสนไ
++ */
++- (void)start;
++
++@end
++
++@protocol UQLookupBuilderDelegate <NSObject>
++
++- (void)didLookupFlowCompleteWithInfo:(NSString *)info;
++
++- (void)didLookupFlowIncompleteWithStatus:(UQSessionStatus *)status;
++
++@end
++
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQObfuscationConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQObfuscationConfig.h
+new file mode 100644
+index 0000000..3efaad5
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQObfuscationConfig.h
+@@ -0,0 +1,22 @@
++//
++//  UQObfuscationConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 19/10/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#ifndef UQObfuscationConfig_h
++#define UQObfuscationConfig_h
++
++/** Represents the  obfuscate type of audit trail image. */
++typedef enum : NSInteger {
++    /** Background blur*/
++    BLURRED,
++    /** Background gradient filled*/
++    FILLED,
++    /** Background white filled*/
++    FILLED_WHITE
++}ObfuscationType;
++
++#endif /* UQObfuscationConfig_h */
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQReadingBuilder.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQReadingBuilder.h
+new file mode 100644
+index 0000000..eeb44b9
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQReadingBuilder.h
+@@ -0,0 +1,128 @@
++//
++//  UQReadingBuilder.h
++//  UqudoSDK
++//
++//  Created by NooN on 25/6/25.
++//  Copyright © 2025 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQDocumentConfig.h"
++#import "UQReadingConfig.h"
++#import "UQFacialRecognitionConfig.h"
++#import "UQBackgroundCheckConfig.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@protocol UQReadingBuilderDelegate;
++
++@interface UQReadingBuilder : NSObject
++
++#pragma mark - Delegate
++
++@property (weak, nonatomic) id<UQReadingBuilderDelegate> delegate;
++
++#pragma mark - Require Properties
++
++/// The application's root view controller.
++@property (strong, nonatomic) UIViewController *appViewController;
++
++/// The required authorization token.
++@property (copy, nonatomic) NSString *authorizationToken;
++
++/// The UUID v4 enrollment session ID.
++@property (copy, nonatomic) NSString *sessionID;
++
++/// The session document type. Exception will be raised if unsupported.
++@property (assign, nonatomic) DocumentTypeID documentType;
++
++#pragma mark - Optional Properties
++
++/// The UUID v4  user's unique identifier.
++@property (copy, nonatomic) NSString *userIdentifier;
++
++/// Optional random nonce.
++@property (copy, nonatomic) NSString *nonce;
++
++/// Document number contains the characters A-Z, 0-9, or <.
++@property (copy, nonatomic) NSString *documentNumber;
++
++/// Date of birth, formatted as yyyy-MM-dd.
++@property (copy, nonatomic) NSString *dateOfBirth;
++
++/// Date of expiry, formatted as yyyy-MM-dd.
++@property (copy, nonatomic) NSString *dateOfExpiry;
++
++/**
++ * Machine Readable Zone (MRZ) string extracted from an identity document.
++ *
++ * Only supports MRZ data in TD1 and TD3 formats as specified by ICAO standards.
++ * - **TD1**: Typically used for ID cards (3 lines, 30 characters each).
++ * - **TD3**: Typically used for passports (2 lines, 44 characters each).
++ * - **NLD_DL**: Netherlands driving licence (1 lines, 30 characters each).
++ * This property should contain the raw MRZ string, with lines separated by newline characters ('\n' or '\r\n').
++ *
++ */
++@property (copy, nonatomic) NSString *mrz;
++
++/// If enabled, returns data for incomplete sessions.
++@property (assign, nonatomic) BOOL returnDataForIncompleteSession;
++
++/// If enabled, allowed lookup feature for all documents in the KYC session.
++@property (assign, nonatomic) BOOL enableLookup;
++
++/// Enable/Configure facial recognition.
++@property (strong, nonatomic) UQFacialRecognitionConfig *facialRecognitionConfig;
++
++
++#pragma mark - Methods
++
++/**
++ * Enables and configures background check options for the reading session.
++ *
++ * @param disableConsent Whether to disable user consent for background check.
++ * @param backgroundCheckType The type of background check to perform.
++ * @param enableMonitoring Whether to enable monitoring during background check.
++ * @param skipView Whether to skip the background check view.
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent
++                         type:(BackgroundCheckType)backgroundCheckType
++                   monitoring:(BOOL)enableMonitoring
++                     skipView:(BOOL)skipView;
++
++
++/**
++ * Validates the documentType, documentNumber, dateOfBirth, dateOfExpiry and mrz.
++ *
++ * @throws NSException if the document type is invalid, not supported for reading, or not supported for facial recognition or any required field is invalid and cannot be recovered from MRZ.
++ */
++- (void)validate;
++
++/**
++ * Starts the reading flow
++ *
++ * @throws NSException if any step in the process fails.
++ */
++- (void)start;
++
++
++@end
++
++#pragma mark - Delegate Protocol
++
++@protocol UQReadingBuilderDelegate <NSObject>
++
++
++/// Called when reading completes successfully.
++- (void)didReadingCompleteWithInfo:(NSString *)info;
++
++/// Called when reading is incomplete, returns session status.
++- (void)didReadingIncompleteWithStatus:(UQSessionStatus *)status;
++
++@end
++
++NS_ASSUME_NONNULL_END
++
++       
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQReadingConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQReadingConfig.h
+new file mode 100644
+index 0000000..c807966
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQReadingConfig.h
+@@ -0,0 +1,59 @@
++//
++//  UQReadingConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 9/5/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++NS_ASSUME_NONNULL_BEGIN
++
++@interface UQReadingConfig : NSObject
++
++@property (assign, nonatomic) BOOL enableReading;
++
++
++/**
++ @brief The minimum match in the facial recognition configuration
++*/
++@property (assign, nonatomic) NSInteger faceMinimumMatchLevel;
++
++/**
++ @brief Enable reading
++ @discussion If the device does not support the NFC and reading enable, it will skip the operaton
++ @param enableReading The option  the enable
++*/
++- (void)enableReading:(BOOL)enableReading DEPRECATED_ATTRIBUTE;
++
++
++/**
++ @brief Force the reading  for document
++ @discussion If the device does not support the NFC and forceReading is set to true, build() will throw UQExceptionNFCDeviceNotSupport
++ @param forceReading  The option to force the reading, If the device does not support the NFC and forceReading is set tYES, it will throw UnsupportedDeviceException
++*/
++- (void)forceReading:(BOOL)forceReading;
++
++/**
++ @brief Force reading if device support
++ @param forceReadingIfSupported The option to force the reading if support
++*/
++- (void)forceReadingIfSupported:(BOOL)forceReadingIfSupported DEPRECATED_MSG_ATTRIBUTE("This is a no-op operation and it is the default behavior from version 3.x");
++
++- (BOOL)isForceReading;
++
++- (BOOL)isForceReadingIfSupported;
++
++- (BOOL)isReadingEnable;
++
++/**
++@brief Force Reading Timeout option to allow to skip the NFC step after timeoutInSeconds amount of time ( must be > 0)
++*/
++@property (assign, nonatomic) int forceReadingTimeout;
++
++- (BOOL)isForceReadingTimeoutEnabled;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQScanConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQScanConfig.h
+new file mode 100644
+index 0000000..1ebeb8e
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQScanConfig.h
+@@ -0,0 +1,61 @@
++//
++//  UQScanConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 9/5/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++NS_ASSUME_NONNULL_BEGIN
++
++@interface UQScanConfig : NSObject
++
++/**
++ @brief config option for disable help page, default is NO.
++*/
++@property (assign, nonatomic) BOOL disableHelpPage;
++
++/**
++ @brief The minimum match in the facial recognition configuration
++*/
++@property (assign, nonatomic) NSInteger faceMinimumMatchLevel;
++
++/**
++ @brief allows to confirm the quality of the scanned document
++*/
++- (void)enableScanReview:(BOOL)frontSide backSide:(BOOL)backSide;
++
++
++/**
++ @brief allows to confirm the quality of the scanned document
++*/
++
++- (BOOL)isFrontSideScanReviewEnable;
++
++
++/**
++ @brief allows to confirm the quality of the scanned document
++*/
++
++- (BOOL)isBackSideScanReviewEnable;
++
++
++/**
++ @brief allows to upload a document instead of doing the automatic scanning
++*/
++@property (assign, nonatomic) BOOL enableUpload DEPRECATED_MSG_ATTRIBUTE("Upload functionality will be removed in a future release of the SDK");
++
++
++/**
++ @brief allows to photo quality validatetion
++*/
++@property (assign, nonatomic) BOOL enablePhotoQualityDetection DEPRECATED_ATTRIBUTE;
++
++
++
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQSessionStatus.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQSessionStatus.h
+new file mode 100644
+index 0000000..79544c0
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQSessionStatus.h
+@@ -0,0 +1,65 @@
++//
++//  UQSessionStatus.h
++//  UqudoSDK
++//
++//  Created by NooN on 17/7/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++NS_ASSUME_NONNULL_BEGIN
++
++
++/** Represents the status of active session. */
++typedef enum : NSInteger {
++    /* User canceled */
++    USER_CANCEL,
++    /* Session expired */
++    SESSION_EXPIRED,
++    /* Session unexpected error occurred */
++    UNEXPECTED_ERROR,
++    /* Session attempt liveness or face match 3rd failed*/
++    SESSION_INVALIDATED DEPRECATED_ATTRIBUTE,
++    /* Session attempt read nfc but chip not support*/
++    SESSION_INVALIDATED_CHIP_VALIDATION_FAILED,
++    /* Session attempt read NFC but feature not support*/
++    SESSION_INVALIDATED_READING_NOT_SUPPORTED,
++    /* Session invalid document*/
++    SESSION_INVALIDATED_READING_INVALID_DOCUMENT,
++    /* Session attempt liveness or face match 3rd failed*/
++    SESSION_INVALIDATED_FACE_RECOGNITION_TOO_MANY_ATTEMPTS,
++    /* Session attempt resend OTP code*/
++    SESSION_INVALIDATED_OTP_TOO_MANY_ATTEMPTS,
++    /* Session attempt to access camera but not available or not found*/
++    SESSION_INVALIDATED_CAMERA_NOT_AVAILABLE,
++    /* Session attempt to access camera but user not granted*/
++    SESSION_INVALIDATED_CAMERA_PERMISSION_NOT_GRANTED,
++    /* Session invalidate reading authentication failed*/
++    SESSION_INVALIDATED_READING_AUTHENTICATION_FAILED,
++}StatusCode;
++
++/** Represents the active task of current session. */
++typedef enum : NSInteger {
++    /* Scanning task */
++    SCAN,
++    /* NFC Reading task */
++    READING,
++    /* Facial recognition task */
++    FACE,
++    /* Background check task */
++    BACKGROUND_CHECK,
++    /* Lookup task */
++    LOOKUP,
++}SessoinTask;
++
++@interface UQSessionStatus : NSObject
++
++@property (nonatomic, assign) NSInteger statusCode;
++@property (nonatomic, assign) NSInteger statusTask;
++@property (nonatomic, strong) NSString  * _Nullable message;
++@property (nonatomic, strong) NSString  * _Nullable data;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTrace.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTrace.h
+new file mode 100644
+index 0000000..216d956
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTrace.h
+@@ -0,0 +1,76 @@
++//
++//  UQAnalytics.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import "UQTraceCategory.h"
++#import "UQTraceEvent.h"
++#import "UQTracePage.h"
++#import "UQTraceStatus.h"
++#import "UQTraceStatusCode.h"
++#import "UQDocumentConfig.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@interface UQTrace : NSObject
++
++/**
++ * Trace Session ID.
++ */
++@property (readonly, assign, nullable) NSString *sessionId;
++/**
++ * Trace status error message (optional)
++ */
++@property (readonly, assign, nullable) NSString *statusMessage;
++/**
++ * Trace catergetory object
++ */
++@property (nonatomic) UQTraceCategory *category;
++/**
++ * Trace event object
++ */
++@property (nonatomic) UQTraceEvent *event;
++/**
++ * Trace status object
++ */
++@property (nonatomic) UQTraceStatus *status;
++/**
++ * Trace page object (optional)
++ */
++@property (nonatomic) UQTracePage *page;
++/**
++ * Trace status error code object (optional)
++ */
++@property (nonatomic) UQTraceStatusCode *statusCode;
++/**
++ * Trace enroll document type (optional)
++ */
++@property (readonly, assign) DocumentTypeID documentType;
++/**
++ * Trace TImestamp
++ */
++@property (strong, nonatomic) NSDate *timestamp;
++/**
++ * Trace device identifier
++ */
++@property (strong, nonatomic) NSString *deviceIdentifier;
++
++- (instancetype)init:(NSString *)sessionId
++            category:(UQTraceCategory *)category
++               event:(UQTraceEvent *)event
++              status:(UQTraceStatus *)status
++                page:(UQTracePage *)page
++          statusCode:(UQTraceStatusCode *)statusCode
++       statusMessage:(nullable NSString *)statusMessage
++        documentType:(DocumentTypeID)documentType
++           timestamp:(NSDate *)timestamp;
++
++- (BOOL)needsRateLimiting;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceCategory.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceCategory.h
+new file mode 100644
+index 0000000..6371b28
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceCategory.h
+@@ -0,0 +1,28 @@
++//
++//  UQTraceCategory.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++typedef const struct { NSString* name;} UQTraceCategory;
++
++extern UQTraceCategory * const TC_SDK;
++
++extern UQTraceCategory * const TC_ENROLLMENT;
++
++extern UQTraceCategory * const TC_READING;
++
++extern UQTraceCategory * const TC_ACCOUNT_RECOVERY;
++
++extern UQTraceCategory * const TC_FACE_SESSION;
++
++extern UQTraceCategory * const TC_LOOKUP;
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceEvent.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceEvent.h
+new file mode 100644
+index 0000000..8a54210
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceEvent.h
+@@ -0,0 +1,30 @@
++//
++//  UQTraceEvent.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++typedef const struct { NSString* name;} UQTraceEvent;
++
++extern UQTraceEvent * const TE_INIT;
++
++extern UQTraceEvent * const TE_VIEW;
++
++extern UQTraceEvent * const TE_START;
++
++extern UQTraceEvent * const TE_COMPLETE;
++
++extern UQTraceEvent * const TE_SKIP;
++
++extern UQTraceEvent * const TE_FINISH;
++
++extern UQTraceEvent * const TE_IN_PROGRESS;
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTracePage.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTracePage.h
+new file mode 100644
+index 0000000..a7af2fe
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTracePage.h
+@@ -0,0 +1,30 @@
++//
++//  UQTracePage.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++typedef const struct { NSString* name; } UQTracePage;
++
++extern UQTracePage * const TP_SCAN;
++
++extern UQTracePage * const TP_READ;
++
++extern UQTracePage * const TP_FACE;
++
++extern UQTracePage * const TP_BACKGROUND_CHECK;
++
++extern UQTracePage * const TP_LOOKUP;
++
++extern UQTracePage * const TP_LOOKUP_OTP;
++
++extern UQTracePage * const TP_NULL;
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceStatus.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceStatus.h
+new file mode 100644
+index 0000000..be77bbe
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceStatus.h
+@@ -0,0 +1,21 @@
++//
++//  UQTraceStatus.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++typedef const struct { NSString* name;} UQTraceStatus;
++
++extern UQTraceStatus * const TS_SUCCESS;
++
++extern UQTraceStatus * const TS_FAILURE;
++
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceStatusCode.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceStatusCode.h
+new file mode 100644
+index 0000000..4725ba1
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTraceStatusCode.h
+@@ -0,0 +1,128 @@
++//
++//  UQTraceStatusCode.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++typedef const struct { NSString* name;} UQTraceStatusCode;
++
++extern UQTraceStatusCode * const TSC_USER_CANCEL;
++
++extern UQTraceStatusCode * const TSC_SESSION_EXPIRED;
++
++extern UQTraceStatusCode * const TSC_UNEXPECTED_ERROR;
++
++extern UQTraceStatusCode * const TSC_SESSION_INVALIDATED DEPRECATED_ATTRIBUTE;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_FRONT_BACK_MISMATCH;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_NOT_RECOGNIZED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_EXPIRED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_AGE_VERIFICATION_FAILED;
++
++extern UQTraceStatusCode * const TSC_READ_NFC_UNAVAILABLE;
++
++extern UQTraceStatusCode * const TSC_READ_NFC_DOCUMENT_NOT_SUPPORTED;
++
++extern UQTraceStatusCode * const TSC_READ_DOCUMENT_DISCONNECTED;
++
++extern UQTraceStatusCode * const TSC_READ_DOCUMENT_INVALID_SIGNATURE DEPRECATED_ATTRIBUTE;
++
++extern UQTraceStatusCode * const TSC_READ_AUTHENTICATION_FAILED;
++
++extern UQTraceStatusCode * const TSC_READ_DOCUMENT_VALIDATION_FAILED;
++
++extern UQTraceStatusCode * const TSC_READ_CHIP_VALIDATION_FAILED;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_FAILED;
++
++extern UQTraceStatusCode * const TSC_FACE_NO_MATCH;
++
++extern UQTraceStatusCode * const TSC_FACE_TIMEOUT;
++
++extern UQTraceStatusCode * const TSC_FACE_RECOGNITION_TOO_MANY_ATTEMPTS;
++
++extern UQTraceStatusCode * const TSC_LOOKUP_INVALID_INPUT;
++
++extern UQTraceStatusCode * const TSC_LOOKUP_ID_NOT_FOUND;
++
++extern UQTraceStatusCode * const TSC_LOOKUP_OTP_TOO_MANY_ATTEMPTS;
++
++extern UQTraceStatusCode * const TSC_CAMERA_NOT_AVAILABLE;
++
++extern UQTraceStatusCode * const TSC_CAMERA_PERMISSION_NOT_GRANTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_FRONT_PROCESSED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_BACK_PROCESSED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_DARK_ENVIRONMENT_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_INCORRECT_DISTANCE_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_BLUR_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_INCORRECT_TYPE_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_INCORRECT_SIDE_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_GLARE_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_ID_PHOTO_BAD_QUALITY_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_SCREEN_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_PRINT_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_ID_PHOTO_TAMPERING_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_INCORRECT_POSITION_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_DARK_ENVIRONMENT_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_BLUR_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_MOUTH_COVER_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_EYES_COVER_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_EYES_CLOSED_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_SPOTLIGHT_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_SHADOW_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_EYES_SHADOW_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_INCORRECT_DISTANCE_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_MOVE_CLOSER;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_MOVE_FURTHER;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_TILT_RIGHT;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_TILT_LEFT;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_TURN_RIGHT;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_TURN_LEFT;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_INCORRECT_POSITION_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_MULTIPLE_FACES_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_FINGER_DETECTED;
++
++extern UQTraceStatusCode * const TSC_NULL;
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTracer.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTracer.h
+new file mode 100644
+index 0000000..75f0b91
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UQTracer.h
+@@ -0,0 +1,21 @@
++//
++//  UQTracer.h
++//  UqudoSDK
++//
++//  Created by NooN on 2/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import "UQTrace.h"
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++@interface UQTracer : NSObject
++
++- (void)trace:(UQTrace *)trace;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UqudoSDK.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UqudoSDK.h
+new file mode 100644
+index 0000000..99c129e
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/UqudoSDK.h
+@@ -0,0 +1,38 @@
++//
++//  UqudoSDK.h
++//  UqudoSDK
++//
++//  Created by NooN on 23/4/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++//! Project version number for UqudoSDK.
++FOUNDATION_EXPORT double UqudoSDKVersionNumber;
++
++//! Project version string for UqudoSDK.
++FOUNDATION_EXPORT const unsigned char UqudoSDKVersionString[];
++
++#import <UqudoSDK/UQBuilderController.h>
++#import <UqudoSDK/UQEnrollmentBuilder.h>
++#import <UqudoSDK/UQReadingBuilder.h>
++#import <UqudoSDK/UQAccountRecoveryBuilder.h>
++#import <UqudoSDK/UQDocumentConfig.h>
++#import <UqudoSDK/UQScanConfig.h>
++#import <UqudoSDK/UQReadingConfig.h>
++#import <UqudoSDK/UQSessionStatus.h>
++#import <UqudoSDK/UQBackgroundCheckConfig.h>
++#import <UqudoSDK/UQTracer.h>
++#import <UqudoSDK/UQTrace.h>
++#import <UqudoSDK/UQTraceCategory.h>
++#import <UqudoSDK/UQTraceEvent.h>
++#import <UqudoSDK/UQTracePage.h>
++#import <UqudoSDK/UQTraceStatus.h>
++#import <UqudoSDK/UQTraceStatusCode.h>
++#import <UqudoSDK/UQObfuscationConfig.h>
++#import <UqudoSDK/UQFaceSessionBuilder.h>
++#import <UqudoSDK/UQInterfaceStyle.h>
++#import <UqudoSDK/UQLookupBuilder.h>
++#import <UqudoSDK/UQFacialRecognitionConfig.h>
++#import <UqudoSDK/UQLivenessGesture.h>
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Info.plist b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Info.plist
+new file mode 100644
+index 0000000..9342a51
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Info.plist differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Modules/module.modulemap b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Modules/module.modulemap
+new file mode 100644
+index 0000000..6817cb3
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Modules/module.modulemap
+@@ -0,0 +1,6 @@
++framework module UqudoSDK {
++  umbrella header "UqudoSDK.h"
++
++  export *
++  module * { export * }
++}
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/PrivacyInfo.xcprivacy b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/PrivacyInfo.xcprivacy
+new file mode 100644
+index 0000000..aa66d2d
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/PrivacyInfo.xcprivacy
+@@ -0,0 +1,25 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>NSPrivacyTracking</key>
++	<false/>
++	<key>NSPrivacyTrackingDomains</key>
++	<array/>
++	<key>NSPrivacyCollectedDataTypes</key>
++	<array>
++		<dict>
++			<key>NSPrivacyCollectedDataType</key>
++			<string>NSPrivacyCollectedDataTypeOtherDataTypes</string>
++			<key>NSPrivacyCollectedDataTypeLinked</key>
++			<false/>
++			<key>NSPrivacyCollectedDataTypeTracking</key>
++			<false/>
++			<key>NSPrivacyCollectedDataTypePurposes</key>
++			<array>
++				<string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
++			</array>
++		</dict>
++	</array>
++</dict>
++</plist>
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/04g-HH-sQI-view-0cO-lu-tbK.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/04g-HH-sQI-view-0cO-lu-tbK.nib
+new file mode 100644
+index 0000000..c4bd9c3
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/04g-HH-sQI-view-0cO-lu-tbK.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/52q-x1-MKC-view-FL5-Yv-aUA.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/52q-x1-MKC-view-FL5-Yv-aUA.nib
+new file mode 100644
+index 0000000..2e1769b
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/52q-x1-MKC-view-FL5-Yv-aUA.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/9B0-XC-klU-view-HiR-4i-bDR.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/9B0-XC-klU-view-HiR-4i-bDR.nib
+new file mode 100644
+index 0000000..7d3f1f6
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/9B0-XC-klU-view-HiR-4i-bDR.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/Info.plist b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/Info.plist
+new file mode 100644
+index 0000000..9df2116
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/Info.plist differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/UAf-ri-RcT-view-via-1O-mRs.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/UAf-ri-RcT-view-via-1O-mRs.nib
+new file mode 100644
+index 0000000..817451e
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/UAf-ri-RcT-view-via-1O-mRs.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-UAf-ri-RcT.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-UAf-ri-RcT.nib
+new file mode 100644
+index 0000000..6809118
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-UAf-ri-RcT.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-hna-h2-qe9.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-hna-h2-qe9.nib
+new file mode 100644
+index 0000000..502c14a
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-hna-h2-qe9.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/Xq8-jx-6gz-view-qvw-TI-Guu.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/Xq8-jx-6gz-view-qvw-TI-Guu.nib
+new file mode 100644
+index 0000000..24f06ff
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/Xq8-jx-6gz-view-qvw-TI-Guu.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/ZZQ-OZ-AMD-view-quS-NQ-woP.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/ZZQ-OZ-AMD-view-quS-NQ-woP.nib
+new file mode 100644
+index 0000000..42f2580
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/ZZQ-OZ-AMD-view-quS-NQ-woP.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/backgroundCheckViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/backgroundCheckViewController.nib
+new file mode 100644
+index 0000000..0e66378
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/backgroundCheckViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/dRD-FF-fO0-view-ZXM-Hw-FxR.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/dRD-FF-fO0-view-ZXM-Hw-FxR.nib
+new file mode 100644
+index 0000000..35f9160
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/dRD-FF-fO0-view-ZXM-Hw-FxR.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/hna-h2-qe9-view-6Ku-BL-TOz.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/hna-h2-qe9-view-6Ku-BL-TOz.nib
+new file mode 100644
+index 0000000..0f5014d
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/hna-h2-qe9-view-6Ku-BL-TOz.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/iboIDFaceRecHelpPageViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/iboIDFaceRecHelpPageViewController.nib
+new file mode 100644
+index 0000000..dff2d81
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/iboIDFaceRecHelpPageViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/orchestratorViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/orchestratorViewController.nib
+new file mode 100644
+index 0000000..e859d5d
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/orchestratorViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/readerHelpPageViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/readerHelpPageViewController.nib
+new file mode 100644
+index 0000000..2fd9264
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/readerHelpPageViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/readerViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/readerViewController.nib
+new file mode 100644
+index 0000000..4ec74b4
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/readerViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/uaereaderHelpPageViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/uaereaderHelpPageViewController.nib
+new file mode 100644
+index 0000000..38adcad
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Storyboard.storyboardc/uaereaderHelpPageViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/UqudoSDK b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/UqudoSDK
+new file mode 100755
+index 0000000..afb5905
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/UqudoSDK differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/_CodeSignature/CodeResources b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/_CodeSignature/CodeResources
+new file mode 100644
+index 0000000..f1d33f6
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/_CodeSignature/CodeResources
+@@ -0,0 +1,663 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>files</key>
++	<dict>
++		<key>Assets.car</key>
++		<data>
++		kfN+vJXoLzFZ5I/DgUDREHpHtqg=
++		</data>
++		<key>Headers/UQAccountRecoveryBuilder.h</key>
++		<data>
++		v3/Akw/mXmjAnzIcb96FjC+WG28=
++		</data>
++		<key>Headers/UQBackgroundCheckConfig.h</key>
++		<data>
++		oHnIXvl/kq5+PUlr7ztleNFLQxQ=
++		</data>
++		<key>Headers/UQBuilderController.h</key>
++		<data>
++		2dHT9gdcHG3R0d/U7WNXP8E+9K4=
++		</data>
++		<key>Headers/UQDocumentConfig.h</key>
++		<data>
++		WkZpycKk2QrSJ9JlSdk0VrGrcZc=
++		</data>
++		<key>Headers/UQEnrollmentBuilder.h</key>
++		<data>
++		RNNgRks37eVnHqBJJroD9LkmybU=
++		</data>
++		<key>Headers/UQFaceSessionBuilder.h</key>
++		<data>
++		dhJcSSeW8OsgD4yij2K/3AiDLRA=
++		</data>
++		<key>Headers/UQFacialRecognitionConfig.h</key>
++		<data>
++		VtunhNeUMqRNnrLsJvqyz+moB4s=
++		</data>
++		<key>Headers/UQInterfaceStyle.h</key>
++		<data>
++		LxzTOFRSVqZ8Vz1piN+Cc3QhIY0=
++		</data>
++		<key>Headers/UQLivenessGesture.h</key>
++		<data>
++		D4A5zFqencPuwmCrrbYjN+S5c6M=
++		</data>
++		<key>Headers/UQLookupBuilder.h</key>
++		<data>
++		RGMKqq3+5nK8qUGbIwYqxOggTvQ=
++		</data>
++		<key>Headers/UQObfuscationConfig.h</key>
++		<data>
++		7aifGVS+29/dTrKvu3212NMlhOI=
++		</data>
++		<key>Headers/UQReadingBuilder.h</key>
++		<data>
++		jVN3BVnABe3jta0LOxqov3hZwrU=
++		</data>
++		<key>Headers/UQReadingConfig.h</key>
++		<data>
++		ddTX1ApK9jTyK279eyvGxC/qEKg=
++		</data>
++		<key>Headers/UQScanConfig.h</key>
++		<data>
++		oEiEhSvH+kVw82OyNnM6EGvxEl4=
++		</data>
++		<key>Headers/UQSessionStatus.h</key>
++		<data>
++		MHCupRCdJsMwZ5lmeGQHT3+qJS4=
++		</data>
++		<key>Headers/UQTrace.h</key>
++		<data>
++		HompAFvaZsg4GME2p1bPoUsI7MI=
++		</data>
++		<key>Headers/UQTraceCategory.h</key>
++		<data>
++		SwvyeQyPATePImUAA2mA+SRiqyg=
++		</data>
++		<key>Headers/UQTraceEvent.h</key>
++		<data>
++		QW4l746lfYKCczyRJokNCC5VBeg=
++		</data>
++		<key>Headers/UQTracePage.h</key>
++		<data>
++		UWQlwLVybbYAluzusVrzvYHgZ48=
++		</data>
++		<key>Headers/UQTraceStatus.h</key>
++		<data>
++		UNAiwO6f87q+zs/wzCtcxYfOw70=
++		</data>
++		<key>Headers/UQTraceStatusCode.h</key>
++		<data>
++		EtVtOkNq0FubrbaLSFC69kt9G5s=
++		</data>
++		<key>Headers/UQTracer.h</key>
++		<data>
++		cZPoHNKx7c5URdZhAbVViA9FdX0=
++		</data>
++		<key>Headers/UqudoSDK.h</key>
++		<data>
++		HBVoBvoJ+SMnLPAZbe8fpSk/nYA=
++		</data>
++		<key>Info.plist</key>
++		<data>
++		ugbW8JQ55+wrtHgqWW1qkEQAEdU=
++		</data>
++		<key>Modules/module.modulemap</key>
++		<data>
++		oNKt8vby+5t8n3pSOWIPKH99Umc=
++		</data>
++		<key>PrivacyInfo.xcprivacy</key>
++		<data>
++		4lUYwDD/RY2jjoDQCn3qY8kXNmM=
++		</data>
++		<key>Storyboard.storyboardc/04g-HH-sQI-view-0cO-lu-tbK.nib</key>
++		<data>
++		2cGsGXVM+H/m7SzZR6BY0YpH8f8=
++		</data>
++		<key>Storyboard.storyboardc/52q-x1-MKC-view-FL5-Yv-aUA.nib</key>
++		<data>
++		6JcBY5FuRFJ6dOSec7GgEl0UCJc=
++		</data>
++		<key>Storyboard.storyboardc/9B0-XC-klU-view-HiR-4i-bDR.nib</key>
++		<data>
++		P9xLPGLuMjb/ZuuNi/6DPmv1bow=
++		</data>
++		<key>Storyboard.storyboardc/Info.plist</key>
++		<data>
++		3TU5FLRPc950r+3C1cCN9ieIm3I=
++		</data>
++		<key>Storyboard.storyboardc/UAf-ri-RcT-view-via-1O-mRs.nib</key>
++		<data>
++		6RufC0HgMODL3M7CCPCjlNY5s5g=
++		</data>
++		<key>Storyboard.storyboardc/UIViewController-UAf-ri-RcT.nib</key>
++		<data>
++		gfGuMOQZemIgov1ek90t3lv0VDc=
++		</data>
++		<key>Storyboard.storyboardc/UIViewController-hna-h2-qe9.nib</key>
++		<data>
++		6rR6k43M3eylcDHUsB3K9SmIOHk=
++		</data>
++		<key>Storyboard.storyboardc/Xq8-jx-6gz-view-qvw-TI-Guu.nib</key>
++		<data>
++		uqjJSOUydlZLUPecZITvQAR5G84=
++		</data>
++		<key>Storyboard.storyboardc/ZZQ-OZ-AMD-view-quS-NQ-woP.nib</key>
++		<data>
++		PmkSZKpTF008FFs+ugqOpJEy5ys=
++		</data>
++		<key>Storyboard.storyboardc/backgroundCheckViewController.nib</key>
++		<data>
++		+QJsNILXhwbGleHlPbT23Sko+gs=
++		</data>
++		<key>Storyboard.storyboardc/dRD-FF-fO0-view-ZXM-Hw-FxR.nib</key>
++		<data>
++		nE/S2CmdnejJkc+pjTJMZKpH++0=
++		</data>
++		<key>Storyboard.storyboardc/hna-h2-qe9-view-6Ku-BL-TOz.nib</key>
++		<data>
++		zpPtc/oADV+bGu49PnqV9yk43gY=
++		</data>
++		<key>Storyboard.storyboardc/iboIDFaceRecHelpPageViewController.nib</key>
++		<data>
++		bXsVo/61FhX/15W63Twy/NKL7kY=
++		</data>
++		<key>Storyboard.storyboardc/orchestratorViewController.nib</key>
++		<data>
++		cQHCZA8+1nV1A936tDlDueszjZc=
++		</data>
++		<key>Storyboard.storyboardc/readerHelpPageViewController.nib</key>
++		<data>
++		JYnATLMwq+kFofE2AFDt7B4jNbg=
++		</data>
++		<key>Storyboard.storyboardc/readerViewController.nib</key>
++		<data>
++		bXu+T+lKL7UdDgXpIpao8i3pKuw=
++		</data>
++		<key>Storyboard.storyboardc/uaereaderHelpPageViewController.nib</key>
++		<data>
++		fhB5pWYbHUfvPW6/yi5/WabPqMo=
++		</data>
++		<key>fonts.bundle/Poppins-Bold.ttf</key>
++		<data>
++		h1zwzs1ke88i551jPYaMGx7Jjfo=
++		</data>
++		<key>fonts.bundle/Poppins-Light.ttf</key>
++		<data>
++		4kepIVjhEvi/e2OMjZU4HWawDbs=
++		</data>
++		<key>fonts.bundle/Poppins-Medium.ttf</key>
++		<data>
++		KD8htE772/J2uoAr4tlJo2u8QjM=
++		</data>
++		<key>fonts.bundle/Poppins-Regular.ttf</key>
++		<data>
++		/dMALn2BTuR8HBuEh8csa7s6LQA=
++		</data>
++		<key>fonts.bundle/Poppins-SemiBold.ttf</key>
++		<data>
++		ikrOk5LQa8t/jqL1FpsH5MODqQ0=
++		</data>
++		<key>uq-styles-dark.plist</key>
++		<data>
++		elrzhHJObka3Pf/RT3dwxgcBnzQ=
++		</data>
++		<key>uq-styles.plist</key>
++		<data>
++		SWooMa7C+9Bxe8Uy8KEZ6Fg5PI8=
++		</data>
++		<key>uq-text.plist</key>
++		<data>
++		9yOMAyK7qeqCGMk0glL4p3oz1fw=
++		</data>
++	</dict>
++	<key>files2</key>
++	<dict>
++		<key>Assets.car</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			JjSOPP9Vi87ovMevglzGacgsj1RiO8P3J8OWE+MHQeQ=
++			</data>
++		</dict>
++		<key>Headers/UQAccountRecoveryBuilder.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			L4w+8skeBeEAEnaykdIUD6xdxfPiArhqYXtEM1mJ8SY=
++			</data>
++		</dict>
++		<key>Headers/UQBackgroundCheckConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			y3BfJadGbGgV2pZbfk6D7k/M5ICCMrvn8zsDt21UH14=
++			</data>
++		</dict>
++		<key>Headers/UQBuilderController.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			wKga3qx9LddfN/QjPcnO4XMCbMHE+yYCBVrH2xqFeBw=
++			</data>
++		</dict>
++		<key>Headers/UQDocumentConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			IanbgP3L11ucTPffYwp84kTlr03HVf3HMQyF1uLEvg4=
++			</data>
++		</dict>
++		<key>Headers/UQEnrollmentBuilder.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			X0veZpcr0D3qlM9s2rIqPmRRLHYnDGtVDjW/oCoRXmM=
++			</data>
++		</dict>
++		<key>Headers/UQFaceSessionBuilder.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			xcl/gKlChPst1sIaTGWCZNNtbQ7Pa7ieKAJdVr+CD0U=
++			</data>
++		</dict>
++		<key>Headers/UQFacialRecognitionConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			E6wppRoPEiCAHVC3DRd00daFy8NEHbfzAdzQJWgYAwk=
++			</data>
++		</dict>
++		<key>Headers/UQInterfaceStyle.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			HREMArqyRJ3vdUoP7yo1FYUqH4sP8wJyiVi8Dak/gAc=
++			</data>
++		</dict>
++		<key>Headers/UQLivenessGesture.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			SvlNYwZKXsSyXthKykx2Eoz+5lP7lPcpEHGrWbO1Spc=
++			</data>
++		</dict>
++		<key>Headers/UQLookupBuilder.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			/Lhx+S/ZB8QhApacFxnLpdak2UBLHpyOC71I9J+2EBI=
++			</data>
++		</dict>
++		<key>Headers/UQObfuscationConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			AulvxZHn492gTHwrRQCUpri+xpL6Sv/LA/Z8yXkMJJg=
++			</data>
++		</dict>
++		<key>Headers/UQReadingBuilder.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			ExMPShIZX+JgpUwHxTZDSkAzw5IWB6lL4ib9JPHctS4=
++			</data>
++		</dict>
++		<key>Headers/UQReadingConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			Nu2dErmjHXCW0lgrIXUXqp/uN4bHCmggNbmO/IXjfMc=
++			</data>
++		</dict>
++		<key>Headers/UQScanConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			AdEBQzMNqiEzC5Sr0gX6MbZZ6WWEbNI36SAiOJCcbXo=
++			</data>
++		</dict>
++		<key>Headers/UQSessionStatus.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			oRpVbpNvH2yDFvRknWulrN6aw7QbWSXUxbvQa/HYBPw=
++			</data>
++		</dict>
++		<key>Headers/UQTrace.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			QyLYLTo3V287Z3swkB7HjFwEM/PaXla0Y9E2ximt+zM=
++			</data>
++		</dict>
++		<key>Headers/UQTraceCategory.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			S16UyCgY6R1yQhTIAzlm4aLq8vumOSGVWliMzVPPmTk=
++			</data>
++		</dict>
++		<key>Headers/UQTraceEvent.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			nfr9XZLRCf0iau/YQY5BL5GaTRpdd/yTCiwg9s36crU=
++			</data>
++		</dict>
++		<key>Headers/UQTracePage.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			3usU/joeP7YsxC5JK4j1BvfjrZLcMczyNrrljdC6ARA=
++			</data>
++		</dict>
++		<key>Headers/UQTraceStatus.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			N7fqFJ1NgbbAk2NHsEwrG0r+sVS9emRtTZYQX8yOD/4=
++			</data>
++		</dict>
++		<key>Headers/UQTraceStatusCode.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			fX9koxP0y0/WRMv+1L0vZILqDMZCCZGVryITF4BGwHk=
++			</data>
++		</dict>
++		<key>Headers/UQTracer.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			Nn/2QbN3EAgxM/920XsKExp9vU1V0zfqYWn7o78OC8E=
++			</data>
++		</dict>
++		<key>Headers/UqudoSDK.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			/WaIsM3C1BqO+Xx0S8VWuS4IembWOILhPn1GDj05mX0=
++			</data>
++		</dict>
++		<key>Modules/module.modulemap</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			4XccNyBV+RzXpPhSldDgeddVpYpjFAgX/oNUTHDCSAw=
++			</data>
++		</dict>
++		<key>PrivacyInfo.xcprivacy</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			iBcjlKedZpodt8ksE3ReXjir4VGLuOeLFPAO3OKMqyU=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/04g-HH-sQI-view-0cO-lu-tbK.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			BKk/dRmF/F12AnQKciYJhDSArGo1Y2S2+Ik4WdbezOo=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/52q-x1-MKC-view-FL5-Yv-aUA.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			m+SLBMK0KPHByMXf9kJX76P7Mu3H4Oc9ijugUJ7RUZc=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/9B0-XC-klU-view-HiR-4i-bDR.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			6bt+fo7/Rl5jjM/bt76z3rjeTZZDr+v2blT1dHrx4lQ=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/Info.plist</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			YliS0dTkYUQnEYNixDIEdq7Ps6uCuTM9kOjDdBZCl0k=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/UAf-ri-RcT-view-via-1O-mRs.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			eRSGfGUhuMgGWWAghjPlwRHZRQdb2C876mSL/Qh5PlQ=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/UIViewController-UAf-ri-RcT.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			687RsXiUdHzdlUj4b0boHiwA1oSkQXkeTDdu0Qo9jf4=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/UIViewController-hna-h2-qe9.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			ujIk0woSYKgFDaH9/3R8qKy8pXgCOpOsFDIyrtCU4Zo=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/Xq8-jx-6gz-view-qvw-TI-Guu.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			qfpY0ALyBykYdkjJ+9HjJOiRvxDPJN0B5a6oo2J6Hl4=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/ZZQ-OZ-AMD-view-quS-NQ-woP.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			eY1YUAMsldr78maD06XvYuOIhv8HD1SK8+ltctnN/Oo=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/backgroundCheckViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			PBUihGC3EKrxStpREI41YmgPrHTAE7zvsSVvURPfILA=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/dRD-FF-fO0-view-ZXM-Hw-FxR.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			8ec7yWibxZBS0+PMJromAI/cDAwzArnD+Mm5u0n2Vp8=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/hna-h2-qe9-view-6Ku-BL-TOz.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			i2zZyR/0rCwMBvGdgdX32Lp67RXrRxj5RGCHXaaTJ8w=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/iboIDFaceRecHelpPageViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			1lTvVOVYYBxpEhajPuaUZuvgLTF1drKtNxROg+xCgz4=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/orchestratorViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			3aon00sd0PjrUGzo9F2+7X2zEfCFaDSpe1IMSQ1yt4Q=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/readerHelpPageViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			fu2h5bn3vLtrjaGtxwVPinvcZ9SUsTHFFmAhDC3QoaA=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/readerViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			hAnPH28p31nVTMBm2bfsMSNuZouS4g1ySkqzkuabNZc=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/uaereaderHelpPageViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			Hav8nH+pDtYSVuwde6qFl77yH9PpmYbPFD6pxFysWfQ=
++			</data>
++		</dict>
++		<key>fonts.bundle/Poppins-Bold.ttf</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			chlUfuJTNMusD+SzrPC/Yx5I67YixxrwOO2qplLGCHU=
++			</data>
++		</dict>
++		<key>fonts.bundle/Poppins-Light.ttf</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			ZH8BTTaCLvfgQT/7tlWYrgy1f7eY5jXGORLJPZTrNWo=
++			</data>
++		</dict>
++		<key>fonts.bundle/Poppins-Medium.ttf</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			jZCYg96BNE4PvP7zDpMYcuktmu7N+Fttz24LKMB46Y4=
++			</data>
++		</dict>
++		<key>fonts.bundle/Poppins-Regular.ttf</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			cH/cXIurV6kAYcao7Xtw1f+4L8gQ6ZTnn5C6zokMJVo=
++			</data>
++		</dict>
++		<key>fonts.bundle/Poppins-SemiBold.ttf</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			JIwCRLNQ7GiICZaqa+bXeWJ0tJmS1fy77+JRkGqk6jY=
++			</data>
++		</dict>
++		<key>uq-styles-dark.plist</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			M4TLwufcgfsPNVhOJFFjGavq7SpdbEaEtaNx4BKrbzU=
++			</data>
++		</dict>
++		<key>uq-styles.plist</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			GcagENhp31krz+VU+Xo9jVAGgDVKmmY6NVEKoZeOKQs=
++			</data>
++		</dict>
++		<key>uq-text.plist</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			DwBB3tAgKSxfwAayjNFlnNhQ4GO6o3na+HVhauRYRYc=
++			</data>
++		</dict>
++	</dict>
++	<key>rules</key>
++	<dict>
++		<key>^.*</key>
++		<true/>
++		<key>^.*\.lproj/</key>
++		<dict>
++			<key>optional</key>
++			<true/>
++			<key>weight</key>
++			<real>1000</real>
++		</dict>
++		<key>^.*\.lproj/locversion.plist$</key>
++		<dict>
++			<key>omit</key>
++			<true/>
++			<key>weight</key>
++			<real>1100</real>
++		</dict>
++		<key>^Base\.lproj/</key>
++		<dict>
++			<key>weight</key>
++			<real>1010</real>
++		</dict>
++		<key>^version.plist$</key>
++		<true/>
++	</dict>
++	<key>rules2</key>
++	<dict>
++		<key>.*\.dSYM($|/)</key>
++		<dict>
++			<key>weight</key>
++			<real>11</real>
++		</dict>
++		<key>^(.*/)?\.DS_Store$</key>
++		<dict>
++			<key>omit</key>
++			<true/>
++			<key>weight</key>
++			<real>2000</real>
++		</dict>
++		<key>^.*</key>
++		<true/>
++		<key>^.*\.lproj/</key>
++		<dict>
++			<key>optional</key>
++			<true/>
++			<key>weight</key>
++			<real>1000</real>
++		</dict>
++		<key>^.*\.lproj/locversion.plist$</key>
++		<dict>
++			<key>omit</key>
++			<true/>
++			<key>weight</key>
++			<real>1100</real>
++		</dict>
++		<key>^Base\.lproj/</key>
++		<dict>
++			<key>weight</key>
++			<real>1010</real>
++		</dict>
++		<key>^Info\.plist$</key>
++		<dict>
++			<key>omit</key>
++			<true/>
++			<key>weight</key>
++			<real>20</real>
++		</dict>
++		<key>^PkgInfo$</key>
++		<dict>
++			<key>omit</key>
++			<true/>
++			<key>weight</key>
++			<real>20</real>
++		</dict>
++		<key>^embedded\.provisionprofile$</key>
++		<dict>
++			<key>weight</key>
++			<real>20</real>
++		</dict>
++		<key>^version\.plist$</key>
++		<dict>
++			<key>weight</key>
++			<real>20</real>
++		</dict>
++	</dict>
++</dict>
++</plist>
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Bold.ttf b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Bold.ttf
+new file mode 100644
+index 0000000..00559ee
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Bold.ttf differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Light.ttf b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Light.ttf
+new file mode 100644
+index 0000000..bc36bcc
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Light.ttf differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Medium.ttf b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Medium.ttf
+new file mode 100644
+index 0000000..6bcdcc2
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Medium.ttf differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Regular.ttf b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Regular.ttf
+new file mode 100644
+index 0000000..9f0c71b
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-Regular.ttf differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-SemiBold.ttf b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-SemiBold.ttf
+new file mode 100644
+index 0000000..74c726e
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/fonts.bundle/Poppins-SemiBold.ttf differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/uq-styles-dark.plist b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/uq-styles-dark.plist
+new file mode 100644
+index 0000000..a949b74
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/uq-styles-dark.plist differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/uq-styles.plist b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/uq-styles.plist
+new file mode 100644
+index 0000000..088a8b4
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/uq-styles.plist differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/uq-text.plist b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/uq-text.plist
+new file mode 100644
+index 0000000..5e581ff
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/uq-text.plist differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Assets.car b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Assets.car
+new file mode 100644
+index 0000000..2d2613b
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Assets.car differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQAccountRecoveryBuilder.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQAccountRecoveryBuilder.h
+new file mode 100644
+index 0000000..596948e
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQAccountRecoveryBuilder.h
+@@ -0,0 +1,94 @@
++//
++//  UQAccountRecoveryBuilder.h
++//  UqudoSDK
++//
++//  Created by NooN on 9/6/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQFacialRecognitionConfig.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++DEPRECATED_ATTRIBUTE
++@protocol UQAccountRecoveryBuilderDelegate;
++
++DEPRECATED_MSG_ATTRIBUTE("Use face session flow instead.")
++@interface UQAccountRecoveryBuilder : NSObject
++
++@property(weak, nonatomic)id <UQAccountRecoveryBuilderDelegate> delegate;
++
++/*!
++ @brief Application root view, required
++ */
++@property (strong, nonatomic) UIViewController *appViewController DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief The authorization token, required
++ */
++@property (strong, nonatomic) NSString *authorizationToken DEPRECATED_ATTRIBUTE;
++
++/**
++ @brief  the user identifier string in UUID v4 format
++*/
++@property (strong, nonatomic) NSString *enrollmentIdentifier DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief random nonce
++ */
++@property (strong, nonatomic) NSString *nonce DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief Option to return data for incomplete session
++ */
++@property (assign, nonatomic) BOOL returnDataForIncompleteSession DEPRECATED_ATTRIBUTE;
++
++
++/*!
++ @brief Option to allow SDK usage on devices jail break or not or not , defailt is not
++ */
++@property (assign, nonatomic) BOOL isRootedDeviceAllowed DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief The minimum match level of facial recognition, valid values are 1-5
++ */
++@property (assign, nonatomic) NSInteger minimumMatchLevel DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief The maximum number of attempts before dropping the facial recognition session,  valid values are 1, 2, and 3
++ */
++@property (assign, nonatomic) NSInteger maxAttempts DEPRECATED_ATTRIBUTE;
++
++
++@property (assign, nonatomic) BOOL disableHelpPage DEPRECATED_ATTRIBUTE;
++
++/**
++ @brief Allowed closed eyes during facial recognition default is NO
++*/
++@property (assign, nonatomic) BOOL allowClosedEyes DEPRECATED_ATTRIBUTE;
++
++- (void)startRecovery DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief Enable additional configuration for enrollment that allows to obfuscate the face recogntion audit trail image :
++ @param obfuscationType The obfuscation mode FILLED, BLURRED
++ */
++- (void)enableAuditTrailImageObfuscation:(ObfuscationType)obfuscationType DEPRECATED_ATTRIBUTE;
++
++@end
++
++@protocol UQAccountRecoveryBuilderDelegate <NSObject>
++
++- (void)didAccountRecoveryFailWithError:(NSError *)error;
++
++- (void)didAccountRecoveryCompleteWithInfo:(NSString *)info;
++
++- (void)didAccountRecoveryIncompleteWithStatus:(UQSessionStatus *)status;
++
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQBackgroundCheckConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQBackgroundCheckConfig.h
+new file mode 100644
+index 0000000..14a9d6f
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQBackgroundCheckConfig.h
+@@ -0,0 +1,21 @@
++//
++//  UQBackgroundCheckConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 30/12/2563 BE.
++//  Copyright © 2563 BE uqudo. All rights reserved.
++//
++
++#ifndef UQBackgroundCheckConfig_h
++#define UQBackgroundCheckConfig_h
++
++
++typedef enum : NSInteger {
++    /**  RDC background check*/
++    RDC,
++    /** DOW JONES background check */
++    DOW_JONES,
++}BackgroundCheckType;
++
++
++#endif /* UQBackgroundCheckConfig_h */
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQBuilderController.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQBuilderController.h
+new file mode 100644
+index 0000000..b373bca
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQBuilderController.h
+@@ -0,0 +1,155 @@
++//
++//  UQBuilderController.h
++//  UqudoCoreLib
++//
++//  Created by NooN on 6/4/20.
++//  Copyright © 2020 Uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQTracer.h"
++#import "UQInterfaceStyle.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@protocol UQBuilderControllerDelegate;
++
++@interface UQBuilderController : NSObject
++
++@property (strong, nonatomic) UIViewController *appViewController;
++
++@property(weak, nonatomic)id <UQBuilderControllerDelegate> delegate;
++
++
++/// The shared file builder object
+++ (instancetype)defaultBuilder;
++
++/*!
++@brief Get  SDK version string
++@return version 
++*/
+++ (NSString *)getSDKVersion;
++
++/*!
++@brief Initialize builder with analytic trace
++@param trace the tracer object"
++*/
++- (instancetype)initWithTracer:(UQTracer *)trace;
++
++/*!
++@brief Set enrollment builder
++@param enrollment the enrollment controller object"
++*/
++- (void)setEnrollment:(id)enrollment;
++
++/*!
++@brief Set account recovery
++@param accountRecovery the account recovery
++*/
++- (void)setAccountRecovery:(id)accountRecovery DEPRECATED_MSG_ATTRIBUTE("Use face session flow instead.");;
++
++
++/*!
++ @brief Perform enrollment with the document list
++ @discussion Please make sure that at least one doucumnet is require, if no document added,
++             it will throw exception  No document to enroll"
++ @param token  Aauth2 authorization token
++ @param nonce The random nonce, could be optional
++ */
++- (void)performEnrollmentWithToken:(nonnull NSString *)token
++                       optionNonce:(nullable NSString *)nonce DEPRECATED_MSG_ATTRIBUTE("Use performEnrollment: method instead.");
++
++/*!
++ @brief Perform enrollment with the document list
++ @discussion Please make sure that at least one doucumnet is require, if no document added,
++             it will throw exception  No document to enroll"
++ */
++- (void)performEnrollment;
++
++/*!
++@brief Perform account recovery
++*/
++- (void)performAccountRecovery DEPRECATED_MSG_ATTRIBUTE("Use face session flow instead.");
++
++/*!
++@brief Set face session
++@param faceSession the face session
++*/
++- (void)setFaceSession:(id)faceSession;
++
++/*!
++@brief Perform Face Session
++*/
++- (void)performFaceSession;
++
++/*!
++@brief set user interface style
++@param mode  user interface mode
++*/
++- (void)setAppearanceMode:(AppearanceMode)mode;
++
++/*!
++@brief Set face session
++@param lookup the lookup builder
++*/
++- (void)setLookup:(id)lookup;
++
++/*!
++ @brief Perform Lookup
++ @discussion Only one document is allowed
++ */
++- (void)performLookup;
++
++/*!
++@brief Set enrollment reading builder
++@param reading the reading builder"
++*/
++- (void)setReading:(id)reading;
++
++/*!
++ @brief Perform reading enrollment
++ @discussion Only one document is allowed
++ */
++- (void)performReading;
++
++
++@end
++
++
++@protocol UQBuilderControllerDelegate <NSObject>
++
++@optional
++
++- (void)didEnrollmentFailWithError:(NSError *)error DEPRECATED_ATTRIBUTE;
++
++- (void)didEnrollmentCompleteWithInfo:(NSString *)info;
++
++- (void)didEnrollmentIncompleteWithStatus:(UQSessionStatus *)status;
++
++- (void)didRootedDeviceDetected:(NSString *)info DEPRECATED_ATTRIBUTE;
++
++- (void)didAccountRecoveryCompleteWithInfo:(nonnull NSString *)info DEPRECATED_ATTRIBUTE;;
++
++- (void)didAccountRecoveryFailWithError:(nonnull NSError *)error DEPRECATED_ATTRIBUTE;
++
++- (void)didAccountRecoveryIncompleteWithStatus:(UQSessionStatus *)status DEPRECATED_ATTRIBUTE;;
++
++- (void)didFaceSessionFailWithError:(nonnull  NSError *)error DEPRECATED_ATTRIBUTE;
++
++- (void)didFaceSessionCompleteWithInfo:(nonnull  NSString *)info;
++
++- (void)didFaceSessionIncompleteWithStatus:(UQSessionStatus *)status;
++
++- (void)didLookupFlowCompleteWithInfo:(NSString *)info;
++
++- (void)didLookupFlowIncompleteWithStatus:(UQSessionStatus *)status;
++
++- (void)didReadingCompleteWithInfo:(NSString *)info;
++
++- (void)didReadingIncompleteWithStatus:(UQSessionStatus *)status;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQDocumentConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQDocumentConfig.h
+new file mode 100644
+index 0000000..3dc10b4
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQDocumentConfig.h
+@@ -0,0 +1,322 @@
++//
++//  UQDocumentConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 9/5/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import "UQReadingConfig.h"
++#import "UQScanConfig.h"
++NS_ASSUME_NONNULL_BEGIN
++
++
++/** Represents the options for document type support. */
++typedef enum : NSInteger {
++    /** Emirates ID */
++    UAE_ID,
++    /** UAE Driving License */
++    UAE_DL,
++    /** UAE Vehicle License */
++    UAE_VL,
++    /** UAE Visa */
++    UAE_VISA,
++    /** Omani ID */
++    OMN_ID,
++    /** Pakistan  ID */
++    PAK_ID,
++    /** Saudi National ID */
++    SAU_ID,
++    /** Bahrain  ID */
++    BHR_ID,
++    /** Kuwait ID */
++    KWT_ID,
++    /** Passport */
++    PASSPORT,
++    /** Generic  ID */
++    GENERIC_ID,
++    /** Qatar ID */
++    QAT_ID,
++    /** Dutch Driving License */
++    NLD_DL,
++    /** Germany ID */
++    DEU_ID,
++    /** Sudanese ID */
++    SDN_ID,
++    /** Sudanese Driving License */
++    SDN_DL,
++    /** Sudanese Vehicle License */
++    SDN_VL,
++    /** Ghanaian ID */
++    GHA_ID,
++    /** Nigerian  Driving License */
++    NGA_DL,
++    /** Nigerian Voter ID */
++    NGA_VOTER_ID,
++    /** Nigerian NIN */
++    NGA_NIN,
++    /** Saudi Arabia  Driving License*/
++    SAU_DL,
++    /** United Kingdom Driving License */
++    GBR_DL,
++    /** South African ID */
++    ZAF_ID,
++    /** South African Driving License */
++    ZAF_DL,
++    /** Egyptian ID */
++    EGY_ID,
++    /** Rwandan ID */
++    RWA_ID,
++    /** Kenyan ID */
++    KEN_ID,
++    /** Ghanaian Driving License*/
++    GHA_DL,
++    /** Ghanaian Voter ID */
++    GHA_VOTER_ID,
++    /** Ghanaian Social  Security & National Insurance Trust*/
++    GHA_SSNIT,
++    /** Ugandan ID */
++    UGA_ID,
++    /** indian Aadhaar ID */
++    IND_ID,
++    /** Omani ID for Citizen */
++    OMN_ID_NATIONAL,
++    /** Omani ID for Resident */
++    OMN_ID_RESIDENT,
++    /** Uganda Voter ID */
++    UGA_VOTER_ID,
++    /** Senegal ID */
++    SEN_ID,
++    /** Turkish ID */
++    TUR_ID,
++    /** Algerian ID */
++    DZA_ID,
++    /** Driving License */
++    COD_DL,
++    /** Resident ID */
++    GBR_ID,
++    /** Omani Driving License */
++    OMN_DL,
++    /** Omani Vehicle License */
++    OMN_VL,
++    /** Voter ID */
++    COD_VOTER_ID,
++    /** UAS Driving License */
++    USA_DL,
++    /** Qatar Driving License*/
++    QAT_DL,
++    /** Bahrain Driving License*/
++    BHR_DL,
++    /** Philippines Driving License*/
++    PHL_DL,
++    /** Somaliland ID */
++    RSL_ID,
++    /** Indian PAN card */
++    IND_PAN,
++    /** Saudi ID for Citizen*/
++    SAU_ID_NATIONAL,
++    /** Saudi ID for Resident */
++    SAU_ID_RESIDENT,
++    /** Nigerian Bank Verification Number */
++    NGA_BVN,
++    /** Lebanese ID */
++    LBN_ID,
++    /** Lebanese Driving License */
++    LBN_DL,
++    /** MRZ Document*/
++    MRZ,
++    /** Iraqi ID */
++    IRQ_ID,
++    /** Emirates ID Digital version */
++    UAE_ID_DIGITAL,
++    /** Qatar Vehicle License*/
++    QAT_VL,
++    /** Emirates Passport Digital version */
++    UAE_PASSPORT_DIGITAL,
++    /** Tunisian ID */
++    TUN_ID,
++    /** Bahrain Vehicle License */
++    BHR_VL,
++    /** Jordan Vehicle License */
++    JOR_VL,
++    /** Saudi Vehicle License */
++    SAU_VL,
++    /** Somalia ID */
++    SOM_ID,
++    /** Qatar ID for Citizen*/
++    QAT_ID_NATIONAL,
++    /** Qatar ID for Resident */
++    QAT_ID_RESIDENT,
++    /** Kuwait ID for Citizen*/
++    KWT_ID_NATIONAL,
++    /** Kuwait ID for Resident */
++    KWT_ID_RESIDENT,
++    /** Morocco ID */
++    MAR_ID,
++    /** Indonesia ID */
++    IDN_ID,
++    /** Iraqi ID for Citizen */
++    IRQ_ID_NATIONAL,
++    /** Iraqi ID for Resident */
++    IRQ_ID_RESIDENT,
++    /** Undefine */
++    UNSPECIFY,
++}DocumentTypeID;
++
++/** Represents the  document side that contain photo id. */
++typedef enum : NSInteger {
++    /** Photonon front side Id */
++    FRONT,
++    /** Photo on back side */
++    BACK,
++    /** No photo inside */
++    NONE,
++}PhotoSide;
++
++/** Represents the photo position on document. */
++typedef enum : NSInteger {
++    /** Photo at fthe left */
++    LEFT,
++    /** photo at the right */
++    RIGHT,
++    /** photo at the center */
++    CENTER,
++}PhotoPosition;
++
++
++@interface UQDocumentConfig : NSObject
++
++/**
++ @brief document type ID
++*/
++@property (strong, nonatomic) UQScanConfig *scan;
++
++
++/**
++ @brief document type ID
++*/
++@property (strong, nonatomic) UQReadingConfig *reading;
++
++/**
++ @brief document type ID
++*/
++@property (assign, nonatomic) BOOL singleSideDocument;
++
++/**
++ @brief Option to enable expired documents to be scanned
++*/
++@property (assign, nonatomic) BOOL disableExpiryValidation;
++
++/**
++ @brief Option to disable the user data review, default is enable
++*/
++@property (assign, nonatomic) BOOL disableUserDataReview DEPRECATED_ATTRIBUTE;
++
++
++/**
++ @brief Feature for the document scanning to allow scan rejection based on the age , default  is -1, therefore disabled
++*/
++@property (assign, nonatomic) int enableAgeVerification;
++
++
++/**
++ @brief Initialize the document object
++ @param docType The document type
++ @return document object
++*/
++- (instancetype)initWithDocumentType:(NSInteger)docType;
++
++
++/**
++ @brief Initialize the document object
++ @param docType The document name
++ @return document object
++*/
++- (instancetype)initWithDocumentTypeName:(NSString*)docType;
++
++/**
++ @brief get current document type
++ @return fdocument type
++*/
++- (NSInteger)documentType;
++
++/**
++ @brief Validate document is support for reding
++ @return YES if document is support reading feature
++*/
++- (BOOL)isSupportReading;
++
++/**
++ @brief Validate document is support for face recognition
++ @return YES if document is support reading feature
++*/
++- (BOOL)isSupportFaceRecognition;
++
++/**
++ @brief Validate document support for document classifier
++ @return YES if document supports document classifier
++*/
++- (BOOL)isSupportClassifier;
++
++/**
++ @brief Get the document name
++ @return string
++*/
++- (NSString *)documentName;
++
++/**
++ @brief Get the document description
++ @return string
++*/
++- (NSString *)documentDescription;
++
++
++/**
++ @brief Get the side of document that contain phot
++ @return PhotoSide
++*/
++- (PhotoSide)photoSide;
++
++/**
++ @brief Get the  photo position of the document
++ @return PhotoPosition
++*/
++- (PhotoPosition)photoPosition;
++
++/**
++ @brief Validate  documents  enrolment  is supported.
++ @return YES if document  is supported
++*/
++- (BOOL)isEnrollmentSupported;
++
++/**
++ @brief Validate  documents  lookup  is supported.
++ @return YES if document  is supported
++*/
++- (BOOL)isLookupSupported;
++
++/**
++ @brief Validate documents the lookup + facial recognition is supported.
++ @return YES if document  is supported
++*/
++- (BOOL)isLookupFacialRecognitionSupported;
++
++
++/**
++ @brief The integer value representing the standardized document types
++ * as defined by ICAO Document 9303.
++ * ICAO Document 9303 specifies standard formats for machine-readable travel
++ * documents (MRTDs), such as passports, visas, and identity cards.
++ * Document types:
++ * - 1: TD1
++ * - 3: TD3
++ * @return An integer that represents the ICAO standardized document type.
++ */
++- (int)travelDocumentType;
++
++@end
++
++
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQEnrollmentBuilder.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQEnrollmentBuilder.h
+new file mode 100644
+index 0000000..cf73c43
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQEnrollmentBuilder.h
+@@ -0,0 +1,198 @@
++//
++//  UQEnrollmentBuilder.h
++//  UqudoSDK
++//
++//  Created by NooN on 10/5/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQDocumentConfig.h"
++#import "UQFacialRecognitionConfig.h"
++#import "UQBackgroundCheckConfig.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@protocol UQEnrollmentBuilderDelegate;
++
++@interface UQEnrollmentBuilder : NSObject
++
++@property(weak, nonatomic)id <UQEnrollmentBuilderDelegate> delegate;
++
++/*!
++ @brief Application root view
++ */
++@property (strong, nonatomic) UIViewController *appViewController;
++
++/*!
++ @brief The authorization token, required
++ */
++@property (strong, nonatomic) NSString *authorizationToken;
++
++/*!
++ @brief Optional random nonce
++ */
++@property (strong, nonatomic) NSString *nonce;
++
++/*!
++ @brief The authorization token, required
++ */
++@property (strong, nonatomic) NSString *accessToken DEPRECATED_MSG_ATTRIBUTE("Use authorizationToken instead.");
++
++/*!
++ @brief Optional random nonce
++ */
++@property (strong, nonatomic) NSString *randomNonce DEPRECATED_MSG_ATTRIBUTE("Use nonce instead.");
++
++/*!
++ @brief Option to allow SDK usage on devices jail break or not or not , defailt is not
++ */
++@property (assign, nonatomic) BOOL isRootedDeviceAllowed DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief Option to enroll the face srecognition, default is NO
++ */
++@property (assign, nonatomic) BOOL enableFacialRecognition DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Face enrollment option, default is NO
++ */
++@property (assign, nonatomic) BOOL enrollFace DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Option to diable help page if enrollFace is enable, default is NO
++ */
++@property (assign, nonatomic) BOOL disbleFacialRecognitionHelpPage DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief The minimum match level of facial recognition for scan.
++ */
++@property (assign, nonatomic) NSInteger scanMinimumMatchLevel DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief The minimum match level of facial recognition for reading.
++ */
++@property (assign, nonatomic) NSInteger readMinimumMatchLevel DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief The  UUID Version 4 string enrollment session ID
++ */
++@property (strong, nonatomic) NSString *sessionID;
++
++/*!
++ @brief The maximum number of attempts before dropping the facial recognition session,  valid values are 1, 2, and 3
++ */
++@property (assign, nonatomic) NSInteger facialRecognitionMaxAttempts DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Option to return data for incomplete session
++ */
++@property (assign, nonatomic) BOOL returnDataForIncompleteSession;
++
++/**
++ @brief UUID v4 that represents the user identifier
++*/
++@property (strong, nonatomic) NSUUID *userIdentifier;
++
++/**
++ @brief Option to enable facial recognition
++*/
++@property (strong, nonatomic) UQFacialRecognitionConfig *facialRecognitionConfig;
++
++/*!
++ @brief Option to enabled allow to pass screens and printed copies, is disable by default
++ */
++@property (assign, nonatomic) BOOL allowNonPhysicalDocuments;
++
++/*!
++ @brief Option to refrain the SDK from rejecting the scan during ID photo tampering detection, is disable by default
++ */
++@property (assign, nonatomic) BOOL disableTamperingRejection;
++
++- (void)reset;
++/*!
++ @brief Adding the document fron enrollment flow
++ @param document The document object
++ */
++- (BOOL)add:(id)document;
++
++/*!
++ @brief Start the enrollment
++ */
++- (void)start;
++
++/*!
++ @brief Get avalable documents
++ @return The array of avalable document
++ */
++- (NSArray *)getDocuments;
++
++/*!
++ @brief Enable additional configuration for enrollment that allows to obfuscate the face recogntion audit trail image :
++ @param obfuscationType The obfuscation mode FILLED, BLURRED
++ */
++- (void)enableAuditTrailImageObfuscation:(ObfuscationType)obfuscationType DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++
++/*!
++ @brief Background check
++ @param disableConsent The user consent option, default is NO
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief Background check
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent type:(BackgroundCheckType)backgroundCheckType;
++
++/*!
++ @brief Enable Background check with type and monitoring option
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ @param enableMonitoring The option to enableBackgroundCheck method, default is NO
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent
++                         type:(BackgroundCheckType)backgroundCheckType
++                   monitoring:(BOOL)enableMonitoring;
++
++/*!
++ @brief Enable Background check with type, monitoring and skip option
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ @param enableMonitoring The option to enableBackgroundCheck method, default is NO
++ @param skipView The option to perform without view
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent
++                         type:(BackgroundCheckType)backgroundCheckType
++                   monitoring:(BOOL)enableMonitoring
++                     skipView:(BOOL)skipView;
++
++/*!
++ @brief Enable lookup feature for all the documents provided in the KYC session
++ */
++- (void)enableLookup;
++
++/*!
++ @brief Enable lookup feature for the documents provided
++ @param documentTypes The array of DocumentTypeID in the KYC session
++ */
++- (void)enableLookup:(NSArray *)documentTypes;
++
++@end
++
++@protocol UQEnrollmentBuilderDelegate <NSObject>
++
++- (void)didEnrollmentFailWithError:(NSError *)error;
++
++- (void)didEnrollmentCompleteWithInfo:(NSString *)info;
++
++- (void)didEnrollmentIncompleteWithStatus:(UQSessionStatus *)status;
++
++@end
++
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQFaceSessionBuilder.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQFaceSessionBuilder.h
+new file mode 100644
+index 0000000..f920536
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQFaceSessionBuilder.h
+@@ -0,0 +1,114 @@
++//
++//  UQFaceSessionBuilder.h
++//  UqudoSDK
++//
++//  Created by NooN on 14/12/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQObfuscationConfig.h"
++#import "UQLivenessGesture.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@protocol UQFaceSessionBuilderDelegate;
++
++@interface UQFaceSessionBuilder : NSObject
++
++@property (weak, nonatomic) id<UQFaceSessionBuilderDelegate> delegate;
++
++/*!
++ @brief Application root view, required
++ */
++@property (strong, nonatomic) UIViewController *appViewController;
++
++/*!
++ @brief The authorization token, required
++ */
++@property (strong, nonatomic) NSString *authorizationToken;
++
++/*!
++ @brief The  UUID Version 4 string enrollment session ID
++ */
++@property (strong, nonatomic) NSString *sessionId;
++
++/*!
++ @brief random nonce
++ */
++@property (strong, nonatomic) NSString *nonce;
++
++/*!
++ @brief Option to return data for incomplete session
++ */
++@property (assign, nonatomic) BOOL returnDataForIncompleteSession;
++
++/*!
++ @brief Option to allow SDK usage on devices jail break or not or not , defailt is not
++ */
++@property (assign, nonatomic) BOOL isRootedDeviceAllowed DEPRECATED_ATTRIBUTE;
++
++/*!
++ @brief The minimum match level of facial recognition, valid values are 1-5
++ */
++@property (assign, nonatomic) NSInteger minimumMatchLevel;
++
++/*!
++ @brief The maximum number of attempts before dropping the facial recognition session,  valid values are 1, 2, and 3
++ */
++@property (assign, nonatomic) NSInteger maxAttempts;
++
++/**
++ @brief Allowed closed eyes during facial recognition default is NO
++*/
++@property (assign, nonatomic) BOOL allowClosedEyes;
++
++/*!
++ @brief UUID v4 that represents the user identifier
++ */
++@property (strong, nonatomic) NSUUID *userIdentifier;
++
++/**
++ @brief Indicates whether active liveness detection is enabled.
++ *
++ * If set to YES, the facial recognition process will require the user to perform
++ * specific liveness gestures to verify their presence.
++ */
++@property (assign, nonatomic) BOOL enableActiveLiveness;
++
++/**
++ @brief  Specifies the liveness gesture type to be disabled during the facial recognition process.
++ *
++ * Use this property to prevent certain gestures (e.g., move, tilt, or turn) from being required for active liveness detection.
++ */
++@property (assign, nonatomic) LivenessGesture disableLivenessGesture;
++
++/**
++ Enables obfuscation for audit trail images with applying obfuscation to the audit trail images.
++
++ @param obfuscationType The liveness gesture to disable. Acceptable values are:
++    - BLURRED: blurring background.
++    - FILLED: gradient filled.
++    - FILLED_WHITE: filled white.
++*/
++- (void)enableAuditTrailImageObfuscation:(ObfuscationType)obfuscationType;
++
++
++- (void)startFaceSession;
++
++
++@end
++
++@protocol UQFaceSessionBuilderDelegate <NSObject>
++
++- (void)didFaceSessionFailWithError:(NSError *)error;
++
++- (void)didFaceSessionCompleteWithInfo:(NSString *)info;
++
++- (void)didFaceSessionIncompleteWithStatus:(UQSessionStatus *)status;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQFacialRecognitionConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQFacialRecognitionConfig.h
+new file mode 100644
+index 0000000..9b2a174
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQFacialRecognitionConfig.h
+@@ -0,0 +1,82 @@
++//
++//  UQFacialRecognitionConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 17/7/23.
++//  Copyright © 2023 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import "UQObfuscationConfig.h"
++#import "UQLivenessGesture.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@interface UQFacialRecognitionConfig : NSObject
++
++/*
++ @brief Enable facial srecognition, default is NO
++ */
++@property (assign, nonatomic) BOOL enableFacialRecognition;
++
++/*!
++ @brief Face enrollment option, default is NO
++ */
++@property (assign, nonatomic) BOOL enrollFace DEPRECATED_MSG_ATTRIBUTE("This is used for the Account Recovery flow that has been deprecated since version 3.0.0. Will be removed in a future release.");
++
++/*!
++ @brief The minimum match level of facial recognition for scan.
++ */
++@property (assign, nonatomic) NSInteger scanMinimumMatchLevel;
++
++/*!
++ @brief The minimum match level of facial recognition for reading.
++ */
++@property (assign, nonatomic) NSInteger readMinimumMatchLevel;
++
++/*!
++ @brief The minimum match level of facial recognition foor lookup, face session and account recovery, valid values are 1-5
++ */
++@property (assign, nonatomic) NSInteger minimumMatchLevel;
++
++/*!
++ @brief The maximum number of attempts before dropping the facial recognition session,  valid values are 1-3
++ */
++@property (assign, nonatomic) NSInteger maxAttempts;
++
++/**
++ @brief Allowed closed eyes during facial recognition default is NO
++*/
++@property (assign, nonatomic) BOOL allowClosedEyes;
++
++/*!
++ @brief For the facial recognition audit trail image obfuscation type, valid types are BLURRED, FILLED, and FILLED_WHITE otherwise the image will not be obfuscated
++ */
++@property (assign, nonatomic) ObfuscationType obfuscationType;
++
++/**
++ @brief A 1:n feature enbale to prevents a user to onboard multiple times with different identies, default is NO
++*/
++@property (assign, nonatomic) BOOL enableOneToNVerification;
++
++
++/**
++ @brief Indicates whether active liveness detection is enabled.
++ *
++ * If set to YES, the facial recognition process will require the user to perform
++ * specific liveness gestures to verify their presence.
++ */
++@property (assign, nonatomic) BOOL enableActiveLiveness;
++
++/**
++ @brief  Specifies the liveness gesture type to be disabled during the facial recognition process.
++ *
++ * Use this property to prevent certain gestures (e.g., move, tilt, or turn) from being required for active liveness detection.
++ */
++@property (assign, nonatomic) LivenessGesture disableLivenessGesture;
++
++
++@end
++
++NS_ASSUME_NONNULL_END
++
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQInterfaceStyle.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQInterfaceStyle.h
+new file mode 100644
+index 0000000..062b2a1
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQInterfaceStyle.h
+@@ -0,0 +1,23 @@
++//
++//  UQInterfaceStyle.h
++//  UqudoSDK
++//
++//  Created by NooN on 18/5/22.
++//  Copyright © 2022 uqudo. All rights reserved.
++//
++
++#ifndef UQInterfaceStyle_h
++#define UQInterfaceStyle_h
++
++/** User Interface Style. */
++typedef enum : NSInteger {
++    /** interface style base on system */
++    SYSTEM,
++    /** interface style light mode */
++    LIGHT,
++    /** interface style dark mode */
++    DARK,
++}AppearanceMode;
++
++
++#endif /* UQInterfaceStyle */
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQLivenessGesture.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQLivenessGesture.h
+new file mode 100644
+index 0000000..c95c12f
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQLivenessGesture.h
+@@ -0,0 +1,37 @@
++//
++//  UQLivenessGesture.h
++//  UqudoSDK
++//
++//  Created by NooN on 15/7/25.
++//  Copyright © 2025 uqudo. All rights reserved.
++//
++
++#ifndef UQLivenessGesture_h
++#define UQLivenessGesture_h
++
++/**
++ * @enum UQLivenessGesture
++ * @brief Types of liveness gestures for facial recognition.
++ *
++ * This enum defines the possible gestures used to verify that the user is actively present
++ * during a facial recognition process.
++ */
++typedef enum : NSInteger {
++    /**
++     * Move the face closer or further from the camera.
++     */
++    FACE_MOVE = 0,
++    
++    /**
++     * Tilt the face left or right.
++     */
++    FACE_TILT,
++    
++    /**
++     * Turn the face left or right.
++     */
++    FACE_TURN
++}LivenessGesture;
++
++
++#endif /* UQLivenessGesture_h */
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQLookupBuilder.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQLookupBuilder.h
+new file mode 100644
+index 0000000..716cbea
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQLookupBuilder.h
+@@ -0,0 +1,132 @@
++//
++//  UQLookupBuilder.h
++//  UqudoSDK
++//
++//  Created by NooN on 15/5/23.
++//  Copyright © 2023 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQDocumentConfig.h"
++#import "UQBackgroundCheckConfig.h"
++#import "UQFacialRecognitionConfig.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@protocol UQLookupBuilderDelegate;
++
++@interface UQLookupBuilder : NSObject
++
++@property(weak, nonatomic)id <UQLookupBuilderDelegate> delegate;
++
++@property (strong, nonatomic) UIViewController *appViewController;
++
++/*!
++ @brief The authorization token, required
++ */
++@property (strong, nonatomic) NSString *authorizationToken;
++
++/*!
++ @brief Optional random nonce
++ */
++@property (strong, nonatomic) NSString *nonce;
++
++/*!
++ @brief The  UUID Version 4 string enrollment session ID
++ */
++@property (strong, nonatomic) NSString *sessionID;
++
++/*!
++ @brief Face enrollment option, default is NO
++ */
++@property (assign, nonatomic) BOOL enrollFace DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Option to enroll the face srecognition, default is NO
++ */
++@property (assign, nonatomic) BOOL enableFacialRecognition DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief The maximum number of attempts before dropping the facial recognition session,  valid values are 1, 2, and 3
++ */
++@property (assign, nonatomic) NSInteger facialRecognitionMaxAttempts DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief The minimum match level of facial recognition.  valid values are 1 - 5
++ */
++@property (assign, nonatomic) NSInteger facialRecognitionMinimumMatchLevel DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Enablereturn data for incomplete session
++ */
++@property (assign, nonatomic) BOOL returnDataForIncompleteSession;
++
++/*!
++ @brief Required document type for lookup
++ */
++@property (assign, nonatomic) DocumentTypeID documentType;
++
++/*!
++ @brief UUID v4 that represents the user identifier
++ */
++@property (strong, nonatomic) NSUUID *userIdentifier;
++
++/*!
++ @brief Enable additional configuration for enrollment that allows to obfuscate the face recogntion audit trail image :
++ @param obfuscationType The obfuscation mode FILLED, BLURRED
++ */
++- (void)enableAuditTrailImageObfuscation:(ObfuscationType)obfuscationType DEPRECATED_MSG_ATTRIBUTE("Use facialRecognitionConfig instead.");
++
++/*!
++ @brief Background check
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent type:(BackgroundCheckType)backgroundCheckType;
++
++/*!
++ @brief Enable Background check with type and monitoring option
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ @param enableMonitoring The option to enableBackgroundCheck method, default is NO
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent
++                         type:(BackgroundCheckType)backgroundCheckType
++                   monitoring:(BOOL)enableMonitoring;
++
++/*!
++ @brief Enable Background check with type, monitoring and skip option
++ @param disableConsent The user consent option, default is NO
++ @param backgroundCheckType The  check type option.
++ @param enableMonitoring The option to enableBackgroundCheck method, default is NO
++ @param skipView The option to perform without view
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent
++                         type:(BackgroundCheckType)backgroundCheckType
++                   monitoring:(BOOL)enableMonitoring
++                     skipView:(BOOL)skipView;
++
++/**
++ @brief Option to enable facial recognition
++*/
++@property (strong, nonatomic) UQFacialRecognitionConfig *facialRecognitionConfig;
++
++/*!
++ @brief Start the สนนาีย ดสนไ
++ */
++- (void)start;
++
++@end
++
++@protocol UQLookupBuilderDelegate <NSObject>
++
++- (void)didLookupFlowCompleteWithInfo:(NSString *)info;
++
++- (void)didLookupFlowIncompleteWithStatus:(UQSessionStatus *)status;
++
++@end
++
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQObfuscationConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQObfuscationConfig.h
+new file mode 100644
+index 0000000..3efaad5
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQObfuscationConfig.h
+@@ -0,0 +1,22 @@
++//
++//  UQObfuscationConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 19/10/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#ifndef UQObfuscationConfig_h
++#define UQObfuscationConfig_h
++
++/** Represents the  obfuscate type of audit trail image. */
++typedef enum : NSInteger {
++    /** Background blur*/
++    BLURRED,
++    /** Background gradient filled*/
++    FILLED,
++    /** Background white filled*/
++    FILLED_WHITE
++}ObfuscationType;
++
++#endif /* UQObfuscationConfig_h */
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQReadingBuilder.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQReadingBuilder.h
+new file mode 100644
+index 0000000..eeb44b9
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQReadingBuilder.h
+@@ -0,0 +1,128 @@
++//
++//  UQReadingBuilder.h
++//  UqudoSDK
++//
++//  Created by NooN on 25/6/25.
++//  Copyright © 2025 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import <UIKit/UIKit.h>
++#import "UQSessionStatus.h"
++#import "UQDocumentConfig.h"
++#import "UQReadingConfig.h"
++#import "UQFacialRecognitionConfig.h"
++#import "UQBackgroundCheckConfig.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@protocol UQReadingBuilderDelegate;
++
++@interface UQReadingBuilder : NSObject
++
++#pragma mark - Delegate
++
++@property (weak, nonatomic) id<UQReadingBuilderDelegate> delegate;
++
++#pragma mark - Require Properties
++
++/// The application's root view controller.
++@property (strong, nonatomic) UIViewController *appViewController;
++
++/// The required authorization token.
++@property (copy, nonatomic) NSString *authorizationToken;
++
++/// The UUID v4 enrollment session ID.
++@property (copy, nonatomic) NSString *sessionID;
++
++/// The session document type. Exception will be raised if unsupported.
++@property (assign, nonatomic) DocumentTypeID documentType;
++
++#pragma mark - Optional Properties
++
++/// The UUID v4  user's unique identifier.
++@property (copy, nonatomic) NSString *userIdentifier;
++
++/// Optional random nonce.
++@property (copy, nonatomic) NSString *nonce;
++
++/// Document number contains the characters A-Z, 0-9, or <.
++@property (copy, nonatomic) NSString *documentNumber;
++
++/// Date of birth, formatted as yyyy-MM-dd.
++@property (copy, nonatomic) NSString *dateOfBirth;
++
++/// Date of expiry, formatted as yyyy-MM-dd.
++@property (copy, nonatomic) NSString *dateOfExpiry;
++
++/**
++ * Machine Readable Zone (MRZ) string extracted from an identity document.
++ *
++ * Only supports MRZ data in TD1 and TD3 formats as specified by ICAO standards.
++ * - **TD1**: Typically used for ID cards (3 lines, 30 characters each).
++ * - **TD3**: Typically used for passports (2 lines, 44 characters each).
++ * - **NLD_DL**: Netherlands driving licence (1 lines, 30 characters each).
++ * This property should contain the raw MRZ string, with lines separated by newline characters ('\n' or '\r\n').
++ *
++ */
++@property (copy, nonatomic) NSString *mrz;
++
++/// If enabled, returns data for incomplete sessions.
++@property (assign, nonatomic) BOOL returnDataForIncompleteSession;
++
++/// If enabled, allowed lookup feature for all documents in the KYC session.
++@property (assign, nonatomic) BOOL enableLookup;
++
++/// Enable/Configure facial recognition.
++@property (strong, nonatomic) UQFacialRecognitionConfig *facialRecognitionConfig;
++
++
++#pragma mark - Methods
++
++/**
++ * Enables and configures background check options for the reading session.
++ *
++ * @param disableConsent Whether to disable user consent for background check.
++ * @param backgroundCheckType The type of background check to perform.
++ * @param enableMonitoring Whether to enable monitoring during background check.
++ * @param skipView Whether to skip the background check view.
++ */
++- (void)enableBackgroundCheck:(BOOL)disableConsent
++                         type:(BackgroundCheckType)backgroundCheckType
++                   monitoring:(BOOL)enableMonitoring
++                     skipView:(BOOL)skipView;
++
++
++/**
++ * Validates the documentType, documentNumber, dateOfBirth, dateOfExpiry and mrz.
++ *
++ * @throws NSException if the document type is invalid, not supported for reading, or not supported for facial recognition or any required field is invalid and cannot be recovered from MRZ.
++ */
++- (void)validate;
++
++/**
++ * Starts the reading flow
++ *
++ * @throws NSException if any step in the process fails.
++ */
++- (void)start;
++
++
++@end
++
++#pragma mark - Delegate Protocol
++
++@protocol UQReadingBuilderDelegate <NSObject>
++
++
++/// Called when reading completes successfully.
++- (void)didReadingCompleteWithInfo:(NSString *)info;
++
++/// Called when reading is incomplete, returns session status.
++- (void)didReadingIncompleteWithStatus:(UQSessionStatus *)status;
++
++@end
++
++NS_ASSUME_NONNULL_END
++
++       
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQReadingConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQReadingConfig.h
+new file mode 100644
+index 0000000..c807966
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQReadingConfig.h
+@@ -0,0 +1,59 @@
++//
++//  UQReadingConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 9/5/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++NS_ASSUME_NONNULL_BEGIN
++
++@interface UQReadingConfig : NSObject
++
++@property (assign, nonatomic) BOOL enableReading;
++
++
++/**
++ @brief The minimum match in the facial recognition configuration
++*/
++@property (assign, nonatomic) NSInteger faceMinimumMatchLevel;
++
++/**
++ @brief Enable reading
++ @discussion If the device does not support the NFC and reading enable, it will skip the operaton
++ @param enableReading The option  the enable
++*/
++- (void)enableReading:(BOOL)enableReading DEPRECATED_ATTRIBUTE;
++
++
++/**
++ @brief Force the reading  for document
++ @discussion If the device does not support the NFC and forceReading is set to true, build() will throw UQExceptionNFCDeviceNotSupport
++ @param forceReading  The option to force the reading, If the device does not support the NFC and forceReading is set tYES, it will throw UnsupportedDeviceException
++*/
++- (void)forceReading:(BOOL)forceReading;
++
++/**
++ @brief Force reading if device support
++ @param forceReadingIfSupported The option to force the reading if support
++*/
++- (void)forceReadingIfSupported:(BOOL)forceReadingIfSupported DEPRECATED_MSG_ATTRIBUTE("This is a no-op operation and it is the default behavior from version 3.x");
++
++- (BOOL)isForceReading;
++
++- (BOOL)isForceReadingIfSupported;
++
++- (BOOL)isReadingEnable;
++
++/**
++@brief Force Reading Timeout option to allow to skip the NFC step after timeoutInSeconds amount of time ( must be > 0)
++*/
++@property (assign, nonatomic) int forceReadingTimeout;
++
++- (BOOL)isForceReadingTimeoutEnabled;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQScanConfig.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQScanConfig.h
+new file mode 100644
+index 0000000..1ebeb8e
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQScanConfig.h
+@@ -0,0 +1,61 @@
++//
++//  UQScanConfig.h
++//  UqudoSDK
++//
++//  Created by NooN on 9/5/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++NS_ASSUME_NONNULL_BEGIN
++
++@interface UQScanConfig : NSObject
++
++/**
++ @brief config option for disable help page, default is NO.
++*/
++@property (assign, nonatomic) BOOL disableHelpPage;
++
++/**
++ @brief The minimum match in the facial recognition configuration
++*/
++@property (assign, nonatomic) NSInteger faceMinimumMatchLevel;
++
++/**
++ @brief allows to confirm the quality of the scanned document
++*/
++- (void)enableScanReview:(BOOL)frontSide backSide:(BOOL)backSide;
++
++
++/**
++ @brief allows to confirm the quality of the scanned document
++*/
++
++- (BOOL)isFrontSideScanReviewEnable;
++
++
++/**
++ @brief allows to confirm the quality of the scanned document
++*/
++
++- (BOOL)isBackSideScanReviewEnable;
++
++
++/**
++ @brief allows to upload a document instead of doing the automatic scanning
++*/
++@property (assign, nonatomic) BOOL enableUpload DEPRECATED_MSG_ATTRIBUTE("Upload functionality will be removed in a future release of the SDK");
++
++
++/**
++ @brief allows to photo quality validatetion
++*/
++@property (assign, nonatomic) BOOL enablePhotoQualityDetection DEPRECATED_ATTRIBUTE;
++
++
++
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQSessionStatus.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQSessionStatus.h
+new file mode 100644
+index 0000000..79544c0
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQSessionStatus.h
+@@ -0,0 +1,65 @@
++//
++//  UQSessionStatus.h
++//  UqudoSDK
++//
++//  Created by NooN on 17/7/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++NS_ASSUME_NONNULL_BEGIN
++
++
++/** Represents the status of active session. */
++typedef enum : NSInteger {
++    /* User canceled */
++    USER_CANCEL,
++    /* Session expired */
++    SESSION_EXPIRED,
++    /* Session unexpected error occurred */
++    UNEXPECTED_ERROR,
++    /* Session attempt liveness or face match 3rd failed*/
++    SESSION_INVALIDATED DEPRECATED_ATTRIBUTE,
++    /* Session attempt read nfc but chip not support*/
++    SESSION_INVALIDATED_CHIP_VALIDATION_FAILED,
++    /* Session attempt read NFC but feature not support*/
++    SESSION_INVALIDATED_READING_NOT_SUPPORTED,
++    /* Session invalid document*/
++    SESSION_INVALIDATED_READING_INVALID_DOCUMENT,
++    /* Session attempt liveness or face match 3rd failed*/
++    SESSION_INVALIDATED_FACE_RECOGNITION_TOO_MANY_ATTEMPTS,
++    /* Session attempt resend OTP code*/
++    SESSION_INVALIDATED_OTP_TOO_MANY_ATTEMPTS,
++    /* Session attempt to access camera but not available or not found*/
++    SESSION_INVALIDATED_CAMERA_NOT_AVAILABLE,
++    /* Session attempt to access camera but user not granted*/
++    SESSION_INVALIDATED_CAMERA_PERMISSION_NOT_GRANTED,
++    /* Session invalidate reading authentication failed*/
++    SESSION_INVALIDATED_READING_AUTHENTICATION_FAILED,
++}StatusCode;
++
++/** Represents the active task of current session. */
++typedef enum : NSInteger {
++    /* Scanning task */
++    SCAN,
++    /* NFC Reading task */
++    READING,
++    /* Facial recognition task */
++    FACE,
++    /* Background check task */
++    BACKGROUND_CHECK,
++    /* Lookup task */
++    LOOKUP,
++}SessoinTask;
++
++@interface UQSessionStatus : NSObject
++
++@property (nonatomic, assign) NSInteger statusCode;
++@property (nonatomic, assign) NSInteger statusTask;
++@property (nonatomic, strong) NSString  * _Nullable message;
++@property (nonatomic, strong) NSString  * _Nullable data;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTrace.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTrace.h
+new file mode 100644
+index 0000000..216d956
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTrace.h
+@@ -0,0 +1,76 @@
++//
++//  UQAnalytics.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import "UQTraceCategory.h"
++#import "UQTraceEvent.h"
++#import "UQTracePage.h"
++#import "UQTraceStatus.h"
++#import "UQTraceStatusCode.h"
++#import "UQDocumentConfig.h"
++
++NS_ASSUME_NONNULL_BEGIN
++
++@interface UQTrace : NSObject
++
++/**
++ * Trace Session ID.
++ */
++@property (readonly, assign, nullable) NSString *sessionId;
++/**
++ * Trace status error message (optional)
++ */
++@property (readonly, assign, nullable) NSString *statusMessage;
++/**
++ * Trace catergetory object
++ */
++@property (nonatomic) UQTraceCategory *category;
++/**
++ * Trace event object
++ */
++@property (nonatomic) UQTraceEvent *event;
++/**
++ * Trace status object
++ */
++@property (nonatomic) UQTraceStatus *status;
++/**
++ * Trace page object (optional)
++ */
++@property (nonatomic) UQTracePage *page;
++/**
++ * Trace status error code object (optional)
++ */
++@property (nonatomic) UQTraceStatusCode *statusCode;
++/**
++ * Trace enroll document type (optional)
++ */
++@property (readonly, assign) DocumentTypeID documentType;
++/**
++ * Trace TImestamp
++ */
++@property (strong, nonatomic) NSDate *timestamp;
++/**
++ * Trace device identifier
++ */
++@property (strong, nonatomic) NSString *deviceIdentifier;
++
++- (instancetype)init:(NSString *)sessionId
++            category:(UQTraceCategory *)category
++               event:(UQTraceEvent *)event
++              status:(UQTraceStatus *)status
++                page:(UQTracePage *)page
++          statusCode:(UQTraceStatusCode *)statusCode
++       statusMessage:(nullable NSString *)statusMessage
++        documentType:(DocumentTypeID)documentType
++           timestamp:(NSDate *)timestamp;
++
++- (BOOL)needsRateLimiting;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceCategory.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceCategory.h
+new file mode 100644
+index 0000000..6371b28
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceCategory.h
+@@ -0,0 +1,28 @@
++//
++//  UQTraceCategory.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++typedef const struct { NSString* name;} UQTraceCategory;
++
++extern UQTraceCategory * const TC_SDK;
++
++extern UQTraceCategory * const TC_ENROLLMENT;
++
++extern UQTraceCategory * const TC_READING;
++
++extern UQTraceCategory * const TC_ACCOUNT_RECOVERY;
++
++extern UQTraceCategory * const TC_FACE_SESSION;
++
++extern UQTraceCategory * const TC_LOOKUP;
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceEvent.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceEvent.h
+new file mode 100644
+index 0000000..8a54210
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceEvent.h
+@@ -0,0 +1,30 @@
++//
++//  UQTraceEvent.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++typedef const struct { NSString* name;} UQTraceEvent;
++
++extern UQTraceEvent * const TE_INIT;
++
++extern UQTraceEvent * const TE_VIEW;
++
++extern UQTraceEvent * const TE_START;
++
++extern UQTraceEvent * const TE_COMPLETE;
++
++extern UQTraceEvent * const TE_SKIP;
++
++extern UQTraceEvent * const TE_FINISH;
++
++extern UQTraceEvent * const TE_IN_PROGRESS;
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTracePage.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTracePage.h
+new file mode 100644
+index 0000000..a7af2fe
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTracePage.h
+@@ -0,0 +1,30 @@
++//
++//  UQTracePage.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++typedef const struct { NSString* name; } UQTracePage;
++
++extern UQTracePage * const TP_SCAN;
++
++extern UQTracePage * const TP_READ;
++
++extern UQTracePage * const TP_FACE;
++
++extern UQTracePage * const TP_BACKGROUND_CHECK;
++
++extern UQTracePage * const TP_LOOKUP;
++
++extern UQTracePage * const TP_LOOKUP_OTP;
++
++extern UQTracePage * const TP_NULL;
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceStatus.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceStatus.h
+new file mode 100644
+index 0000000..be77bbe
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceStatus.h
+@@ -0,0 +1,21 @@
++//
++//  UQTraceStatus.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++typedef const struct { NSString* name;} UQTraceStatus;
++
++extern UQTraceStatus * const TS_SUCCESS;
++
++extern UQTraceStatus * const TS_FAILURE;
++
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceStatusCode.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceStatusCode.h
+new file mode 100644
+index 0000000..4725ba1
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTraceStatusCode.h
+@@ -0,0 +1,128 @@
++//
++//  UQTraceStatusCode.h
++//  UqudoSDK
++//
++//  Created by NooN on 3/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++typedef const struct { NSString* name;} UQTraceStatusCode;
++
++extern UQTraceStatusCode * const TSC_USER_CANCEL;
++
++extern UQTraceStatusCode * const TSC_SESSION_EXPIRED;
++
++extern UQTraceStatusCode * const TSC_UNEXPECTED_ERROR;
++
++extern UQTraceStatusCode * const TSC_SESSION_INVALIDATED DEPRECATED_ATTRIBUTE;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_FRONT_BACK_MISMATCH;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_NOT_RECOGNIZED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_EXPIRED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_AGE_VERIFICATION_FAILED;
++
++extern UQTraceStatusCode * const TSC_READ_NFC_UNAVAILABLE;
++
++extern UQTraceStatusCode * const TSC_READ_NFC_DOCUMENT_NOT_SUPPORTED;
++
++extern UQTraceStatusCode * const TSC_READ_DOCUMENT_DISCONNECTED;
++
++extern UQTraceStatusCode * const TSC_READ_DOCUMENT_INVALID_SIGNATURE DEPRECATED_ATTRIBUTE;
++
++extern UQTraceStatusCode * const TSC_READ_AUTHENTICATION_FAILED;
++
++extern UQTraceStatusCode * const TSC_READ_DOCUMENT_VALIDATION_FAILED;
++
++extern UQTraceStatusCode * const TSC_READ_CHIP_VALIDATION_FAILED;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_FAILED;
++
++extern UQTraceStatusCode * const TSC_FACE_NO_MATCH;
++
++extern UQTraceStatusCode * const TSC_FACE_TIMEOUT;
++
++extern UQTraceStatusCode * const TSC_FACE_RECOGNITION_TOO_MANY_ATTEMPTS;
++
++extern UQTraceStatusCode * const TSC_LOOKUP_INVALID_INPUT;
++
++extern UQTraceStatusCode * const TSC_LOOKUP_ID_NOT_FOUND;
++
++extern UQTraceStatusCode * const TSC_LOOKUP_OTP_TOO_MANY_ATTEMPTS;
++
++extern UQTraceStatusCode * const TSC_CAMERA_NOT_AVAILABLE;
++
++extern UQTraceStatusCode * const TSC_CAMERA_PERMISSION_NOT_GRANTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_FRONT_PROCESSED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_BACK_PROCESSED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_DARK_ENVIRONMENT_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_INCORRECT_DISTANCE_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_BLUR_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_INCORRECT_TYPE_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_INCORRECT_SIDE_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_GLARE_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_ID_PHOTO_BAD_QUALITY_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_SCREEN_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_PRINT_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_ID_PHOTO_TAMPERING_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_INCORRECT_POSITION_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_DARK_ENVIRONMENT_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_BLUR_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_MOUTH_COVER_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_EYES_COVER_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_EYES_CLOSED_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_SPOTLIGHT_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_SHADOW_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_EYES_SHADOW_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_INCORRECT_DISTANCE_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_MOVE_CLOSER;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_MOVE_FURTHER;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_TILT_RIGHT;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_TILT_LEFT;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_TURN_RIGHT;
++
++extern UQTraceStatusCode * const TSC_FACE_LIVENESS_TURN_LEFT;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_INCORRECT_POSITION_DETECTED;
++
++extern UQTraceStatusCode * const TSC_FACE_MULTIPLE_FACES_DETECTED;
++
++extern UQTraceStatusCode * const TSC_SCAN_DOCUMENT_FINGER_DETECTED;
++
++extern UQTraceStatusCode * const TSC_NULL;
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTracer.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTracer.h
+new file mode 100644
+index 0000000..75f0b91
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UQTracer.h
+@@ -0,0 +1,21 @@
++//
++//  UQTracer.h
++//  UqudoSDK
++//
++//  Created by NooN on 2/2/2564 BE.
++//  Copyright © 2564 BE uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++#import "UQTrace.h"
++
++
++NS_ASSUME_NONNULL_BEGIN
++
++@interface UQTracer : NSObject
++
++- (void)trace:(UQTrace *)trace;
++
++@end
++
++NS_ASSUME_NONNULL_END
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UqudoSDK.h b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UqudoSDK.h
+new file mode 100644
+index 0000000..99c129e
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/UqudoSDK.h
+@@ -0,0 +1,38 @@
++//
++//  UqudoSDK.h
++//  UqudoSDK
++//
++//  Created by NooN on 23/4/20.
++//  Copyright © 2020 uqudo. All rights reserved.
++//
++
++#import <Foundation/Foundation.h>
++
++//! Project version number for UqudoSDK.
++FOUNDATION_EXPORT double UqudoSDKVersionNumber;
++
++//! Project version string for UqudoSDK.
++FOUNDATION_EXPORT const unsigned char UqudoSDKVersionString[];
++
++#import <UqudoSDK/UQBuilderController.h>
++#import <UqudoSDK/UQEnrollmentBuilder.h>
++#import <UqudoSDK/UQReadingBuilder.h>
++#import <UqudoSDK/UQAccountRecoveryBuilder.h>
++#import <UqudoSDK/UQDocumentConfig.h>
++#import <UqudoSDK/UQScanConfig.h>
++#import <UqudoSDK/UQReadingConfig.h>
++#import <UqudoSDK/UQSessionStatus.h>
++#import <UqudoSDK/UQBackgroundCheckConfig.h>
++#import <UqudoSDK/UQTracer.h>
++#import <UqudoSDK/UQTrace.h>
++#import <UqudoSDK/UQTraceCategory.h>
++#import <UqudoSDK/UQTraceEvent.h>
++#import <UqudoSDK/UQTracePage.h>
++#import <UqudoSDK/UQTraceStatus.h>
++#import <UqudoSDK/UQTraceStatusCode.h>
++#import <UqudoSDK/UQObfuscationConfig.h>
++#import <UqudoSDK/UQFaceSessionBuilder.h>
++#import <UqudoSDK/UQInterfaceStyle.h>
++#import <UqudoSDK/UQLookupBuilder.h>
++#import <UqudoSDK/UQFacialRecognitionConfig.h>
++#import <UqudoSDK/UQLivenessGesture.h>
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Info.plist b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Info.plist
+new file mode 100644
+index 0000000..25370ff
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Info.plist differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Modules/module.modulemap b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Modules/module.modulemap
+new file mode 100644
+index 0000000..6817cb3
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Modules/module.modulemap
+@@ -0,0 +1,6 @@
++framework module UqudoSDK {
++  umbrella header "UqudoSDK.h"
++
++  export *
++  module * { export * }
++}
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/PrivacyInfo.xcprivacy b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/PrivacyInfo.xcprivacy
+new file mode 100644
+index 0000000..aa66d2d
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/PrivacyInfo.xcprivacy
+@@ -0,0 +1,25 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>NSPrivacyTracking</key>
++	<false/>
++	<key>NSPrivacyTrackingDomains</key>
++	<array/>
++	<key>NSPrivacyCollectedDataTypes</key>
++	<array>
++		<dict>
++			<key>NSPrivacyCollectedDataType</key>
++			<string>NSPrivacyCollectedDataTypeOtherDataTypes</string>
++			<key>NSPrivacyCollectedDataTypeLinked</key>
++			<false/>
++			<key>NSPrivacyCollectedDataTypeTracking</key>
++			<false/>
++			<key>NSPrivacyCollectedDataTypePurposes</key>
++			<array>
++				<string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
++			</array>
++		</dict>
++	</array>
++</dict>
++</plist>
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/04g-HH-sQI-view-0cO-lu-tbK.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/04g-HH-sQI-view-0cO-lu-tbK.nib
+new file mode 100644
+index 0000000..c4bd9c3
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/04g-HH-sQI-view-0cO-lu-tbK.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/52q-x1-MKC-view-FL5-Yv-aUA.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/52q-x1-MKC-view-FL5-Yv-aUA.nib
+new file mode 100644
+index 0000000..2e1769b
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/52q-x1-MKC-view-FL5-Yv-aUA.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/9B0-XC-klU-view-HiR-4i-bDR.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/9B0-XC-klU-view-HiR-4i-bDR.nib
+new file mode 100644
+index 0000000..7d3f1f6
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/9B0-XC-klU-view-HiR-4i-bDR.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/Info.plist b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/Info.plist
+new file mode 100644
+index 0000000..9df2116
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/Info.plist differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/UAf-ri-RcT-view-via-1O-mRs.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/UAf-ri-RcT-view-via-1O-mRs.nib
+new file mode 100644
+index 0000000..817451e
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/UAf-ri-RcT-view-via-1O-mRs.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-UAf-ri-RcT.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-UAf-ri-RcT.nib
+new file mode 100644
+index 0000000..6809118
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-UAf-ri-RcT.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-hna-h2-qe9.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-hna-h2-qe9.nib
+new file mode 100644
+index 0000000..502c14a
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/UIViewController-hna-h2-qe9.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/Xq8-jx-6gz-view-qvw-TI-Guu.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/Xq8-jx-6gz-view-qvw-TI-Guu.nib
+new file mode 100644
+index 0000000..24f06ff
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/Xq8-jx-6gz-view-qvw-TI-Guu.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/ZZQ-OZ-AMD-view-quS-NQ-woP.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/ZZQ-OZ-AMD-view-quS-NQ-woP.nib
+new file mode 100644
+index 0000000..42f2580
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/ZZQ-OZ-AMD-view-quS-NQ-woP.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/backgroundCheckViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/backgroundCheckViewController.nib
+new file mode 100644
+index 0000000..0e66378
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/backgroundCheckViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/dRD-FF-fO0-view-ZXM-Hw-FxR.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/dRD-FF-fO0-view-ZXM-Hw-FxR.nib
+new file mode 100644
+index 0000000..35f9160
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/dRD-FF-fO0-view-ZXM-Hw-FxR.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/hna-h2-qe9-view-6Ku-BL-TOz.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/hna-h2-qe9-view-6Ku-BL-TOz.nib
+new file mode 100644
+index 0000000..0f5014d
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/hna-h2-qe9-view-6Ku-BL-TOz.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/iboIDFaceRecHelpPageViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/iboIDFaceRecHelpPageViewController.nib
+new file mode 100644
+index 0000000..dff2d81
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/iboIDFaceRecHelpPageViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/orchestratorViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/orchestratorViewController.nib
+new file mode 100644
+index 0000000..e859d5d
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/orchestratorViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/readerHelpPageViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/readerHelpPageViewController.nib
+new file mode 100644
+index 0000000..2fd9264
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/readerHelpPageViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/readerViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/readerViewController.nib
+new file mode 100644
+index 0000000..4ec74b4
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/readerViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/uaereaderHelpPageViewController.nib b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/uaereaderHelpPageViewController.nib
+new file mode 100644
+index 0000000..38adcad
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Storyboard.storyboardc/uaereaderHelpPageViewController.nib differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/UqudoSDK b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/UqudoSDK
+new file mode 100755
+index 0000000..371c389
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/UqudoSDK differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/_CodeSignature/CodeResources b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/_CodeSignature/CodeResources
+new file mode 100644
+index 0000000..dcc0d05
+--- /dev/null
++++ b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/_CodeSignature/CodeResources
+@@ -0,0 +1,663 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>files</key>
++	<dict>
++		<key>Assets.car</key>
++		<data>
++		kfN+vJXoLzFZ5I/DgUDREHpHtqg=
++		</data>
++		<key>Headers/UQAccountRecoveryBuilder.h</key>
++		<data>
++		v3/Akw/mXmjAnzIcb96FjC+WG28=
++		</data>
++		<key>Headers/UQBackgroundCheckConfig.h</key>
++		<data>
++		oHnIXvl/kq5+PUlr7ztleNFLQxQ=
++		</data>
++		<key>Headers/UQBuilderController.h</key>
++		<data>
++		2dHT9gdcHG3R0d/U7WNXP8E+9K4=
++		</data>
++		<key>Headers/UQDocumentConfig.h</key>
++		<data>
++		WkZpycKk2QrSJ9JlSdk0VrGrcZc=
++		</data>
++		<key>Headers/UQEnrollmentBuilder.h</key>
++		<data>
++		RNNgRks37eVnHqBJJroD9LkmybU=
++		</data>
++		<key>Headers/UQFaceSessionBuilder.h</key>
++		<data>
++		dhJcSSeW8OsgD4yij2K/3AiDLRA=
++		</data>
++		<key>Headers/UQFacialRecognitionConfig.h</key>
++		<data>
++		VtunhNeUMqRNnrLsJvqyz+moB4s=
++		</data>
++		<key>Headers/UQInterfaceStyle.h</key>
++		<data>
++		LxzTOFRSVqZ8Vz1piN+Cc3QhIY0=
++		</data>
++		<key>Headers/UQLivenessGesture.h</key>
++		<data>
++		D4A5zFqencPuwmCrrbYjN+S5c6M=
++		</data>
++		<key>Headers/UQLookupBuilder.h</key>
++		<data>
++		RGMKqq3+5nK8qUGbIwYqxOggTvQ=
++		</data>
++		<key>Headers/UQObfuscationConfig.h</key>
++		<data>
++		7aifGVS+29/dTrKvu3212NMlhOI=
++		</data>
++		<key>Headers/UQReadingBuilder.h</key>
++		<data>
++		jVN3BVnABe3jta0LOxqov3hZwrU=
++		</data>
++		<key>Headers/UQReadingConfig.h</key>
++		<data>
++		ddTX1ApK9jTyK279eyvGxC/qEKg=
++		</data>
++		<key>Headers/UQScanConfig.h</key>
++		<data>
++		oEiEhSvH+kVw82OyNnM6EGvxEl4=
++		</data>
++		<key>Headers/UQSessionStatus.h</key>
++		<data>
++		MHCupRCdJsMwZ5lmeGQHT3+qJS4=
++		</data>
++		<key>Headers/UQTrace.h</key>
++		<data>
++		HompAFvaZsg4GME2p1bPoUsI7MI=
++		</data>
++		<key>Headers/UQTraceCategory.h</key>
++		<data>
++		SwvyeQyPATePImUAA2mA+SRiqyg=
++		</data>
++		<key>Headers/UQTraceEvent.h</key>
++		<data>
++		QW4l746lfYKCczyRJokNCC5VBeg=
++		</data>
++		<key>Headers/UQTracePage.h</key>
++		<data>
++		UWQlwLVybbYAluzusVrzvYHgZ48=
++		</data>
++		<key>Headers/UQTraceStatus.h</key>
++		<data>
++		UNAiwO6f87q+zs/wzCtcxYfOw70=
++		</data>
++		<key>Headers/UQTraceStatusCode.h</key>
++		<data>
++		EtVtOkNq0FubrbaLSFC69kt9G5s=
++		</data>
++		<key>Headers/UQTracer.h</key>
++		<data>
++		cZPoHNKx7c5URdZhAbVViA9FdX0=
++		</data>
++		<key>Headers/UqudoSDK.h</key>
++		<data>
++		HBVoBvoJ+SMnLPAZbe8fpSk/nYA=
++		</data>
++		<key>Info.plist</key>
++		<data>
++		Jrv1OPcGtm2gQbP/QsfN2CGpwzs=
++		</data>
++		<key>Modules/module.modulemap</key>
++		<data>
++		oNKt8vby+5t8n3pSOWIPKH99Umc=
++		</data>
++		<key>PrivacyInfo.xcprivacy</key>
++		<data>
++		4lUYwDD/RY2jjoDQCn3qY8kXNmM=
++		</data>
++		<key>Storyboard.storyboardc/04g-HH-sQI-view-0cO-lu-tbK.nib</key>
++		<data>
++		2cGsGXVM+H/m7SzZR6BY0YpH8f8=
++		</data>
++		<key>Storyboard.storyboardc/52q-x1-MKC-view-FL5-Yv-aUA.nib</key>
++		<data>
++		6JcBY5FuRFJ6dOSec7GgEl0UCJc=
++		</data>
++		<key>Storyboard.storyboardc/9B0-XC-klU-view-HiR-4i-bDR.nib</key>
++		<data>
++		P9xLPGLuMjb/ZuuNi/6DPmv1bow=
++		</data>
++		<key>Storyboard.storyboardc/Info.plist</key>
++		<data>
++		3TU5FLRPc950r+3C1cCN9ieIm3I=
++		</data>
++		<key>Storyboard.storyboardc/UAf-ri-RcT-view-via-1O-mRs.nib</key>
++		<data>
++		6RufC0HgMODL3M7CCPCjlNY5s5g=
++		</data>
++		<key>Storyboard.storyboardc/UIViewController-UAf-ri-RcT.nib</key>
++		<data>
++		gfGuMOQZemIgov1ek90t3lv0VDc=
++		</data>
++		<key>Storyboard.storyboardc/UIViewController-hna-h2-qe9.nib</key>
++		<data>
++		6rR6k43M3eylcDHUsB3K9SmIOHk=
++		</data>
++		<key>Storyboard.storyboardc/Xq8-jx-6gz-view-qvw-TI-Guu.nib</key>
++		<data>
++		uqjJSOUydlZLUPecZITvQAR5G84=
++		</data>
++		<key>Storyboard.storyboardc/ZZQ-OZ-AMD-view-quS-NQ-woP.nib</key>
++		<data>
++		PmkSZKpTF008FFs+ugqOpJEy5ys=
++		</data>
++		<key>Storyboard.storyboardc/backgroundCheckViewController.nib</key>
++		<data>
++		+QJsNILXhwbGleHlPbT23Sko+gs=
++		</data>
++		<key>Storyboard.storyboardc/dRD-FF-fO0-view-ZXM-Hw-FxR.nib</key>
++		<data>
++		nE/S2CmdnejJkc+pjTJMZKpH++0=
++		</data>
++		<key>Storyboard.storyboardc/hna-h2-qe9-view-6Ku-BL-TOz.nib</key>
++		<data>
++		zpPtc/oADV+bGu49PnqV9yk43gY=
++		</data>
++		<key>Storyboard.storyboardc/iboIDFaceRecHelpPageViewController.nib</key>
++		<data>
++		bXsVo/61FhX/15W63Twy/NKL7kY=
++		</data>
++		<key>Storyboard.storyboardc/orchestratorViewController.nib</key>
++		<data>
++		cQHCZA8+1nV1A936tDlDueszjZc=
++		</data>
++		<key>Storyboard.storyboardc/readerHelpPageViewController.nib</key>
++		<data>
++		JYnATLMwq+kFofE2AFDt7B4jNbg=
++		</data>
++		<key>Storyboard.storyboardc/readerViewController.nib</key>
++		<data>
++		bXu+T+lKL7UdDgXpIpao8i3pKuw=
++		</data>
++		<key>Storyboard.storyboardc/uaereaderHelpPageViewController.nib</key>
++		<data>
++		fhB5pWYbHUfvPW6/yi5/WabPqMo=
++		</data>
++		<key>fonts.bundle/Poppins-Bold.ttf</key>
++		<data>
++		h1zwzs1ke88i551jPYaMGx7Jjfo=
++		</data>
++		<key>fonts.bundle/Poppins-Light.ttf</key>
++		<data>
++		4kepIVjhEvi/e2OMjZU4HWawDbs=
++		</data>
++		<key>fonts.bundle/Poppins-Medium.ttf</key>
++		<data>
++		KD8htE772/J2uoAr4tlJo2u8QjM=
++		</data>
++		<key>fonts.bundle/Poppins-Regular.ttf</key>
++		<data>
++		/dMALn2BTuR8HBuEh8csa7s6LQA=
++		</data>
++		<key>fonts.bundle/Poppins-SemiBold.ttf</key>
++		<data>
++		ikrOk5LQa8t/jqL1FpsH5MODqQ0=
++		</data>
++		<key>uq-styles-dark.plist</key>
++		<data>
++		elrzhHJObka3Pf/RT3dwxgcBnzQ=
++		</data>
++		<key>uq-styles.plist</key>
++		<data>
++		SWooMa7C+9Bxe8Uy8KEZ6Fg5PI8=
++		</data>
++		<key>uq-text.plist</key>
++		<data>
++		9yOMAyK7qeqCGMk0glL4p3oz1fw=
++		</data>
++	</dict>
++	<key>files2</key>
++	<dict>
++		<key>Assets.car</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			JjSOPP9Vi87ovMevglzGacgsj1RiO8P3J8OWE+MHQeQ=
++			</data>
++		</dict>
++		<key>Headers/UQAccountRecoveryBuilder.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			L4w+8skeBeEAEnaykdIUD6xdxfPiArhqYXtEM1mJ8SY=
++			</data>
++		</dict>
++		<key>Headers/UQBackgroundCheckConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			y3BfJadGbGgV2pZbfk6D7k/M5ICCMrvn8zsDt21UH14=
++			</data>
++		</dict>
++		<key>Headers/UQBuilderController.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			wKga3qx9LddfN/QjPcnO4XMCbMHE+yYCBVrH2xqFeBw=
++			</data>
++		</dict>
++		<key>Headers/UQDocumentConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			IanbgP3L11ucTPffYwp84kTlr03HVf3HMQyF1uLEvg4=
++			</data>
++		</dict>
++		<key>Headers/UQEnrollmentBuilder.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			X0veZpcr0D3qlM9s2rIqPmRRLHYnDGtVDjW/oCoRXmM=
++			</data>
++		</dict>
++		<key>Headers/UQFaceSessionBuilder.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			xcl/gKlChPst1sIaTGWCZNNtbQ7Pa7ieKAJdVr+CD0U=
++			</data>
++		</dict>
++		<key>Headers/UQFacialRecognitionConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			E6wppRoPEiCAHVC3DRd00daFy8NEHbfzAdzQJWgYAwk=
++			</data>
++		</dict>
++		<key>Headers/UQInterfaceStyle.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			HREMArqyRJ3vdUoP7yo1FYUqH4sP8wJyiVi8Dak/gAc=
++			</data>
++		</dict>
++		<key>Headers/UQLivenessGesture.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			SvlNYwZKXsSyXthKykx2Eoz+5lP7lPcpEHGrWbO1Spc=
++			</data>
++		</dict>
++		<key>Headers/UQLookupBuilder.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			/Lhx+S/ZB8QhApacFxnLpdak2UBLHpyOC71I9J+2EBI=
++			</data>
++		</dict>
++		<key>Headers/UQObfuscationConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			AulvxZHn492gTHwrRQCUpri+xpL6Sv/LA/Z8yXkMJJg=
++			</data>
++		</dict>
++		<key>Headers/UQReadingBuilder.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			ExMPShIZX+JgpUwHxTZDSkAzw5IWB6lL4ib9JPHctS4=
++			</data>
++		</dict>
++		<key>Headers/UQReadingConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			Nu2dErmjHXCW0lgrIXUXqp/uN4bHCmggNbmO/IXjfMc=
++			</data>
++		</dict>
++		<key>Headers/UQScanConfig.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			AdEBQzMNqiEzC5Sr0gX6MbZZ6WWEbNI36SAiOJCcbXo=
++			</data>
++		</dict>
++		<key>Headers/UQSessionStatus.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			oRpVbpNvH2yDFvRknWulrN6aw7QbWSXUxbvQa/HYBPw=
++			</data>
++		</dict>
++		<key>Headers/UQTrace.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			QyLYLTo3V287Z3swkB7HjFwEM/PaXla0Y9E2ximt+zM=
++			</data>
++		</dict>
++		<key>Headers/UQTraceCategory.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			S16UyCgY6R1yQhTIAzlm4aLq8vumOSGVWliMzVPPmTk=
++			</data>
++		</dict>
++		<key>Headers/UQTraceEvent.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			nfr9XZLRCf0iau/YQY5BL5GaTRpdd/yTCiwg9s36crU=
++			</data>
++		</dict>
++		<key>Headers/UQTracePage.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			3usU/joeP7YsxC5JK4j1BvfjrZLcMczyNrrljdC6ARA=
++			</data>
++		</dict>
++		<key>Headers/UQTraceStatus.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			N7fqFJ1NgbbAk2NHsEwrG0r+sVS9emRtTZYQX8yOD/4=
++			</data>
++		</dict>
++		<key>Headers/UQTraceStatusCode.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			fX9koxP0y0/WRMv+1L0vZILqDMZCCZGVryITF4BGwHk=
++			</data>
++		</dict>
++		<key>Headers/UQTracer.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			Nn/2QbN3EAgxM/920XsKExp9vU1V0zfqYWn7o78OC8E=
++			</data>
++		</dict>
++		<key>Headers/UqudoSDK.h</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			/WaIsM3C1BqO+Xx0S8VWuS4IembWOILhPn1GDj05mX0=
++			</data>
++		</dict>
++		<key>Modules/module.modulemap</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			4XccNyBV+RzXpPhSldDgeddVpYpjFAgX/oNUTHDCSAw=
++			</data>
++		</dict>
++		<key>PrivacyInfo.xcprivacy</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			iBcjlKedZpodt8ksE3ReXjir4VGLuOeLFPAO3OKMqyU=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/04g-HH-sQI-view-0cO-lu-tbK.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			BKk/dRmF/F12AnQKciYJhDSArGo1Y2S2+Ik4WdbezOo=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/52q-x1-MKC-view-FL5-Yv-aUA.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			m+SLBMK0KPHByMXf9kJX76P7Mu3H4Oc9ijugUJ7RUZc=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/9B0-XC-klU-view-HiR-4i-bDR.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			6bt+fo7/Rl5jjM/bt76z3rjeTZZDr+v2blT1dHrx4lQ=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/Info.plist</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			YliS0dTkYUQnEYNixDIEdq7Ps6uCuTM9kOjDdBZCl0k=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/UAf-ri-RcT-view-via-1O-mRs.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			eRSGfGUhuMgGWWAghjPlwRHZRQdb2C876mSL/Qh5PlQ=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/UIViewController-UAf-ri-RcT.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			687RsXiUdHzdlUj4b0boHiwA1oSkQXkeTDdu0Qo9jf4=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/UIViewController-hna-h2-qe9.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			ujIk0woSYKgFDaH9/3R8qKy8pXgCOpOsFDIyrtCU4Zo=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/Xq8-jx-6gz-view-qvw-TI-Guu.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			qfpY0ALyBykYdkjJ+9HjJOiRvxDPJN0B5a6oo2J6Hl4=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/ZZQ-OZ-AMD-view-quS-NQ-woP.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			eY1YUAMsldr78maD06XvYuOIhv8HD1SK8+ltctnN/Oo=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/backgroundCheckViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			PBUihGC3EKrxStpREI41YmgPrHTAE7zvsSVvURPfILA=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/dRD-FF-fO0-view-ZXM-Hw-FxR.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			8ec7yWibxZBS0+PMJromAI/cDAwzArnD+Mm5u0n2Vp8=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/hna-h2-qe9-view-6Ku-BL-TOz.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			i2zZyR/0rCwMBvGdgdX32Lp67RXrRxj5RGCHXaaTJ8w=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/iboIDFaceRecHelpPageViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			1lTvVOVYYBxpEhajPuaUZuvgLTF1drKtNxROg+xCgz4=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/orchestratorViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			3aon00sd0PjrUGzo9F2+7X2zEfCFaDSpe1IMSQ1yt4Q=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/readerHelpPageViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			fu2h5bn3vLtrjaGtxwVPinvcZ9SUsTHFFmAhDC3QoaA=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/readerViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			hAnPH28p31nVTMBm2bfsMSNuZouS4g1ySkqzkuabNZc=
++			</data>
++		</dict>
++		<key>Storyboard.storyboardc/uaereaderHelpPageViewController.nib</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			Hav8nH+pDtYSVuwde6qFl77yH9PpmYbPFD6pxFysWfQ=
++			</data>
++		</dict>
++		<key>fonts.bundle/Poppins-Bold.ttf</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			chlUfuJTNMusD+SzrPC/Yx5I67YixxrwOO2qplLGCHU=
++			</data>
++		</dict>
++		<key>fonts.bundle/Poppins-Light.ttf</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			ZH8BTTaCLvfgQT/7tlWYrgy1f7eY5jXGORLJPZTrNWo=
++			</data>
++		</dict>
++		<key>fonts.bundle/Poppins-Medium.ttf</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			jZCYg96BNE4PvP7zDpMYcuktmu7N+Fttz24LKMB46Y4=
++			</data>
++		</dict>
++		<key>fonts.bundle/Poppins-Regular.ttf</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			cH/cXIurV6kAYcao7Xtw1f+4L8gQ6ZTnn5C6zokMJVo=
++			</data>
++		</dict>
++		<key>fonts.bundle/Poppins-SemiBold.ttf</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			JIwCRLNQ7GiICZaqa+bXeWJ0tJmS1fy77+JRkGqk6jY=
++			</data>
++		</dict>
++		<key>uq-styles-dark.plist</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			M4TLwufcgfsPNVhOJFFjGavq7SpdbEaEtaNx4BKrbzU=
++			</data>
++		</dict>
++		<key>uq-styles.plist</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			GcagENhp31krz+VU+Xo9jVAGgDVKmmY6NVEKoZeOKQs=
++			</data>
++		</dict>
++		<key>uq-text.plist</key>
++		<dict>
++			<key>hash2</key>
++			<data>
++			DwBB3tAgKSxfwAayjNFlnNhQ4GO6o3na+HVhauRYRYc=
++			</data>
++		</dict>
++	</dict>
++	<key>rules</key>
++	<dict>
++		<key>^.*</key>
++		<true/>
++		<key>^.*\.lproj/</key>
++		<dict>
++			<key>optional</key>
++			<true/>
++			<key>weight</key>
++			<real>1000</real>
++		</dict>
++		<key>^.*\.lproj/locversion.plist$</key>
++		<dict>
++			<key>omit</key>
++			<true/>
++			<key>weight</key>
++			<real>1100</real>
++		</dict>
++		<key>^Base\.lproj/</key>
++		<dict>
++			<key>weight</key>
++			<real>1010</real>
++		</dict>
++		<key>^version.plist$</key>
++		<true/>
++	</dict>
++	<key>rules2</key>
++	<dict>
++		<key>.*\.dSYM($|/)</key>
++		<dict>
++			<key>weight</key>
++			<real>11</real>
++		</dict>
++		<key>^(.*/)?\.DS_Store$</key>
++		<dict>
++			<key>omit</key>
++			<true/>
++			<key>weight</key>
++			<real>2000</real>
++		</dict>
++		<key>^.*</key>
++		<true/>
++		<key>^.*\.lproj/</key>
++		<dict>
++			<key>optional</key>
++			<true/>
++			<key>weight</key>
++			<real>1000</real>
++		</dict>
++		<key>^.*\.lproj/locversion.plist$</key>
++		<dict>
++			<key>omit</key>
++			<true/>
++			<key>weight</key>
++			<real>1100</real>
++		</dict>
++		<key>^Base\.lproj/</key>
++		<dict>
++			<key>weight</key>
++			<real>1010</real>
++		</dict>
++		<key>^Info\.plist$</key>
++		<dict>
++			<key>omit</key>
++			<true/>
++			<key>weight</key>
++			<real>20</real>
++		</dict>
++		<key>^PkgInfo$</key>
++		<dict>
++			<key>omit</key>
++			<true/>
++			<key>weight</key>
++			<real>20</real>
++		</dict>
++		<key>^embedded\.provisionprofile$</key>
++		<dict>
++			<key>weight</key>
++			<real>20</real>
++		</dict>
++		<key>^version\.plist$</key>
++		<dict>
++			<key>weight</key>
++			<real>20</real>
++		</dict>
++	</dict>
++</dict>
++</plist>
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Bold.ttf b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Bold.ttf
+new file mode 100644
+index 0000000..00559ee
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Bold.ttf differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Light.ttf b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Light.ttf
+new file mode 100644
+index 0000000..bc36bcc
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Light.ttf differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Medium.ttf b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Medium.ttf
+new file mode 100644
+index 0000000..6bcdcc2
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Medium.ttf differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Regular.ttf b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Regular.ttf
+new file mode 100644
+index 0000000..9f0c71b
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-Regular.ttf differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-SemiBold.ttf b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-SemiBold.ttf
+new file mode 100644
+index 0000000..74c726e
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/fonts.bundle/Poppins-SemiBold.ttf differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/uq-styles-dark.plist b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/uq-styles-dark.plist
+new file mode 100644
+index 0000000..a949b74
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/uq-styles-dark.plist differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/uq-styles.plist b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/uq-styles.plist
+new file mode 100644
+index 0000000..088a8b4
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/uq-styles.plist differ
+diff --git a/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/uq-text.plist b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/uq-text.plist
+new file mode 100644
+index 0000000..5e581ff
+Binary files /dev/null and b/node_modules/uqudosdk-react-native/ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/uq-text.plist differ
+diff --git a/node_modules/uqudosdk-react-native/uqudosdk-react-native.podspec b/node_modules/uqudosdk-react-native/uqudosdk-react-native.podspec
+index 17b7664..8c5eda6 100644
+--- a/node_modules/uqudosdk-react-native/uqudosdk-react-native.podspec
++++ b/node_modules/uqudosdk-react-native/uqudosdk-react-native.podspec
+@@ -1,17 +1,34 @@
+ require "json"
+ package = JSON.parse(File.read(File.join(__dir__, "package.json")))
++
+ Pod::Spec.new do |s|
+   s.name         = package["name"]
+   s.version      = package["version"]
+-  s.description  = package["description"]
+   s.summary      = package["description"]
++  s.description  = package["description"]
+   s.license      = "MIT"
+-  s.homepage     = 'https://uqu.do'
++  s.homepage     = "https://uqu.do"
+   s.platforms    = { :ios => "12.0" }
+-  s.source_files = "ios/*.{h,c,m,swift}"
+-  s.author       = { 'uqudo' => 'hello@uqu.do' }
+-  s.source = { :http => 'https://uqudo.com' }
+-  s.header_dir = 'UqudoSDK'
+-  s.dependency 'React'
+-  s.dependency 'UqudoSDK', '3.6.0'
++
++  s.source_files = "ios/*.{h,m,mm,swift}"
++  s.author       = { "uqudo" => "hello@uqu.do" }
++  s.source       = { :http => "https://uqudo.com" }
++
++  s.dependency "React"
++  s.dependency "UqudoSDK", "3.6.0"
++
++  # ✅ Expose headers from both device + simulator slices
++  s.public_header_files = [
++    "ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/*.h",
++    "ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/*.h"
++  ]
++
++  # ✅ Ensure source_files includes headers too
++  s.source_files = [
++   "ios/UqudoSDK.xcframework/ios-arm64/UqudoSDK.framework/Headers/*.h",
++    "ios/UqudoSDK.xcframework/ios-arm64_x86_64-simulator/UqudoSDK.framework/Headers/*.h"
++  ]
++
++  # (Optional) set header_dir so you can import as <UqudoSDK/...>
++  s.header_dir = "UqudoSDK"
+ end

@@ -3545,6 +3545,10 @@ PODS:
   - SocketRocket (0.7.1)
   - TouchID (4.4.1):
     - React
+  - UqudoSDK (3.6.0)
+  - uqudosdk-react-native (3.6.0):
+    - React
+    - UqudoSDK (= 3.6.0)
   - VisionCamera (4.7.2):
     - VisionCamera/Core (= 4.7.2)
     - VisionCamera/React (= 4.7.2)
@@ -3691,6 +3695,7 @@ DEPENDENCIES:
   - RNWorklets (from `../node_modules/react-native-worklets`)
   - SocketRocket (~> 0.7.1)
   - TouchID (from `../node_modules/react-native-touch-id`)
+  - uqudosdk-react-native (from `../node_modules/uqudosdk-react-native`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -3721,6 +3726,7 @@ SPEC REPOS:
     - SDWebImageWebPCoder
     - Sentry
     - SocketRocket
+    - UqudoSDK
     - ZXingObjC
 
 EXTERNAL SOURCES:
@@ -3985,6 +3991,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-worklets"
   TouchID:
     :path: "../node_modules/react-native-touch-id"
+  uqudosdk-react-native:
+    :path: "../node_modules/uqudosdk-react-native"
   VisionCamera:
     :path: "../node_modules/react-native-vision-camera"
   Yoga:
@@ -4146,10 +4154,12 @@ SPEC CHECKSUMS:
   Sentry: b53951377b78e21a734f5dc8318e333dbfc682d7
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   TouchID: 6d9af299007675845fe9e23bd2701f4354613366
+  UqudoSDK: 857ab8dfaf96a1fe3f2237a381729d3f96b62d8d
+  uqudosdk-react-native: 46ea391b0285dfadfa7f9cc123baf7d5c73c6dee
   VisionCamera: 30b358b807324c692064f78385e9a732ce1bebfe
   Yoga: c6dc84349a2b99e1900fe5729f5c34df75c009f2
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 10c6e39f059a5dc7d6eb31b9d6bd8849bd50f5b2
+PODFILE CHECKSUM: a5249ada55d70816b9d544d69a7d0edba7e9e5d6
 
 COCOAPODS: 1.16.2
