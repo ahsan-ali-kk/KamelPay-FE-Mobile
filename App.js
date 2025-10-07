@@ -12,7 +12,7 @@ import {UpdateVersion, TermsAndConditions} from "./src/containers";
 import {checkBiometricAvailable, getProfile} from "./src/store/actions/Auth.action";
 import {CLoading} from "./src/uiComponents";
 import {useTranslation} from "react-i18next";
-import SplashScreen from "react-native-splash-view";
+import {hideSplash} from "react-native-splash-view";
 // import {UqudoIdSDK} from "uqudosdk-react-native";
 // import {OneKycSDK} from "react-native-onekyc";
 import ManageCards from "./src/pages/cardManagement/manageCards/ManageCards";
@@ -90,7 +90,7 @@ const NewApp = () => {
 
       initOneKyc();
 
-      SplashScreen.hide();
+      hideSplash();
     })();
 
     dispatch(getCountries());
