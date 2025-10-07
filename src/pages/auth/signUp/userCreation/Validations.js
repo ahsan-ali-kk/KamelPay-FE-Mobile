@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import {validateNumberRegex} from "../../../../utils/methods";
-import globalValidationHelper from '../../../../utils/globalValidationHelper'
+import {passwordAndConfirmPasswordValidation} from '../../../../utils/globalValidationHelper'
 
 const scheme = (regex) => Yup.object().shape({
     email: Yup.string().email('VALIDATION.EMAIL.EMAIL'),
@@ -11,7 +11,6 @@ const scheme = (regex) => Yup.object().shape({
     referralCode: Yup.string()
         .matches(/^[a-zA-Z0-9]+$/, "VALIDATION.REFERRAL_CODE.STRING_DIGIT_OR_CHARACTER"),
 
-    
     termsAndCondition: Yup.bool().oneOf([true], 'VALIDATION.TERMS_AND_CONDITION.REQUIRED'),
 
     nationality: Yup.string().label('VALIDATION.NATIONALITY.LABEL').required("VALIDATION.NATIONALITY.REQUIRED"),
@@ -36,7 +35,7 @@ const scheme = (regex) => Yup.object().shape({
         //     if (!value && !emirateID) return false;
         //     return true;
         // }),
-    ...globalValidationHelper,
+    ...passwordAndConfirmPasswordValidation,
 
 });
 

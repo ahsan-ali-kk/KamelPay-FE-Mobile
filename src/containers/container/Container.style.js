@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {themes as theme, themes} from "../../theme/colors";
-import {getLayoutDirection} from "../../utils/methods";
+// import {getLayoutDirection} from "../../utils/methods";
 import {HEADER_HEIGHT} from "./Container";
 
 export default StyleSheet.create({

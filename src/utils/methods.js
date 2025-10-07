@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Platform, Alert, PermissionsAndroid, Linking, View } from 'react-native';
+import { Platform, Alert, PermissionsAndroid, Linking, I18nManager, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { USER_BIO_KEY } from './asyncStorage/Constants';
 import React, { useCallback } from 'react';
@@ -489,7 +489,7 @@ export const getPhone = (user) => {
 };
 
 export const getLayoutDirection = () => {
-    return false;
+    return I18nManager?.isRTL || false;
 };
 
 

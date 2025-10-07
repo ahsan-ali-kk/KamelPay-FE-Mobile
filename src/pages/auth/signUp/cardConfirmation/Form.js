@@ -6,9 +6,9 @@ import {CButton, ProgressiveImage, CText, DateTimePicker} from '../../../../uiCo
 import Styles from '../../Auth.style';
 import KamlepayIcon from "../../../../assets/icons/KamelPayIcon";
 import GlobalStyle from "../../../../assets/stylings/GlobalStyle";
+import OTPInputView from "../../../../lib/react-native-otp-input";
 import {themes} from "../../../../theme/colors";
 import {useTranslation} from "react-i18next";
-import OTPInputView from '../../../../uiComponents/OTPInputView';
 
 function CForm({submit, loginRoute, loading}) {
     const { t, i18n } = useTranslation();

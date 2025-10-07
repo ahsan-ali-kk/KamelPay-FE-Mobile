@@ -13,13 +13,13 @@ import {
 } from '../../../../uiComponents';
 import Styles from '../../Auth.style';
 import { useTranslation } from "react-i18next";
+import OTPInputView from "../../../../lib/react-native-otp-input";
 import { themes } from "../../../../theme/colors";
 import GlobalStyle from "../../../../assets/stylings/GlobalStyle";
 import { FIND_USER_SEGMENT } from "../helper";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { QrBarcodeScanner } from "../../../../containers";
 import Popup from "../../../../uiComponents/popup/Popup";
-import OTPInputView from '../../../../uiComponents/OTPInputView';
 
 function CForm(props) {
 
@@ -46,6 +46,19 @@ function CForm(props) {
                                 {t('SCAN_BARCODE.SUB_TITLE')}
                             </CText>
                         </View>
+
+                       <View style={[GlobalStyle.flex_1, {alignItems: "center"}]}>
+                           <ProgressiveImage
+                               style={{
+                                   width: 300,
+                                   height: 100
+                               }}
+                               resizeMode="contain"
+                               source={require('./../../../../assets/images/card-qr-code.png')}
+                           />
+                       </View>
+
+                        <CText style={[GlobalStyle.shortInfoModalTitle, {marginTop: 15, marginBottom: -10}]}>OR</CText>
 
                         <ProgressiveImage
                             style={{
@@ -143,6 +156,11 @@ function CForm(props) {
                                     rightButton={() => renderQrButton()}
                                     onSubmitEditing={() => handleSubmit()}
                                 />
+
+                                {/*<ProgressiveImage*/}
+                                {/*    source={require('../../../../assets/images/card-digits.png')}*/}
+                                {/*    style={Styles.cardDetailHeaderIconImage}*/}
+                                {/*/>*/}
 
                             </Fragment> : null}
 

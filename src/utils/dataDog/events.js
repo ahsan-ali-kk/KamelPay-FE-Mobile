@@ -1,4 +1,4 @@
-// import {DdSdkReactNative} from "@datadog/mobile-react-native";
+import {DdSdkReactNative} from "@datadog/mobile-react-native";
 import moment from "moment";
 import {getCardIsActivatedOrStatus} from "../../uiComponents/creditCardUi/CreditCardUi";
 
@@ -17,17 +17,17 @@ export const loginUser = (user) => {
         payload.id = user.userId.toString();
     }
 
-    // DdSdkReactNative.setUserInfo(payload);
+    DdSdkReactNative.setUserInfo(payload);
 };
 
 
 export const singleCardStatus = (card) => {
-    // DdSdkReactNative.addUserExtraInfo( {
-    //     [card?.cardType]:  {
-    //         status: getCardIsActivatedOrStatus(card, true).id,
-    //         walletID: card?.walletID,
-    //     },
-    // });
+    DdSdkReactNative.addUserExtraInfo( {
+        [card?.cardType]:  {
+            status: getCardIsActivatedOrStatus(card, true).id,
+            walletID: card?.walletID,
+        },
+    });
 };
 export const setUserDetails = (user) => {
     let payload = {};
@@ -102,5 +102,5 @@ export const setUserDetails = (user) => {
     }
 
     console.log('addUserExtraInfo', payload);
-    // DdSdkReactNative.addUserExtraInfo(payload);
+    DdSdkReactNative.addUserExtraInfo(payload);
 }

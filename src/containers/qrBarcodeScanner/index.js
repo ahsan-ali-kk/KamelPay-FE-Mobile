@@ -39,7 +39,7 @@ const QrBarcodeScanner = forwardRef((props, ref) => {
     }, [translateY]);
 
     const stopLine = useCallback(() => {
-        loopRef?.current?.stop?.();
+        loopRef.current?.stop?.();
         loopRef.current = null;
     }, []);
 

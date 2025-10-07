@@ -53,8 +53,8 @@ export default StyleSheet.create({
     },
     skuItemContent: {
         marginLeft: 15
-        // marginLeft: false ? 0 : 15,
-        // marginRight: false ? 15 : 0,
+        // marginLeft: getLayoutDirection() ? 0 : 15,
+        // marginRight: getLayoutDirection() ? 15 : 0,
     },
 
     listItem: {

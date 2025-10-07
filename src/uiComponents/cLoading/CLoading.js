@@ -7,8 +7,8 @@ import LottieView from "lottie-react-native";
 import {useTranslation} from "react-i18next";
 
 const CLoading = ({style, loading, text,
-                      themes,
-                      color = themes?.light?.colors?.primary,
+                      theme,
+                      color = theme?.['light'].colors.secondary,
                       showAnimation = false,
                       transparent = false,
                       animationStyle,
@@ -35,7 +35,7 @@ const CLoading = ({style, loading, text,
 
 CLoading.defaultProps = {
     loading: false,
-    color: themes?.light?.colors?.primary
+    color: themes['light'].colors.primary
 };
 
 export default React.memo(CLoading);

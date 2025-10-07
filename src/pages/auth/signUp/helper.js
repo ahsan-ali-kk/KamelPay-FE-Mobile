@@ -1,6 +1,11 @@
 import {whatsAppNumber} from "../../../utils/intercepter";
-import {Alert, Linking} from "react-native";
+import {Alert, Linking, TouchableOpacity} from "react-native";
 import Popup from "../../../uiComponents/popup/Popup";
+import Styles from "../Auth.style";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import KamelpayIcon from "../../../assets/icons/KamelPayIcon";
+import {CText} from "../../../uiComponents";
+import React from "react";
 
 const KYC_SEGMENT = [
     {
@@ -144,6 +149,10 @@ const ROUTES_AGAINST_STATUS = {
     KYC_PENDING: {
         _id: "KYC_PENDING",
         routeName: "kyc"
+    },
+    LIVENESS_VERIFICATION_PENDING: {
+        _id: "LIVENESS_VERIFICATION_PENDING",
+        routeName: "liveness"
     }
 }
 
@@ -156,6 +165,24 @@ const JOURNEY_BEGIN = {
     }
 }
 
+const ScanBox = ({ onPress, title, description, type, loading }) => (
+    <TouchableOpacity style={Styles.scanBox} disabled={loading} activeOpacity={0.7} onPress={onPress}>
+        {type === "PASSPORT" ? <MaterialCommunityIcons name="passport"
+                                                       style={Styles.scanBoxIcon}
+                                                       size={40}  /> : null}
+        {type === "EMIRATES_ID" ? <KamelpayIcon name="emirates-ID"
+                                                style={Styles.scanBoxIcon}
+                                                size={40}/> : null}
+        {type === "LIVENESS" ? <MaterialCommunityIcons name="camera-plus"
+                                                       style={Styles.scanBoxIcon}
+                                                       size={40}/> : null}
+        <CText style={Styles.scanBoxText}>{title}</CText>
+        <CText style={Styles.scanBoxDescription}>{description}</CText>
+    </TouchableOpacity>
+);
+
+const LIVENESS_VERIFICATION_PENDING = 'LIVENESS_VERIFICATION_PENDING'
+
 export  {
     KYC_SEGMENT,
     FIND_USER_SEGMENT,
@@ -164,7 +191,9 @@ export  {
     IDENTIFICATION_TYPE,
     ROUTES_AGAINST_STATUS,
     JOURNEY_BEGIN,
+    LIVENESS_VERIFICATION_PENDING,
     openWhatsApp,
-    errorPopup
+    errorPopup,
+    ScanBox
 }
 

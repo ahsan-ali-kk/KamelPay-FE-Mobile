@@ -7,6 +7,7 @@ import AuthOTP from './auth/authOTP/AuthOTP';
 import ChangePhoneNumber from './auth/changePhoneNumber/ChangePhoneNumber';
 import SignupFindUser from './auth/signUp/findUser';
 import SignupKyc from './auth/signUp/kyc';
+import SignupLiveness from './auth/signUp/liveness';
 import SignupEnterPhone from './auth/signUp/enterPhone';
 import SignupPasswordAndTermsAndCondition from './auth/signUp/passwordAndTermsAndCondition';
 
@@ -167,6 +168,7 @@ export {
     NewPassword,
     SignupFindUser,
     SignupKyc,
+    SignupLiveness,
     SignupEnterPhone,
     SignupPasswordAndTermsAndCondition,
 

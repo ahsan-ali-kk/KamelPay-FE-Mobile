@@ -2615,3 +2615,10 @@ export const preserveNotification = (data) => (dispatch) => {
         data: notification
     });
 };
+
+export const setCurrentScreen = (data = '') => (dispatch) => {
+    dispatch({
+        type: GLOBAL.SET_CURRENT_SCREEN,
+        data: data
+    });
+};

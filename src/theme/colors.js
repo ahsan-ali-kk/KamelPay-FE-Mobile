@@ -1,3 +1,4 @@
+import {isIOS} from "../utils/deviceInfo";
 import {NativeModules} from "react-native";
 
 export const STATUS_COLORS = {
@@ -21,7 +22,7 @@ const mentions = {
     mentionOtherColor: '#F3BE08'
 };
 let urduFont = 'JannaLT-Regular';
-export const themes = {
+export let themes = {
     black: {
         backgroundColor: '#000000',
         focusedBackground: '#0d0d0d',

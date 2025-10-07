@@ -3,7 +3,7 @@ import {View, Dimensions} from 'react-native';
 import Styles from "./CardSelection.style";
 import CreditCardUi from "../../../uiComponents/creditCardUi/CreditCardUi";
 import Carousel from 'react-native-snap-carousel';
-import {foundProduct, getLayoutDirection} from "../../../utils/methods";
+import {foundProduct} from "../../../utils/methods";
 import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
 const windowWidth = Dimensions.get('window').width;

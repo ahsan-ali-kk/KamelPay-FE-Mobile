@@ -189,6 +189,7 @@ export default {
             SUBSCRIPTIONS: "Subscriptions",
             GET: 'GET',
             SEE_TRANSACTIONS: "See Transactions",
+            CAPTURE_SELFIE: "Capture Selfie"
         },
         EID_CONFIRMATION: {
             TITLE: "Almost there!",
@@ -313,6 +314,8 @@ export default {
             ENTER_YOUR_PHONE_NUMBER: "Enter your phone number",
             LAST_STEP_TITLE: "Finish setting up your account",
             LAST_STEP_SUB_TITLE: "Just create a password. Adding an referral code is optional.",
+            LIVENESS_TITLE: "Identity verification selfie",
+            LIVENESS_SUB_TITLE: "Please capture your selfie to confirm your identity.",
         },
         FORGOT_PASSWORD: {
             TITLE: 'Forgot Password',
@@ -1610,6 +1613,10 @@ export default {
             REFER_A_FRIEND: "Refer a Friend",
             USE_CODE_FOR: "Use the code for",
             REFERRAL_APPLICABLE_FOR: "Referral is applicable for",
+        },
+        TAKE_SELFIE: {
+            TITLE: "Capture a clear selfie",
+            SUB_TITLE: "Tap anywhere on this card to open the camera.",
         },
     }
 };

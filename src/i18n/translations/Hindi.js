@@ -189,6 +189,7 @@ export default {
             SUBSCRIPTIONS: "सब्सक्रिप्शन्स",
             GET: "प्राप्त करें",
             SEE_TRANSACTIONS: "लेन-देन देखें",
+            CAPTURE_SELFIE: "सेल्फ़ी कैप्चर करें"
         },
         EID_CONFIRMATION: {
             TITLE: "लगभग हो गया!",
@@ -312,7 +313,9 @@ export default {
             WHATS_APP: "व्हाट्सऐप",
             ENTER_YOUR_PHONE_NUMBER: "अपना फोन नंबर दर्ज करें",
             LAST_STEP_TITLE: "अपना खाता सेटअप पूरा करें",
-            LAST_STEP_SUB_TITLE: "बस एक पासवर्ड बनाएं। रेफ़रल कोड जोड़ना वैकल्पिक है।"
+            LAST_STEP_SUB_TITLE: "बस एक पासवर्ड बनाएं। रेफ़रल कोड जोड़ना वैकल्पिक है।",
+            LIVENESS_TITLE: "पहचान सत्यापन सेल्फ़ी",
+            LIVENESS_SUB_TITLE: "अपनी पहचान की पुष्टि के लिए कृपया सेल्फ़ी कैप्चर करें."
         },
         FORGOT_PASSWORD: {
             TITLE: 'पासवर्ड याद नहीं है?',
@@ -1571,6 +1574,10 @@ export default {
             REFER_A_FRIEND: "किसी मित्र को आमंत्रित करें",
             USE_CODE_FOR: "के लिए कोड का उपयोग करें",
             REFERRAL_APPLICABLE_FOR: "रेफरल लागू है",
+        },
+        TAKE_SELFIE: {
+            TITLE: "एक स्पष्ट सेल्फ़ी कैप्चर करें",
+            SUB_TITLE: "कैमरा खोलने के लिए इस कार्ड पर कहीं भी टैप करें."
         }
     }
 };

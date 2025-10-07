@@ -1,12 +1,12 @@
 import * as Yup from 'yup';
-import globalValidationHelper from '../../../utils/globalValidationHelper'
+import {newPasswordAndConfirmNewPasswordValidation} from "../../../utils/globalValidationHelper";
 
 const scheme = (type) => ({
     ...(!type ? {
-        oldPassword: globalValidationHelper.password
+        oldPassword: Yup.string()
+            .required('VALIDATION.OLD_PASSWORD.REQUIRED')
     } : {}),
-    newPassword: globalValidationHelper.password,
-    confirmPassword: globalValidationHelper.confirmPassword
+   ...newPasswordAndConfirmNewPasswordValidation
 });
 
 export default (type) => Yup.object().shape(scheme(type));

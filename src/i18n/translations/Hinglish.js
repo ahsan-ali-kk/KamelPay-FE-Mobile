@@ -189,6 +189,7 @@ export default {
             SUBSCRIPTIONS: "Subscriptions",
             GET: "GET",
             SEE_TRANSACTIONS: "Transactions dekho",
+            CAPTURE_SELFIE: "Selfie capture karo"
         },
         EID_CONFIRMATION: {
             TITLE: "Almost there!",
@@ -312,7 +313,9 @@ export default {
             WHATS_APP: "WhatsApp",
             ENTER_YOUR_PHONE_NUMBER: "Apna phone number enter karein",
             LAST_STEP_TITLE: "Apna account setup complete karein",
-            LAST_STEP_SUB_TITLE: "Sirf ek password banayein. Referral code add karna optional hai."
+            LAST_STEP_SUB_TITLE: "Sirf ek password banayein. Referral code add karna optional hai.",
+            LIVENESS_TITLE: "Identity verification selfie",
+            LIVENESS_SUB_TITLE: "Apni pehchaan confirm karne ke liye please selfie capture karein."
         },
         FORGOT_PASSWORD: {
             TITLE: 'Password bhool gaye',
@@ -1565,6 +1568,10 @@ export default {
             REFER_A_FRIEND: "Dost ko Refer karo",
             USE_CODE_FOR: "Code use karo for",
             REFERRAL_APPLICABLE_FOR: "Referral lagoo hai",
+        },
+        TAKE_SELFIE: {
+            TITLE: "Clear selfie capture karo",
+            SUB_TITLE: "Camera kholne ke liye is card par kahin bhi tap karein."
         }
     }
 };

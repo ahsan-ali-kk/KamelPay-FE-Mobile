@@ -4,7 +4,7 @@ import Styles from "../../auth/Auth.style";
 import CForm from "./Form";
 import {ViewContainer, Container} from "../../../containers";
 import {useDispatch, useSelector} from "react-redux";
-// import { RSA } from 'react-native-rsa-native';
+import { RSA } from 'react-native-rsa-native';
 import {verifyActivateCard} from "../../../store/actions/CardManagement.action";
 import Popup from "../../../uiComponents/popup/Popup";
 import {CText} from "../../../uiComponents";
@@ -59,14 +59,14 @@ function ActivateCard(props) {
       F5/XqYhAfofS5BNnlJM+6nIsczHz9+dD47yH8gf28b6jNSEY9a/lEd8CAwEAAQ==
       -----END RSA PUBLIC KEY-----
     `.trim();
-        // RSA.encrypt(values.pin, publicKey.trim())
-        //     .then(encodedMessage => {
-        //         let payload = {
-        //             token: data?.token,
-        //             pin: encodedMessage.trim()
-        //         };
-        //         confirm(payload, values.pin);
-        //     });
+        RSA.encrypt(values.pin, publicKey.trim())
+            .then(encodedMessage => {
+                let payload = {
+                    token: data?.token,
+                    pin: encodedMessage.trim()
+                };
+                confirm(payload, values.pin);
+            });
     };
 
     const confirm = (payload, pin) => {

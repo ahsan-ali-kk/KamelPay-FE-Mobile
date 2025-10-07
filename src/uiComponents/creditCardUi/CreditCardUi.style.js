@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 import {themes as theme, themes} from "../../theme/colors";
-import {getLayoutDirection} from "../../utils/methods";
+// import {getLayoutDirection} from "../../utils/methods";
 
 export default StyleSheet.create({
     cardContainer: {
@@ -58,8 +58,8 @@ export default StyleSheet.create({
         fontSize: 16,
         fontFamily: themes.font.regular,
         marginRight: 10,
-        // marginLeft: false ? 10 : 0,
-        // marginRight: false ? 0 : 10,
+        // marginLeft: getLayoutDirection() ? 10 : 0,
+        // marginRight: getLayoutDirection() ? 0 : 10,
         textAlign: 'left'
     },
     cardHeaderImage: {

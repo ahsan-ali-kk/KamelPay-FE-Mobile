@@ -7,9 +7,9 @@ import Styles from '../../pages/auth/Auth.style';
 import {useTranslation} from "react-i18next";
 import {expiryStringToDate, NATIONALITY} from "../../utils/methods";
 import GlobalStyle from "../../assets/stylings/GlobalStyle";
+import OTPInputView from "../../lib/react-native-otp-input";
 import {themes} from "../../theme/colors";
 import LivenessDetection from "../livenessDetection";
-import OTPInputView from '../../uiComponents/OTPInputView';
 
 function CForm(props) {
     const { t } = useTranslation();

@@ -6,12 +6,12 @@ import {
     UploadFrequency
 } from "@datadog/mobile-react-native";
 import {currentEnvironment} from "../intercepter";
-// import {
-//     ImagePrivacyLevel,
-//     SessionReplay,
-//     TextAndInputPrivacyLevel,
-//     TouchPrivacyLevel
-// } from "@datadog/mobile-react-native-session-replay";
+import {
+    ImagePrivacyLevel,
+    SessionReplay,
+    TextAndInputPrivacyLevel,
+    TouchPrivacyLevel
+} from "@datadog/mobile-react-native-session-replay";
 
 const config = new DatadogProviderConfiguration(
     "pubfb24e309ae3553594d6d1bd455aa9655",
@@ -24,17 +24,17 @@ const config = new DatadogProviderConfiguration(
 
 // Add this function as onInitialization prop to DatadogProvider
 const onSDKInitialized = async () => {
-    // await SessionReplay.enable({
-    //     replaySampleRate: 100,
-    //     textAndInputPrivacyLevel: TextAndInputPrivacyLevel.MASK_SENSITIVE_INPUTS,
-    //     imagePrivacyLevel: ImagePrivacyLevel.MASK_NONE,
-    //     touchPrivacyLevel: TouchPrivacyLevel.SHOW,
-    // });
+    await SessionReplay.enable({
+        replaySampleRate: 100,
+        textAndInputPrivacyLevel: TextAndInputPrivacyLevel.MASK_SENSITIVE_INPUTS,
+        imagePrivacyLevel: ImagePrivacyLevel.MASK_NONE,
+        touchPrivacyLevel: TouchPrivacyLevel.SHOW,
+    });
 };
 
-// DdSdkReactNative.initialize(config)
-//     .then(() => SessionReplay.enable())
-//     .catch((error) => { /* handle error */ });
+DdSdkReactNative.initialize(config)
+    .then(() => SessionReplay.enable())
+    .catch((error) => { /* handle error */ });
 
 config.site = "US1"
 // Optional: Enable JavaScript long task collection

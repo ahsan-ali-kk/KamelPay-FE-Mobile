@@ -35,7 +35,7 @@ function RecentTransactionsSection(props) {
                     }
                 })
             }
-        }, {routeName: "Card_Management", isShowPopup: true, notCheckCardStatus: true});
+        }, {routeName: "Card_Management", isShowPopup: true, notCheckCardStatus: true, upgradePath: "MINIMAL_TO_FULL"});
     };
 
     const renderTransaction = () => {

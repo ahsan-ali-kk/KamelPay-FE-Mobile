@@ -25,7 +25,7 @@ import {
     getMasterDetail,
     getNationalityCountry,
     getPopularsData,
-    preserveNotification,
+    setCurrentScreen,
     updateCard
 } from "../../store/actions/Global.action";
 import Popup from "../../uiComponents/popup/Popup";
@@ -232,7 +232,7 @@ export const checkUserAndCardStatus = (t, card, callBack, options = {}) => {
             isMinimalUser(user,
                 () => {
                     if(options?.isShowPopup){
-                        userVerificationPopup(t, USER_TYPES.MINIMAL_USER._id)
+                        userVerificationPopup(t, options?.upgradePath === 'MINIMAL_TO_FULL' ? USER_TYPES.LIGHT_USER._id : USER_TYPES.MINIMAL_USER._id)
                     }
                     callBack && callBack({type: USER_TYPES.MINIMAL_USER._id})
                 },
@@ -430,29 +430,13 @@ function Home(props) {
     const [uqudoToken, updateUqudoToken] = useState('');
     const [ocrVendor, updateOcrVendor] = useState('');
 
-    const didConsume = useRef(false);
-
     useEffect(() => {
         let currentScreenNameToRef = navigationRef?.getCurrentRoute()?.name?.toUpperCase();
         let screenName = props?.route?.name?.toUpperCase() || '';
-        let hasPreserveNotification = !!reduxState?.preserveNotification;
-        let hasNotOpenBiometricModal =  !reduxState?.toggleBiometricModalIsOpen;
-        let isDashboardReady = reduxState?.isDashboardReady
-        if(hasPreserveNotification && hasNotOpenBiometricModal && isDashboardReady && screenName === currentScreenNameToRef){
-            if (didConsume.current) return;
-                didConsume.current = true;
-                setTimeout(() => {
-                    let notification = {...reduxState?.preserveNotification};
-                    if(notification?.data?.actions === 'APPROVAL') {
-                        navigation.navigate('notificationsApproval', notification)
-                    } else if(notification?.data?.actions === 'ROUTE') {
-                        navigation.navigate(notification?.routeName, notification?.data?.otherOptions)
-                    }
-                }, 1000)
-                dispatch(preserveNotification(null))
-                didConsume.current = false;
+        if(screenName === currentScreenNameToRef){
+            dispatch(setCurrentScreen(screenName))
         }
-    }, [reduxState?.toggleBiometricModalIsOpen, reduxState?.isDashboardReady, reduxState?.preserveNotification]);
+    }, []);
 
     //Get user nationality country and master detail
     useEffect(() => {
@@ -554,7 +538,7 @@ function Home(props) {
                     navigation.navigate(routeName)
                 }
             }
-        }, {routeName, isShowPopup: true});
+        }, {routeName, isShowPopup: true, upgradePath: "MINIMAL_TO_FULL"});
     };
 
     const onSelectCard = () => {
@@ -1058,14 +1042,35 @@ function Home(props) {
 
     //===PASSPORT FLOW===//
     const confirmPassportDetail = (obj) => {
+        const formData = new FormData();
+        formData.append('token', obj?.ocrToken)
+
+        if(obj?.docType){
+            formData.append('docType', obj?.docType)
+        }
+
+        if(obj?.vendor){
+            formData.append('vendor', obj?.vendor)
+        }
+
+        formData.append('identificationType', IDENTIFICATION_TYPE.PASSPORT._id)
+
+        if(obj?.selfie && Object.keys(obj?.selfie).length){
+            formData.append('selfie', obj?.selfie);
+        }
+
         let payload = {
             token: obj?.ocrToken,
             ...(obj?.docType && {docType: obj?.docType}),
             ...(obj?.vendor && {vendor: obj?.vendor}),
             identificationType: IDENTIFICATION_TYPE.PASSPORT._id,
+            formData: formData
         };
-        console.log("Confirm Passport Detail", payload, obj);
-        dispatch(updateUserType(payload, updateUserTypeCallBack));
+
+        dispatch(updateUserType(payload, updateUserTypeCallBack, {
+            'Accept': 'application/json',
+            'Content-Type': 'multipart/form-data',
+        }));
     };
 
     const updateUserTypeCallBack = (res) => {
@@ -1400,7 +1405,7 @@ function Home(props) {
                                               if (type === 'FUNCTION') {
                                                   o?.onPress()
                                               }
-                                          }, {isShowPopup: true})
+                                          }, {isShowPopup: true, upgradePath: "MINIMAL_TO_FULL"})
                                       } else if(o?.route) {
                                           navigate(o?.route, o?.otherOption || {})
                                       }
@@ -1459,7 +1464,7 @@ function Home(props) {
                                             if (type === 'FUNCTION') {
                                                 o?.onPress()
                                             }
-                                        }, {isShowPopup: true})
+                                        }, {isShowPopup: true, upgradePath: "MINIMAL_TO_FULL"})
                                     } else if (o?.route) {
                                         navigate(o?.route, o?.otherOption || {})
                                     }
@@ -1652,7 +1657,7 @@ function Home(props) {
                                                 if (type === 'FUNCTION') {
                                                     item?.callback()
                                                 }
-                                            }, {isShowPopup: true})
+                                            }, {isShowPopup: true, upgradePath: "MINIMAL_TO_FULL"})
                                         }
                                    }}
                                   style={[Styles.homeListItem, item?.backgroundColor && {backgroundColor: item?.backgroundColor}, item?.style]}>
@@ -1890,6 +1895,7 @@ function Home(props) {
             />
 
             <PassportScanner
+                allowFaceLiveness={true}
                 onUploadError={(error) => {
                     errorPopup(t, error?.data?.message)
                 }}

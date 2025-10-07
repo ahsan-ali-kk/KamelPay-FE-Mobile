@@ -189,7 +189,8 @@ export default {
             SCAN_AGAIN: "دوبارہ اسکین کریں",
             SUBSCRIPTIONS: "سبسکرپشنز",
             GET: "حاصل کریں",
-            SEE_TRANSACTIONS: "ٹرانزیکشنز دیکھیں"
+            SEE_TRANSACTIONS: "ٹرانزیکشنز دیکھیں",
+            CAPTURE_SELFIE: "سیلفی کیپچر کریں"
         },
         EID_CONFIRMATION: {
             TITLE: "تقریبا ہوگیا!",
@@ -313,7 +314,9 @@ export default {
             WHATS_APP: "واٹس ایپ",
             ENTER_YOUR_PHONE_NUMBER: "اپنا فون نمبر درج کریں",
             LAST_STEP_TITLE: "اپنا اکاؤنٹ سیٹ اپ مکمل کریں",
-            LAST_STEP_SUB_TITLE: "بس ایک پاس ورڈ بنائیں۔ ریفرل کوڈ شامل کرنا اختیاری ہے۔"
+            LAST_STEP_SUB_TITLE: "بس ایک پاس ورڈ بنائیں۔ ریفرل کوڈ شامل کرنا اختیاری ہے۔",
+            LIVENESS_TITLE: "شناخت کی توثیق کے لیے سیلفی",
+            LIVENESS_SUB_TITLE: "براہ کرم اپنی شناخت کی تصدیق کے لیے سیلفی لیں۔"
         },
         FORGOT_PASSWORD: {
             TITLE: 'پاسورڈ یاد نہیں ہے؟',
@@ -1565,5 +1568,9 @@ export default {
             USE_CODE_FOR: "کے لیے کوڈ استعمال کریں",
             REFERRAL_APPLICABLE_FOR: "حوالہ لاگو ہے",
         },
+        TAKE_SELFIE: {
+            TITLE: "واضح سیلفی کیپچر کریں",
+            SUB_TITLE: "کیمرہ کھولنے کے لیے اس کارڈ پر کہیں بھی ٹیپ کریں۔"
+        }
     }
 };

@@ -1,5 +1,5 @@
 import GLOBAL from "../constants/Global.constant";
-// import {topupAndPaybillmentVendor} from "../actions/Global.action";
+import {topupAndPaybillmentVendor} from "../actions/Global.action";
 
 const initialState = {
     countries: [],
@@ -35,12 +35,14 @@ const initialState = {
 
     generateTaxInvoiceLoading: false,
 
-    topupAndBillpaymentCurrentVendor: {id: "PAYKII", api:"paykii"},
+    topupAndBillpaymentCurrentVendor: topupAndPaybillmentVendor["PAYKII"],
 
     getPromotionsLoading: false,
     promotions: [],
 
     preserveNotification: null,
+
+    currentScreen: '',
 };
 
 export default (state = initialState, action = {}) => {
@@ -106,6 +108,9 @@ export default (state = initialState, action = {}) => {
 
         case GLOBAL.PRESERVE_NOTIFICATION:
             return { ...state, preserveNotification: action.data };
+
+        case GLOBAL.SET_CURRENT_SCREEN:
+            return { ...state, currentScreen: action.data };
 
         default:
             return state;

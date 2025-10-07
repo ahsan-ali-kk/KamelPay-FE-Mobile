@@ -66,6 +66,8 @@ const initialState = {
 
     userDocumentIdentificationLoading: false,
 
+    userLivenessLoading: false,
+
     detectImagePassportLoading: false,
 
     userMobileDetectionLoading: false,
@@ -215,6 +217,9 @@ export default (state = initialState, action = {}) => {
 
         case AUTH.USER_DOCUMENT_IDENTIFICATION:
             return { ...state, userDocumentIdentificationLoading: action.loading };
+
+        case AUTH.USER_LIVENESS:
+            return { ...state, userLivenessLoading: action.loading };
 
         case AUTH.DETECT_IMAGE_PASSPORT:
             return { ...state, detectImagePassportLoading: action.loading };

@@ -5,6 +5,7 @@ import {ProgressiveImage} from "../../uiComponents";
 import {useTranslation} from "react-i18next";
 import {saveUqudoLogs, saveForgetPasswordUqudoLogs} from "../../store/actions/Global.action";
 import {useDispatch, useSelector} from "react-redux";
+import {DocumentBuilder, DocumentType, EnrollmentBuilder, UqudoIdSDK} from "uqudosdk-react-native";
 import jwt_decode from "jwt-decode";
 import GlobalStyle from "../../assets/stylings/GlobalStyle";
 import {themes} from "../../theme/colors";
@@ -328,33 +329,33 @@ const UpdateEmiratesID = forwardRef((props, ref) => {
     };
     const runUqudo = async (token, uqudoUserId, obj) => {
         try {
-            // let passport = new DocumentBuilder()
-            //     .setDocumentType(DocumentType.UAE_ID)
-            //     // .enableReading()
-            //     .build();
-            // let enrollmentConfiguration = new EnrollmentBuilder()
-            //     .setToken(token)
-            //     .enableFacialRecognition()
-            //     .add(passport)
-            //     .setUserIdentifier(uqudoUserId)
-            //     .build();
-            // const sdk = new UqudoIdSDK();
-            // const result = await sdk.enroll(enrollmentConfiguration);
-            // let decoded = jwt_decode(result?.result);
+            let passport = new DocumentBuilder()
+                .setDocumentType(DocumentType.UAE_ID)
+                // .enableReading()
+                .build();
+            let enrollmentConfiguration = new EnrollmentBuilder()
+                .setToken(token)
+                .enableFacialRecognition()
+                .add(passport)
+                .setUserIdentifier(uqudoUserId)
+                .build();
+            const sdk = new UqudoIdSDK();
+            const result = await sdk.enroll(enrollmentConfiguration);
+            let decoded = jwt_decode(result?.result);
 
-            // updateEidScanInfo(decoded?.data?.documents[0]?.scan || null);
-            // updateUqudoToken(result.result);
+            updateEidScanInfo(decoded?.data?.documents[0]?.scan || null);
+            updateUqudoToken(result.result);
 
-            // setTimeout(() => {
-            //     updateConfirmEidDetailModal(true);
-            // }, 400);
+            setTimeout(() => {
+                updateConfirmEidDetailModal(true);
+            }, 400);
 
-            // uqudoSDKSuccess && uqudoSDKSuccess({
-            //     decoded,
-            //     result
-            // });
+            uqudoSDKSuccess && uqudoSDKSuccess({
+                decoded,
+                result
+            });
 
-            // saveUqudoLogsFunc(token, { data: result?.result, vendor }, obj)
+            saveUqudoLogsFunc(token, { data: result?.result, vendor }, obj)
 
         } catch (error) {
 

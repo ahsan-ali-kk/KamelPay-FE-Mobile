@@ -4,7 +4,7 @@ import Styles from "../../auth/Auth.style";
 import CForm from "./Form";
 import {ViewContainer, Container} from "../../../containers";
 import {useDispatch, useSelector} from "react-redux";
-// import { RSA } from 'react-native-rsa-native';
+import { RSA } from 'react-native-rsa-native';
 import {setNewPin} from "../../../store/actions/CardManagement.action";
 import {CText} from "../../../uiComponents";
 import CreditCardUi from "../../../uiComponents/creditCardUi/CreditCardUi";
@@ -73,14 +73,14 @@ function ChangePin(props) {
       F5/XqYhAfofS5BNnlJM+6nIsczHz9+dD47yH8gf28b6jNSEY9a/lEd8CAwEAAQ==
       -----END RSA PUBLIC KEY-----
     `.trim();
-        // RSA.encrypt(values.otp, publicKey.trim())
-        //     .then(encodedMessage => {
-        //         let payload = {
-        //             token: data?.token,
-        //             pin: encodedMessage.trim()
-        //         };
-        //         confirm(payload, values.otp);
-        //     });
+        RSA.encrypt(values.otp, publicKey.trim())
+            .then(encodedMessage => {
+                let payload = {
+                    token: data?.token,
+                    pin: encodedMessage.trim()
+                };
+                confirm(payload, values.otp);
+            });
     };
 
     const submit = (payload, pin) => {

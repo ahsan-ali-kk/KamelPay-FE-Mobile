@@ -189,6 +189,7 @@ export default {
             SUBSCRIPTIONS: "സബ്സ്ക്രിപ്ഷനുകൾ",
             GET: "നേടുക",
             SEE_TRANSACTIONS: "ഇടപാടുകൾ കാണുക",
+            CAPTURE_SELFIE: "സെൽഫി പകർത്തുക"
         },
         EID_CONFIRMATION: {
             TITLE: "ഏതാണ്ട് എത്താറായി!",
@@ -312,7 +313,9 @@ export default {
             WHATS_APP: "വാട്ട്‌സ്ആപ്പ്",
             ENTER_YOUR_PHONE_NUMBER: "നിങ്ങളുടെ ഫോൺ നമ്പർ നൽകുക",
             LAST_STEP_TITLE: "നിങ്ങളുടെ അക്കൗണ്ട് സജ്ജീകരണം പൂർത്തിയാക്കുക",
-            LAST_STEP_SUB_TITLE: "ഒരു പാസ്‌വേഡ് സൃഷ്ടിച്ചാൽ മതി. റഫറൽ കോഡ് ചേർക്കുന്നത് ഐച്ഛികമാണ്."
+            LAST_STEP_SUB_TITLE: "ഒരു പാസ്‌വേഡ് സൃഷ്ടിച്ചാൽ മതി. റഫറൽ കോഡ് ചേർക്കുന്നത് ഐച്ഛികമാണ്.",
+            LIVENESS_TITLE: "ഐഡന്റിറ്റി സ്ഥിരീകരണ സെൽഫി",
+            LIVENESS_SUB_TITLE: "നിങ്ങളുടെ തിരിച്ചറിയൽ സ്ഥിരീകരിക്കാൻ ദയവായി സെൽഫി പകർത്തുക."
         },
         FORGOT_PASSWORD: {
             TITLE: 'പാസ്‌വേഡ് മറന്നു',
@@ -1564,6 +1567,10 @@ export default {
             REFER_A_FRIEND: "സുഹൃത്ത്‌നെ പരിചയപ്പെടുത്തുക",
             USE_CODE_FOR: "കോഡ് ഉപയോഗിക്കുക",
             REFERRAL_APPLICABLE_FOR: "റഫറൽ ബാധകം",
+        },
+        TAKE_SELFIE: {
+            TITLE: "വ്യക്തമായ ഒരു സെൽഫി പകർത്തുക",
+            SUB_TITLE: "ക്യാമറ തുറക്കാൻ ഈ കാർഡിലെ എവിടെയും ടാപ്പ് ചെയ്യുക."
         }
     }
 };

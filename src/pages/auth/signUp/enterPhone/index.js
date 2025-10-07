@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Styles from "../../Auth.style";
 import {ViewContainer, Container} from "../../../../containers";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import {useNavigation} from "@react-navigation/native";
 import _ from "lodash";
 import {userMobileIdentification} from "../../../../store/actions/Auth.action";
-import {View} from "react-native";
+import {BackHandler, View} from "react-native";
 import {CText} from "../../../../uiComponents";
 import CForm from "../../forgotPassword/Form";
 import Popup from "../../../../uiComponents/popup/Popup";
@@ -29,6 +29,14 @@ function EnterPhone(props) {
     });
 
     const [selectedCountry, updateSelectedCountry] = useState(reduxState.currentCountry);
+
+    useEffect(() => {
+        const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+            resetNavigation();
+            return true
+        });
+        return () => sub.remove();
+    }, [navigation]);
 
     const submit = (values) => {
         let perifix = `${selectedCountry?.idd?.root}${selectedCountry?.idd?.suffixes?.length > 1 ?  '' : selectedCountry?.idd?.suffixes[0]}`;
@@ -86,9 +94,17 @@ function EnterPhone(props) {
         }
     };
 
+    const resetNavigation = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{name: 'login'}],
+        });
+    }
+
     const headerProps = {
         showCenterLogo: true,
         headerRight: true,
+        backOnPress: () => resetNavigation(),
     };
 
     return (

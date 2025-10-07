@@ -6,8 +6,8 @@ import {CButton, CText} from '../../../uiComponents';
 import Styles from '../../auth/Auth.style';
 import GlobalStyle from "../../../assets/stylings/GlobalStyle";
 import {themes} from "../../../theme/colors";
+import OTPInputView from '../../../lib/react-native-otp-input';
 import {useTranslation} from "react-i18next";
-import OTPInputView from '../../../uiComponents/OTPInputView';
 
 function CForm({submit, loading}) {
     const { t } = useTranslation();

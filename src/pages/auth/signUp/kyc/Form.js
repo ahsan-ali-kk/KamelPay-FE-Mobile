@@ -1,7 +1,7 @@
 import React, {useRef, Fragment, memo} from 'react';
 import {Formik} from 'formik';
 import Validations from './Validations';
-import {TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import {
     CButton,
     CheckBox,
@@ -13,29 +13,14 @@ import {
 } from '../../../../uiComponents';
 import Styles from '../../Auth.style';
 import {useTranslation} from "react-i18next";
-import {IDENTIFICATION_TYPE, KYC_SEGMENT} from "../helper";
+import {IDENTIFICATION_TYPE, KYC_SEGMENT, ScanBox} from "../helper";
 import {NATIONALITY} from "../../../../utils/methods";
 import GlobalStyle from "../../../../assets/stylings/GlobalStyle";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import KamelpayIcon from "../../../../assets/icons/KamelPayIcon";
 import {getOcrTokenSignup} from "../../../../store/actions/Auth.action";
 import {useDispatch} from "react-redux";
 import Popup from "../../../../uiComponents/popup/Popup";
 import {subYears} from "date-fns";
 
-
-const ScanBox = ({ onPress, title, description, type, loading }) => (
-    <TouchableOpacity style={Styles.scanBox} disabled={loading} activeOpacity={0.7} onPress={onPress}>
-        {type === "PASSPORT" ? <MaterialCommunityIcons name="passport"
-                                                       style={Styles.scanBoxIcon}
-                                                       size={40}  /> : null}
-        {type === "EMIRATES_ID" ? <KamelpayIcon name="emirates-ID"
-                                                style={Styles.scanBoxIcon}
-                                                size={40}/> : null}
-        <CText style={Styles.scanBoxText}>{title}</CText>
-        <CText style={Styles.scanBoxDescription}>{description}</CText>
-    </TouchableOpacity>
-);
 
 function CForm(props) {
 

@@ -1,11 +1,11 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import Styles from "../../Auth.style";
 import {ViewContainer, Container} from "../../../../containers";
 import {useDispatch, useSelector} from "react-redux";
 import CForm from "./Form";
 import {useTranslation} from "react-i18next";
-import {useNavigation} from "@react-navigation/native";
-import {errorPopup, IDENTIFICATION_TYPE, SIGN_UP_CONSTANT} from "../helper";
+import {StackActions, useNavigation} from "@react-navigation/native";
+import {errorPopup, IDENTIFICATION_TYPE, LIVENESS_VERIFICATION_PENDING, SIGN_UP_CONSTANT} from "../helper";
 import {userDocumentIdentification} from "../../../../store/actions/Auth.action";
 import PassportScanner from "../../../../containers/passportScanner";
 import Uqudo from "../../../home/UpdateEmiratesID";
@@ -15,6 +15,7 @@ import Popup from "../../../../uiComponents/popup/Popup";
 import GlobalStyle from "../../../../assets/stylings/GlobalStyle";
 import PhonePrompt from "../phonePrompt";
 import {setHours} from "../../../../utils/methods";
+import {BackHandler} from "react-native";
 
 function Kyc(props) {
 
@@ -30,15 +31,33 @@ function Kyc(props) {
         return {
             loading: auth.userValidateLoading || auth.getOcrTokenSignupLoading || auth.userDocumentIdentificationLoading,
             currentCountry: global.currentCountry,
+            livenessChecks: global?.applicationVersions?.livenessChecks || global.masterDetails?.livenessChecks || [],
         }
     });
 
     const {loading} = reduxState;
 
+    useEffect(() => {
+        const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+            resetNavigation();
+            return true
+        });
+        return () => sub.remove();
+    }, [navigation]);
+
+    const resetNavigation = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{name: 'login'}],
+        });
+    }
+
+
     const next = (values) => {
         let payload = {}
         if(values.identificationType === IDENTIFICATION_TYPE.EMIRATES_ID._id) {
             payload = {...values}
+            dispatch(userDocumentIdentification(payload, nextCallBack));
         } else if(values.identificationType === IDENTIFICATION_TYPE.PASSPORT._id){
             if(values.dontHavePassport){
                 let updatedValues = _.omit(values, ['dontHavePassport', 'dob'])
@@ -48,12 +67,13 @@ function Kyc(props) {
                     dob: setHours(values.dob, 'to'),
                     identificationType: IDENTIFICATION_TYPE.MANUAL._id
                 }
+                dispatch(userDocumentIdentification(payload, nextCallBack));
             } else {
                 payload = {...values}
+                dispatch(userDocumentIdentification(payload, nextCallBack));
             }
 
         }
-        dispatch(userDocumentIdentification(payload, nextCallBack));
     };
 
     const nextCallBack = (res, payload) => {
@@ -91,10 +111,12 @@ function Kyc(props) {
             }
         } else {
             if(res?.data?.status === SIGN_UP_CONSTANT.UNCLAIMED_USER_FOUND._id){
-                // unclaimed_user_found
-                navigation.navigate("enterPhone", {
-                    token: res?.data?.token
-                });
+                if(res?.data?.userStatus === LIVENESS_VERIFICATION_PENDING) {
+                    navigation.dispatch(StackActions.replace('liveness', { token: res?.data?.token }));
+                } else {
+                    // unclaimed_user_found
+                    navigation.dispatch(StackActions.replace('enterPhone', { token: res?.data?.token }));
+                }
             }
             console.log("====userDocumentIdentification====", res);
         }
@@ -103,15 +125,15 @@ function Kyc(props) {
     const headerProps = {
         showCenterLogo: true,
         headerRight: true,
+        backOnPress: () => resetNavigation(),
     };
     //===PASSPORT FUNCTIONS===//
     const confirmPassportDetail = (obj) => {
         let payload = {
+            identificationType: IDENTIFICATION_TYPE.PASSPORT._id,
             token: obj?.token,
             ocrToken: obj?.ocrToken,
-            identificationType: IDENTIFICATION_TYPE.PASSPORT._id,
         };
-        console.log("Confirm Passport Detail", payload);
         next(payload);
     };
     const confirmPassportDetailOnClose = () => {
@@ -149,6 +171,7 @@ function Kyc(props) {
                 />
 
                 <PassportScanner
+                    allowFaceLiveness={false}
                     isAuth={false}
                     token={data?.token}
                     onUploadError={(error) => {

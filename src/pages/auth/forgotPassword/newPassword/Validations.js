@@ -1,9 +1,9 @@
 import * as Yup from 'yup';
 
-import globalValidationHelper from '../../../../utils/globalValidationHelper'
+import {passwordAndConfirmPasswordValidation} from '../../../../utils/globalValidationHelper'
 
 const scheme = Yup.object().shape({
-    ...globalValidationHelper
+    ...passwordAndConfirmPasswordValidation
 });
 
 export default scheme;

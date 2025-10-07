@@ -36,11 +36,11 @@ function NotificationsApproval(props) {
     const headerProps = {
         headerTitle: " ",
         headerRight: true,
+        backOnPress:() => data.isRest ? navigationReset() : navigation.goBack()
     };
 
 
     const navigationReset = () => {
-        Popup.hide();
         navigation.reset({
             index: 0,
             routes: [{name: 'Home'}],
@@ -74,6 +74,7 @@ function NotificationsApproval(props) {
                     {
                         text: t('GLOBAL.OK'),
                         callback: () => {
+                            Popup.hide();
                             navigationReset();
                         }
                     },

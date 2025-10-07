@@ -41,6 +41,7 @@ function PhonePrompt(props) {
         payload.phone =  `${perifix.replace(/[^\w\s]/gi, '')}${values.phone.replace(/\s+/g, '')}`;
         payload = {
             ...payload,
+            ...(data?.token ? {token: data?.token} : null),
             ...(data?.payload ? data?.payload : data)
         }
         dispatch(userContactLog(payload, userContactLogCallBack));

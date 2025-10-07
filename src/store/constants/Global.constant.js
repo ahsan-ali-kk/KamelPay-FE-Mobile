@@ -37,5 +37,7 @@ const GlobalConstant = {
 
     PRESERVE_NOTIFICATION: 'PRESERVE_NOTIFICATION',
 
+    SET_CURRENT_SCREEN: 'SET_CURRENT_SCREEN',
+
 };
 export default GlobalConstant;

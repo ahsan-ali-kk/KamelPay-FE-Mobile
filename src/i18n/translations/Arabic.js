@@ -189,6 +189,7 @@ export default {
             SUBSCRIPTIONS: "الاشتراكات",
             GET: "احصل",
             SEE_TRANSACTIONS: "عرض المعاملات",
+            CAPTURE_SELFIE: "التقط صورة سيلفي"
         },
         EID_CONFIRMATION: {
             TITLE: "شارفنا على الانتهاء!",
@@ -312,7 +313,9 @@ export default {
             WHATS_APP: "واتساب",
             ENTER_YOUR_PHONE_NUMBER: "أدخل رقم هاتفك",
             LAST_STEP_TITLE: "أكمل إعداد حسابك",
-            LAST_STEP_SUB_TITLE: "فقط أنشئ كلمة مرور. إضافة رمز الإحالة اختيارية."
+            LAST_STEP_SUB_TITLE: "فقط أنشئ كلمة مرور. إضافة رمز الإحالة اختيارية.",
+            LIVENESS_TITLE: "سيلفي للتحقق من الهوية",
+            LIVENESS_SUB_TITLE: "يرجى التقاط صورة سيلفي لتأكيد هويتك."
         },
         FORGOT_PASSWORD: {
             TITLE: 'نسيت كلمة المرور',
@@ -1565,5 +1568,9 @@ export default {
             USE_CODE_FOR: "استخدم الرمز لـ",
             REFERRAL_APPLICABLE_FOR: "الإحالة تنطبق على",
         },
+        TAKE_SELFIE: {
+            TITLE: "التقط صورة سيلفي واضحة",
+            SUB_TITLE: "لفتح الكاميرا، انقر في أي مكان على هذه البطاقة."
+        }
     }
 };

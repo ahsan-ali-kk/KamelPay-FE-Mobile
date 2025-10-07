@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Dimensions} from 'react-native';
 import {SafeAreaView} from "../index";
 import Styles from './TabBar.style';
 import KamelPayIcon from '../../assets/icons/KamelPayIcon';
-import {MappedElement, getLayoutDirection} from "../../utils/methods";
+import {MappedElement} from "../../utils/methods";
 import {themes} from "../../theme/colors";
 import posed from "react-native-pose";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';

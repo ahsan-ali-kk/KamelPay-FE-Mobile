@@ -7,10 +7,10 @@ import Styles from '../../auth/Auth.style';
 import CStyles from './AddCard.style';
 import {ViewContainer} from "../../../containers";
 import GlobalStyle from "../../../assets/stylings/GlobalStyle";
+import OTPInputView from "../../../lib/react-native-otp-input";
 import {themes} from "../../../theme/colors";
 import {useTranslation} from "react-i18next";
 import {masks} from "../../../utils/methods";
-import OTPInputView from '../../../uiComponents/OTPInputView';
 
 function CForm(props) {
 

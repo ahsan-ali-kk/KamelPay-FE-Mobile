@@ -5,6 +5,7 @@ import AuthStyles from '../../auth/Auth.style';
 import {CButton, CInput, CModal, CText} from "../../../uiComponents";
 import Validations from "./Validations";
 import {Formik} from "formik";
+import OTPInputView from "../../../lib/react-native-otp-input";
 import {themes} from "../../../theme/colors";
 import GlobalStyle from "../../../assets/stylings/GlobalStyle";
 import {useTranslation} from "react-i18next";
@@ -13,7 +14,6 @@ import {alternateVerify, getProfile} from "../../../store/actions/Auth.action";
 import Popup from "../../../uiComponents/popup/Popup";
 import _ from "lodash";
 import {generatePasswordTips} from "../../../utils/methods";
-import OTPInputView from "../../../uiComponents/OTPInputView";
 
 export const AlternateForm = (props) => {
 

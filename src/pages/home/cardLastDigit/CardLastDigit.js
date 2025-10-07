@@ -5,11 +5,11 @@ import AuthStyles from '../../auth/Auth.style';
 import {CButton, CModal, CText, ProgressiveImage, CInput, DateTimePicker} from "../../../uiComponents";
 import Validations from "./Validations";
 import {Formik} from "formik";
+import OTPInputView from "../../../lib/react-native-otp-input";
 import {themes} from "../../../theme/colors";
 import GlobalStyle from "../../../assets/stylings/GlobalStyle";
 import {useTranslation} from "react-i18next";
 import {applyMask, expiryStringToDate, masks} from "../../../utils/methods";
-import OTPInputView from "../../../uiComponents/OTPInputView";
 
 export const CardLastDigitForm = (props) => {
     const { t } = useTranslation();

@@ -77,7 +77,7 @@ export default StyleSheet.create({
         top: -3,
         left: -5,
         transform: [
-            { scaleX: false ? -1 : 0 }
+            { scaleX: getLayoutDirection() ? -1 : 0 }
         ]
     },
     subscriptionBannerBottomRightVector: {
@@ -87,7 +87,7 @@ export default StyleSheet.create({
         bottom: 0,
         right: -3,
         transform: [
-            { scaleX: false ? -1 : 0 }
+            { scaleX: getLayoutDirection() ? -1 : 0 }
         ]
     },
     subscriptionBannerContent: {

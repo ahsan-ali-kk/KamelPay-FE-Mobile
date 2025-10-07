@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {themes as theme, themes} from "../../theme/colors";
-import {getLayoutDirection} from "../../utils/methods";
+// import {getLayoutDirection} from "../../utils/methods";
 
 export default StyleSheet.create({
     listContainer: {
@@ -40,8 +40,8 @@ export default StyleSheet.create({
         height: 26,
         borderRadius: 26,
         overflow: 'hidden',
-        // marginLeft: false ? 20 : 0,
-        // marginRight: false ? 0 : 20,
+        // marginLeft: getLayoutDirection() ? 20 : 0,
+        // marginRight: getLayoutDirection() ? 0 : 20,
         marginRight: 20
     },
     listItemIconImage: {

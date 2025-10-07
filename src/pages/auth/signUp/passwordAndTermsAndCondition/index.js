@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Styles from "../../Auth.style";
 import {ViewContainer, Container} from "../../../../containers";
 import {useDispatch, useSelector} from "react-redux";
 import CForm from "./Form";
-import {View} from "react-native";
+import {BackHandler, View} from "react-native";
 import {CText} from "../../../../uiComponents";
 import {useTranslation} from "react-i18next";
 import {useNavigation} from "@react-navigation/native";
@@ -28,10 +28,12 @@ function PasswordAndTermsAndCondition(props) {
         return {
             loading: auth.userSignupLoading,
             currentCountry: global.currentCountry,
+            masterDetails: global.masterDetails,
+            applicationVersions: global.applicationVersions
         }
     });
 
-    const {loading} = reduxState;
+    const {loading, masterDetails, applicationVersions} = reduxState;
 
     const userSignUpCallback = async (res) => {
         if(res?.error) {
@@ -52,6 +54,15 @@ function PasswordAndTermsAndCondition(props) {
         }
     };
 
+    useEffect(() => {
+        const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+            resetNavigation();
+            return true
+        });
+        return () => sub.remove();
+    }, [navigation]);
+
+
     const next = (values) => {
         let payload = {
             ...values,
@@ -60,9 +71,17 @@ function PasswordAndTermsAndCondition(props) {
         dispatch(userSignUp(payload, userSignUpCallback));
     };
 
+    const resetNavigation = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{name: 'login'}],
+        });
+    }
+
     const headerProps = {
         showCenterLogo: true,
         headerRight: true,
+        backOnPress: () => resetNavigation(),
     };
 
     return (
@@ -79,6 +98,7 @@ function PasswordAndTermsAndCondition(props) {
                 <CForm
                     submit={next}
                     loading={loading}
+                    termAndConditions={masterDetails?.signupTermsAndConditions || applicationVersions?.signupTermsAndConditions || ''}
                 />
             </ViewContainer>
         </Container>

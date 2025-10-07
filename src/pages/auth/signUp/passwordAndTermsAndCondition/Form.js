@@ -10,11 +10,13 @@ import KampayIcons from "../../../../assets/icons/KamelPayIcon";
 import {viewTermsAndConditions} from "../../../../store/actions/Global.action";
 import {useDispatch} from "react-redux";
 import {generatePassword, generatePasswordTips} from "../../../../utils/methods";
+import {TermsAndConditionsWebView} from "../../../../containers";
 
-function CForm({submit, loading}) {
+function CForm({submit, loading, termAndConditions}) {
 
     const { t, i18n } = useTranslation();
     const form = useRef();
+    const webViewRef = useRef();
     const dispatch = useDispatch();
 
     const email = useRef(null);
@@ -24,11 +26,15 @@ function CForm({submit, loading}) {
     const [showPassword, togglePassword] = useState(false);
     const randomPassword = generatePassword()
 
-    const viewTermAndConditions = () => {
-        dispatch(viewTermsAndConditions({
-            isOpen: true,
-            type: 'CARDHOLDER_AGREEMENT',
-        }))
+    const viewTermAndConditions = (uri) => {
+        if(uri){
+            webViewRef?.current?.toggleModal({uri})
+        } else {
+            dispatch(viewTermsAndConditions({
+                isOpen: true,
+                type: 'CARDHOLDER_AGREEMENT',
+            }))
+        }
     };
 
     return (
@@ -116,7 +122,7 @@ function CForm({submit, loading}) {
                                     onChange={() => setFieldValue('termsAndCondition', !values.termsAndCondition)}
                                     title={t('GLOBAL.AGREE') + ' '}
                                     clickAbleText={t('GLOBAL.TERMS_CONDITION')}
-                                    clickAbleTextFunc={() => viewTermAndConditions()}
+                                    clickAbleTextFunc={() => viewTermAndConditions(termAndConditions)}
                                 />
                                 {errors.termsAndCondition && touched.termsAndCondition ? <CText style={[GlobalStyle.errorTextStyle, {marginTop: 0}]}>
                                     {t(errors.termsAndCondition)}
@@ -129,6 +135,11 @@ function CForm({submit, loading}) {
                                  loading={loading}
                                  disabled={!values.termsAndCondition}
                                  onPress={() => handleSubmit()}/>
+
+                        <TermsAndConditionsWebView
+                            ref={webViewRef}
+                            title={t('GLOBAL.TERMS_CONDITION')}
+                        />
 
                     </View>
                 );

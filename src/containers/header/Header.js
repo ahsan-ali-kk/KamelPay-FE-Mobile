@@ -5,7 +5,7 @@ import KamelPayIcon from '../../assets/icons/KamelPayIcon';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import {useSelector} from "react-redux";
-import {getLayoutDirection, openWhatsApp} from "../../utils/methods";
+import {openWhatsApp} from "../../utils/methods";
 import {CText, IconButton, LanguagePicker, ProgressiveImage} from "../../uiComponents";
 import {useTranslation} from "react-i18next";
 import {SafeAreaView} from "../index";

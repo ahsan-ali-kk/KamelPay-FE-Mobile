@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import {themes} from "../../theme/colors";
-import {getLayoutDirection} from "../../utils/methods";
+// import {getLayoutDirection} from "../../utils/methods";
 
 export default StyleSheet.create({
     checkBoxContainer: {
@@ -35,8 +35,8 @@ export default StyleSheet.create({
     },
     checkBoxTitleContainer: {
         flex: 1,
-        // marginLeft: false ? 0 : 10,
-        // marginRight: false ? 10 : 0,
+        // marginLeft: getLayoutDirection() ? 0 : 10,
+        // marginRight: getLayoutDirection() ? 10 : 0,
         // flexDirection: 'row',
         alignItems: 'center',
         flexDirection: 'row',

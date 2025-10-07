@@ -1,4 +1,5 @@
 import * as React from "react"
+// import * as FaceDetector from "expo-face-detector"
 import { Camera, FaceDetectionResult } from "expo-camera"
 import {Dimensions, Platform, StyleSheet, View} from "react-native"
 import { AnimatedCircularProgress } from "react-native-circular-progress"

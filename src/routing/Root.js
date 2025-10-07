@@ -5,7 +5,6 @@ import {TabBar} from "../containers";
 import {
     HomeStack,
     SettingsStack,
-    NotificationsStack,
     PayBillStack,
     MobileTopUpStack,
     CardManagementStack,
@@ -21,10 +20,11 @@ import {
     PersonalLoanStack,
     KPWalletTransferStack
 } from "./stacks";
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import {getAndUpdateBiometricType} from "../store/actions/Auth.action";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
+import {preserveNotification as preserveNotificationFunc, setCurrentScreen} from "../store/actions/Global.action";
 
 const Tab = createBottomTabNavigator();
 
@@ -33,8 +33,22 @@ const Root = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
+    const didConsume = useRef(false);
+
+    const reduxState = useSelector(({auth, global}) => {
+        return {
+            currentScreen: global.currentScreen,
+            isDashboardReady: global.isDashboardReady,
+            toggleBiometricModalIsOpen: auth.toggleBiometricModalIsOpen,
+            preserveNotification: global.preserveNotification,
+        }
+    });
+
+    const {currentScreen} = reduxState;
+
     const getAndCheck = async (res) => {
         if(!res?.includes('PIN')){
+            dispatch(setCurrentScreen("SET_PIN"))
             navigation.navigate('Settings', { screen: 'set_pin',  initial: false, params: {
                     isBackFalse: true
             }});
@@ -46,6 +60,32 @@ const Root = () => {
             async (res) => await getAndCheck(res)
         ))
     }, []);
+
+    useEffect(() => {
+        // let currentScreenNameToRef = navigationRef?.getCurrentRoute()?.name?.toUpperCase();
+        // let screenName = props?.route?.name?.toUpperCase() || '';
+        let hasPreserveNotification = !!reduxState?.preserveNotification;
+        let hasNotOpenBiometricModal =  !reduxState?.toggleBiometricModalIsOpen;
+        let isDashboardReady = reduxState?.isDashboardReady
+        if(hasPreserveNotification && hasNotOpenBiometricModal && isDashboardReady && currentScreen !== "SET_PIN"){
+            if (didConsume.current) return;
+            didConsume.current = true;
+            setTimeout(() => {
+                let notification = {...reduxState?.preserveNotification};
+                if(notification?.data?.actions === 'APPROVAL') {
+                    navigation.navigate('Notifications', {
+                        screen: 'notificationsApproval',
+                        initial: false,
+                        params: {...notification, isRest: true}
+                    })
+                } else if(notification?.data?.actions === 'ROUTE') {
+                    navigation.navigate(notification?.routeName, notification?.data?.otherOptions)
+                }
+            }, 1000)
+            dispatch(preserveNotificationFunc(null))
+            didConsume.current = false;
+        }
+    }, [reduxState?.toggleBiometricModalIsOpen, reduxState?.isDashboardReady, reduxState?.preserveNotification]);
 
     return (
             <Tab.Navigator initialRouteName="Home"

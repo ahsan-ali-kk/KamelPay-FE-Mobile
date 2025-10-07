@@ -12,12 +12,12 @@ import { parse, format } from "date-fns";
 function Confirmation(props) {
     const { t } = useTranslation();
 
-    const {reScan, confirm, loading, data} = props;
+    const {reScan, confirm, loading, data, buttonText} = props;
 
     const renderFooter = () => {
         return(
             <View style={GlobalStyle.listFooterButton}>
-                <CButton title={t('GLOBAL.CONFIRM')} loading={loading} onPress={confirm}/>
+                <CButton title={buttonText ? buttonText : t('GLOBAL.CONFIRM')} loading={loading} onPress={confirm}/>
                 <CButton type={'without_outline'} title={t('PASSPORT_CONFIRMATION.RE_SCAN_PASSPORT')} onPress={reScan}/>
             </View>
         )

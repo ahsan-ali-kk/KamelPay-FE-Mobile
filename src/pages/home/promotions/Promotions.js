@@ -4,11 +4,11 @@ import Styles from "../Home.style";
 import {useDispatch, useSelector} from "react-redux";
 import {ProgressiveImage} from "../../../uiComponents";
 import {useTranslation} from "react-i18next";
-import {getLayoutDirection, SERVICES} from "../../../utils/methods";
+import {SERVICES} from "../../../utils/methods";
 import {checkUserAndCardStatus} from "../Home";
 import {useNavigation} from "@react-navigation/native";
 const windowWidth = Dimensions.get('window').width;
-// import Carousel from 'react-native-snap-carousel';
+import Carousel from 'react-native-snap-carousel';
 import {getPromotions, updatedSelectedCurrentPromotion} from "../../../store/actions/Global.action";
 
 const LEFT_RIGHT_SPACE = 60;
@@ -79,7 +79,7 @@ function Promotions(props) {
                     navigation.navigate(routeName)
                 }
             }
-        }, {routeName, isShowPopup: true});
+        }, {routeName, isShowPopup: true, upgradePath: "MINIMAL_TO_FULL"});
     };
 
     const onPressPromotion = (obj) => {
@@ -144,7 +144,7 @@ function Promotions(props) {
             <View style={[Styles.sectionContainer, {borderTopWidth: 0}]}>
                 <View style={[Styles.sectionContainerBody, {marginTop: 0, paddingBottom: 0}]}>
                     <View style={[Styles.promotionSlider, {marginBottom: 5}]}>
-                        {/* <Carousel
+                        <Carousel
                             ref={carouselRef}
                             layout={"default"}
                             width={windowWidth}
@@ -160,7 +160,7 @@ function Promotions(props) {
                             enableMomentum={true}
                             decelerationRate={0.9}
                             useScrollView={false}
-                        /> */}
+                        />
                     </View>
                 </View>
             </View>

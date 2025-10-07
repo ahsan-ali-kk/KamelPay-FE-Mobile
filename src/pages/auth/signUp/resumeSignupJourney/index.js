@@ -25,7 +25,7 @@ function ResumeSignupJourney(props) {
                 setUserData(JSON.parse(obj));
             }
         })()
-    }, []);
+    }, [navigation]);
 
     const reduxState = useSelector(({auth}) => {
         return {
@@ -61,6 +61,7 @@ function ResumeSignupJourney(props) {
 
     return userData && Object.keys(userData).length ? (
         <AlertView
+            disabled={true}
             // loading={reduxState.loading}
             title={t('SIGN_UP.RESUME_JOURNEY.TITLE') + ' 👋'}
             text={t('SIGN_UP.RESUME_JOURNEY.SUB_TITLE')}

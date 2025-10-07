@@ -46,7 +46,6 @@ function HomeStack() {
             <Stack.Screen name="kp_wallet_transfer_history" component={KPWalletTransferHistory} />
             <Stack.Screen name="bnpl_history" component={BnplHistory} />
             <Stack.Screen name="bnpl_history_view" component={BnplHistoryView} />
-            <Stack.Screen name="notificationsApproval" component={NotificationsApproval} />
             <Stack.Screen name="Notifications" component={NotificationsStack} />
         </Stack.Navigator>
     );

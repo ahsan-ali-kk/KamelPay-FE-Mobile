@@ -28,6 +28,7 @@ import {getMasterDetail, updateCard} from "./Global.action";
 import {logoutUser} from "../../trackingEvents/UXCAM";
 import {setUserDetails, loginUser, singleCardStatus} from "../../utils/dataDog/events";
 import {connectionSocket} from "../../utils/socket";
+import _ from 'lodash';
 
 export const enableLoginMethodAlert = () => {
     Popup.show({
@@ -907,7 +908,7 @@ export const userCardIdentification = (payload, CB) => async (dispatch) => {
     try {
         let response = await post("user/cardIdentification", payload);
         CB && CB(response?.data, payload);
-        dispatch({type: dispatchType, loading: false});
+        setTimeout(() => dispatch({type: dispatchType, loading: false}), 500)
     } catch (error) {
         handleError(error?.data?.error || error?.message, {autoHide: false});
         dispatch({ type: dispatchType, loading: false });
@@ -946,12 +947,29 @@ export const detectImagePassport = (payload, CB, headers, isAuth) => async (disp
     }
 };
 
-
 export const userDocumentIdentification = (payload, CB) => async (dispatch) => {
     const dispatchType = AUTH.USER_DOCUMENT_IDENTIFICATION;
     dispatch({ type: dispatchType, loading: true});
     try {
         let response = await post("user/documentIdentification", payload);
+        CB && CB(response?.data, payload);
+        dispatch({type: dispatchType, loading: false});
+    } catch (error) {
+        CB && CB({
+            error: true,
+            data: {
+                message: error?.data?.error || error?.message,
+            }
+        });
+        dispatch({ type: dispatchType, loading: false });
+    }
+};
+
+export const userLivness = (payload, CB, headers) => async (dispatch) => {
+    const dispatchType = AUTH.USER_LIVENESS;
+    dispatch({ type: dispatchType, loading: true});
+    try {
+        let response = await post("user/uploadLivenessCheck", payload, {headers});
         CB && CB(response?.data, payload);
         dispatch({type: dispatchType, loading: false});
     } catch (error) {
@@ -1027,12 +1045,13 @@ export const resumeSignupJourney = (payload, CB) => async (dispatch) => {
     }
 };
 
-export const updateUserType = (payload, CB) => async (dispatch) => {
+export const updateUserType = (payload, CB, headers) => async (dispatch) => {
     const dispatchType = AUTH.UPDATE_USER_TYPE;
     dispatch({ type: dispatchType, loading: true});
     try {
-        let response = await post("user/updateMobileUserType", payload);
-    console.log('updateUserType', response?.data);
+        let pay = payload?.formData ? payload?.formData : _.omit(payload, ['formData']);
+        let response = await post("user/updateMobileUserType", pay, {headers});
+        console.log('updateUserType', response?.data);
         CB && CB(response?.data);
         dispatch({type: dispatchType, loading: false});
     } catch (error) {

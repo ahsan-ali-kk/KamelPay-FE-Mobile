@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 import {themes} from "../../../theme/colors";
-import {getLayoutDirection} from "../../../utils/methods";
+// import {getLayoutDirection} from "../../../utils/methods";
 
 export default StyleSheet.create({
     container: {

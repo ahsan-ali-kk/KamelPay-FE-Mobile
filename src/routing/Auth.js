@@ -12,6 +12,7 @@ import {
     ChangePhoneNumber,
     SignupFindUser,
     SignupKyc,
+    SignupLiveness,
     SignupEnterPhone,
     SignupPasswordAndTermsAndCondition
 } from "../pages";
@@ -62,6 +63,7 @@ function Auth() {
                 <Stack.Screen name="forgotPasswordEmiratesId" component={ForgotPasswordEmiratesId} />
                 <Stack.Screen name="findUser" component={SignupFindUser} />
                 <Stack.Screen name="kyc" component={SignupKyc} />
+                <Stack.Screen name="liveness" component={SignupLiveness} />
                 <Stack.Screen name="enterPhone" component={SignupEnterPhone} />
                 <Stack.Screen name="passwordAndTermsAndCondition" component={SignupPasswordAndTermsAndCondition} />
             </Stack.Navigator>
