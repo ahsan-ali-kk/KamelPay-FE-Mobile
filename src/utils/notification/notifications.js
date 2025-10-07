@@ -72,6 +72,7 @@ export const getFcmTokenFromLocalStorage = async () => {
     const existing = await getValueIntoAsyncStorage(FCM_TOKEN).catch(() => null);
     if (!existing) {
         try {
+              await messaging().registerDeviceForRemoteMessages();
             const token = await messaging().getToken();
             await _setDataToAsyncStorage(FCM_TOKEN, token);
             // TODO: send token to backend
