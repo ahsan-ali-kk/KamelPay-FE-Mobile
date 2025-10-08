@@ -21,7 +21,7 @@ import {
     FCM_TOKEN,
     USER_BIOMETRICS
 } from "../../utils/asyncStorage/Constants";
-import ReactNativeBiometrics from "react-native-biometrics";
+import ReactNativeBiometrics from "@sbaiahmed1/react-native-biometrics";
 import Popup from "../../uiComponents/popup/Popup";
 import {navigate, navigationReset} from "../../routing/Ref";
 import {getMasterDetail, updateCard} from "./Global.action";

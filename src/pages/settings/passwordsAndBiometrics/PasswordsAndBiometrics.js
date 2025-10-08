@@ -7,7 +7,7 @@ import {CText, IconButton, CToggleSwitch} from "../../../uiComponents";
 import KamelpayIcon from "../../../assets/icons/KamelPayIcon";
 import {useDispatch, useSelector} from "react-redux";
 import {registerDevice, removeBiometricsType} from "../../../store/actions/Auth.action";
-import ReactNativeBiometrics from "react-native-biometrics";
+import ReactNativeBiometrics from "@sbaiahmed1/react-native-biometrics";
 import DeviceInfo from "react-native-device-info";
 import {useTranslation} from "react-i18next";
 

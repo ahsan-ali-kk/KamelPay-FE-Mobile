@@ -1,4 +1,4 @@
-import ReactNativeBiometrics from 'react-native-biometrics'
+import ReactNativeBiometrics from '@sbaiahmed1/react-native-biometrics'
 
 export default {
     /**

@@ -6,7 +6,7 @@ import React, { useCallback } from 'react';
 import { StatusBar } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import Communications from 'react-native-communications';
-import ReactNativeBiometrics from "react-native-biometrics";
+import ReactNativeBiometrics from "@sbaiahmed1/react-native-biometrics";
 import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 import DeviceInfo from "react-native-device-info";
 import { login } from "../store/actions/Auth.action";

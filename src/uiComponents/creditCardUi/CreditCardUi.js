@@ -222,7 +222,8 @@ function CreditCardUi(props) {
                                 <TouchableOpacity style={Styles.cardBodyLeftCurrencyContainer}
                                                   // onPress={() => getBalance(card?.walletID, card)}
                                 >
-                                    <DirhamSymbol fill={themes['light'].colors.tertiary} width={18} height={18}/>
+                                    {/* crashing */}
+                                    {/* <DirhamSymbol fill={themes['light'].colors.tertiary} width={18} height={18}/> */}
                                 </TouchableOpacity>
                                 {!card?.showBalance ?
                                     <CText style={Styles.cardBodyLeftTitle}>XXXXXX</CText>

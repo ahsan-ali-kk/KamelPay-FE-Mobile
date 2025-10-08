@@ -29,8 +29,10 @@ import { DdRumReactNavigationTracking } from "@datadog/mobile-react-navigation";
 import {config as dataDogConfig, onSDKInitialized} from './src/utils/dataDog';
 import './src/utils/notification/notifee.background';
 import { requestUserPermission, notificationListener, getFcmTokenFromLocalStorage } from './src/utils/notification/notifications';
+import { showSplash } from "react-native-splash-view";
 LogBox.ignoreAllLogs();
 
+showSplash();
 
 
 const theme = {

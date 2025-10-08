@@ -11,7 +11,7 @@ import {getBioKey} from "../../../utils/methods";
 import {useDispatch} from "react-redux";
 import KamelPayIcon from "../../../assets/icons/KamelPayIcon";
 import {useTranslation} from "react-i18next";
-import ReactNativeBiometrics from "react-native-biometrics";
+import ReactNativeBiometrics from "@sbaiahmed1/react-native-biometrics";
 
 function PinCodeForm({loginRoute, biometricEnable}) {
 

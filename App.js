@@ -13,7 +13,7 @@ import {checkBiometricAvailable, getProfile} from "./src/store/actions/Auth.acti
 import {CLoading} from "./src/uiComponents";
 import {useTranslation} from "react-i18next";
 import {hideSplash} from "react-native-splash-view";
-// import {UqudoIdSDK} from "uqudosdk-react-native";
+import {UqudoIdSDK} from "uqudosdk-react-native";
 // import {OneKycSDK} from "react-native-onekyc";
 import ManageCards from "./src/pages/cardManagement/manageCards/ManageCards";
 import Location from "./src/utils/location";
@@ -37,7 +37,6 @@ Sentry.init({
   // uncomment the line below to enable Spotlight (https://spotlightjs.com)
   // spotlight: __DEV__,
 });
-
 
 
 const NewApp = () => {
@@ -72,6 +71,9 @@ const NewApp = () => {
 
   useEffect(() => {
 
+      hideSplash();
+
+
     (async () => {
       let language = await getValueIntoAsyncStorage(LANGUAGE);
       language = JSON.parse(language);
@@ -86,11 +88,10 @@ const NewApp = () => {
         dispatch(toggleLanguageModal(true))
       }
 
-      // new UqudoIdSDK().init();
+      new UqudoIdSDK().init();
 
       initOneKyc();
 
-      hideSplash();
     })();
 
     dispatch(getCountries());

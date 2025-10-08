@@ -1923,8 +1923,6 @@ PODS:
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
     - SocketRocket
-  - react-native-biometrics (3.0.1):
-    - React-Core
   - react-native-cameraroll (7.10.2):
     - boost
     - DoubleConversion
@@ -2855,6 +2853,35 @@ PODS:
     - React-perflogger (= 0.80.0)
     - React-utils (= 0.80.0)
     - SocketRocket
+  - ReactNativeBiometrics (0.7.2):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
   - rn-fetch-blob (0.12.0):
     - React-Core
   - rn-scratch-card (1.2.3):
@@ -3647,7 +3674,6 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
-  - react-native-biometrics (from `../node_modules/react-native-biometrics`)
   - "react-native-cameraroll (from `../node_modules/@react-native-camera-roll/camera-roll`)"
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
@@ -3694,6 +3720,7 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "ReactNativeBiometrics (from `../node_modules/@sbaiahmed1/react-native-biometrics`)"
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - rn-scratch-card (from `../node_modules/rn-scratch-card`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
@@ -3870,8 +3897,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
-  react-native-biometrics:
-    :path: "../node_modules/react-native-biometrics"
   react-native-cameraroll:
     :path: "../node_modules/@react-native-camera-roll/camera-roll"
   react-native-geolocation:
@@ -3964,6 +3989,8 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  ReactNativeBiometrics:
+    :path: "../node_modules/@sbaiahmed1/react-native-biometrics"
   rn-fetch-blob:
     :path: "../node_modules/rn-fetch-blob"
   rn-scratch-card:
@@ -4103,7 +4130,6 @@ SPEC CHECKSUMS:
   React-logger: dce52a571ba0e0149c3f0fcc6866cbc0c8552c5e
   React-Mapbuffer: 76072e5b6c9a87feb966d10541ea93128a687426
   React-microtasksnativemodule: 5a5ade18671840f21b9f129d3d58d3dd374a4077
-  react-native-biometrics: 43ed5b828646a7862dbc7945556446be00798e7d
   react-native-cameraroll: 5c5fb716af11f6178dca48271ae065cd786a0a02
   react-native-geolocation: b7f68b8c04e36ee669c630dbc48dd42cf93a0a41
   react-native-image-picker: 9bceb747cd6cde22a3416ffdc819d11b5b11f156
@@ -4150,6 +4176,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 3267432b637c9b38e86961b287f784ee1b08dde0
   ReactCodegen: a492cab89cc8de48b8b65bda6714808786a411bd
   ReactCommon: 3d916b13ac777fc387b8035ab80ceb90aca4f747
+  ReactNativeBiometrics: 9f594c37f7c1e5a59a29def9def8f90e88bf3b9e
   rn-fetch-blob: 25612b6d6f6e980c6f17ed98ba2f58f5696a51ca
   rn-scratch-card: 4418c8352b3cfb338c029ed90e19e1555c91d5a1
   RNCAsyncStorage: f30b3a83064e28b0fc46f1fbd3834589ed64c7b9
@@ -4187,6 +4214,6 @@ SPEC CHECKSUMS:
   Yoga: c6dc84349a2b99e1900fe5729f5c34df75c009f2
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: a5249ada55d70816b9d544d69a7d0edba7e9e5d6
+PODFILE CHECKSUM: 311b3762668ea1e6cd186097432248bf053380d1
 
 COCOAPODS: 1.16.2

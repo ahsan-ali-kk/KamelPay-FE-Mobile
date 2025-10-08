@@ -55,13 +55,13 @@ class AppDelegate: ExpoAppDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
+        // ✅ Show splash screen via Objective-C bridging header
+
         factory.startReactNative(
             withModuleName: "Kamelpay",
             in: window,
             launchOptions: launchOptions
         )
-
-        // ✅ Show splash screen via Objective-C bridging header
 
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }

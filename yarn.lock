@@ -3015,6 +3015,11 @@
   resolved "https://registry.yarnpkg.com/@rnx-kit/align-deps/-/align-deps-3.2.3.tgz#7205f5350ef0370a9f7be97563236c31cc933da4"
   integrity sha512-MXuXHAcOeHUH8viy/1h+GdtN39v0JoUX9DQ47bnZ/SFGO/JYhwsYpkFIT5OpuLHnFYsNqFQONUHGlIPsKIEqMw==
 
+"@sbaiahmed1/react-native-biometrics@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@sbaiahmed1/react-native-biometrics/-/react-native-biometrics-0.7.2.tgz#e58d04ccaffc2fa893048d3452f301ef0c1b1689"
+  integrity sha512-HPAXVqfMQ8nMShdAVUgOOwRahn+Dfg9NG3ccVx0naeg1Xfp61Tz1wk/7G9EzuqdXxnaaxna1T81tGCRUe/ziJw==
+
 "@sentry-internal/browser-utils@8.55.0":
   version "8.55.0"
   resolved "https://registry.yarnpkg.com/@sentry-internal/browser-utils/-/browser-utils-8.55.0.tgz#d89bae423edd29c39f01285c8e2d59ce9289d9a6"
@@ -8611,11 +8616,6 @@ react-native-animatable@1.4.0:
   integrity sha512-DZwaDVWm2NBvBxf7I0wXKXLKb/TxDnkV53sWhCvei1pRyTX3MVFpkvdYBknNBqPrxYuAIlPxEp7gJOidIauUkw==
   dependencies:
     prop-types "^15.8.1"
-
-react-native-biometrics@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-biometrics/-/react-native-biometrics-3.0.1.tgz#23c5a0bdbae1fcb1e08b22936223fe0fc4af846e"
-  integrity sha512-Ru80gXRa9KG04sl5AB9HyjLjVbduhqZVjA+AiOSGqr+fNqCDmCu9y5WEksnjbnniNLmq1yGcw+qcLXmR1ddLDQ==
 
 react-native-chart-kit@^6.12.0:
   version "6.12.0"
