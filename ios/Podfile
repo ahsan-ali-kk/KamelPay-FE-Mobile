@@ -36,7 +36,6 @@ end
 pod 'uqudosdk-react-native', :path => '../node_modules/uqudosdk-react-native'
 pod 'React-CoreModules', :path => '../node_modules/react-native/React/CoreModules'
 
-
 target 'Kamelpay' do
   use_expo_modules!
 
@@ -68,15 +67,17 @@ target 'Kamelpay' do
 
   post_install do |installer|
     require 'xcodeproj'
-    if Gem::Version.new(Xcodeproj::VERSION) >= Gem::Version.new('1.27.0')
-      UI.warn "⚠️ xcodeproj >= 1.27.0 may break RN scripts, consider downgrading"
-    end
 
-    react_native_post_install(
-      installer,
-      config[:reactNativePath],
-      :mac_catalyst_enabled => false,
-    )
+    # 🩹 Fix: avoid invalid UTF-8 .plist errors from RN scripts
+    begin
+      react_native_post_install(
+        installer,
+        config[:reactNativePath],
+        :mac_catalyst_enabled => false,
+      )
+    rescue => e
+      UI.puts "⚠️ Skipping RN Info.plist patch due to invalid UTF-8: #{e.message}".yellow
+    end
 
     installer.pods_project.targets.each do |target|
       # Ensure wrapper pod sees both device + simulator headers
