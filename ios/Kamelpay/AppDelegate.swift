@@ -62,7 +62,6 @@ class AppDelegate: ExpoAppDelegate {
         )
 
         // ✅ Show splash screen via Objective-C bridging header
-      showSplashScreen() // Call directly, bridging header exposes it
 
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
