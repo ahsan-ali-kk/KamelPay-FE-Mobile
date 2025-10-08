@@ -10238,7 +10238,7 @@ update-browserslist-db@^1.1.3:
     escalade "^3.2.0"
     picocolors "^1.1.1"
 
-uqudosdk-react-native@^3.4.0:
+uqudosdk-react-native@3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/uqudosdk-react-native/-/uqudosdk-react-native-3.6.0.tgz#c1827d5061abcd93dcc9b795912097197fcbc0ce"
   integrity sha512-4BixerCIFU+NZB8rwQV95Pzzj5eeeXrL3nsSf8PTlf2pNCQ1FvL5D03rVv7c6UD3PF/6STuEzjj9d6EO93F2UA==

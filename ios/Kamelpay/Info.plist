@@ -63,44 +63,8 @@
 	<string>NaqaD would like access to your photo gallery save transaction receipt.</string>
 	<key>NSUserNotificationUsageDescription</key>
 	<string>Kamelpay would like to send you notifications.</string>
-	<key>UIUserNotificationUsageDescription</key>
-	<string>Kamelpay would like to send you notifications.</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>processing</string>
-		<string>remote-notification</string>
-	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>arm64</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>UQApiBaseURL</key>
-	<string>https://id.uqudo.io</string>
-	<key>com.apple.developer.nfc.readersession.formats</key>
-	<array>
-		<string>NDEF</string>
-		<string>TAG</string>
-	</array>
-	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
-	<array>
-		<string>00000000000000</string>
-		<string>A00000024300130000000101</string>
-		<string>A0000002430013000000010109</string>
-		<string>A000000243001300000001FF</string>
-	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>JameelNooriKasheeda.ttf</string>
@@ -135,6 +99,42 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
+	<key>UIUserNotificationUsageDescription</key>
+	<string>Kamelpay would like to send you notifications.</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UQApiBaseURL</key>
+	<string>https://id.uqudo.io</string>
+	<key>com.apple.developer.nfc.readersession.formats</key>
+	<array>
+		<string>NDEF</string>
+		<string>TAG</string>
+	</array>
+	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+	<array>
+		<string>00000000000000</string>
+		<string>A00000024300130000000101</string>
+		<string>A0000002430013000000010109</string>
+		<string>A000000243001300000001FF</string>
 	</array>
 </dict>
 </plist>
