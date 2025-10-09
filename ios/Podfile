@@ -32,6 +32,8 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+pod 'OpenSSL-Universal', '3.3.3001'
+
 # ✅ Only use the wrapper pod, since it already declares UqudoSDK dependency
 pod 'uqudosdk-react-native', :path => '../node_modules/uqudosdk-react-native'
 pod 'React-CoreModules', :path => '../node_modules/react-native/React/CoreModules'

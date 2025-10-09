@@ -280,6 +280,7 @@ PODS:
     - nanopb/encode (= 3.30910.0)
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
+  - OpenSSL-Universal (3.3.3001)
   - OpenTelemetrySwiftApi (1.13.1)
   - PLCrashReporter (1.12.0)
   - PromisesObjC (2.4.0)
@@ -3079,7 +3080,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNLocalize (3.5.2):
+  - RNLocalize (3.5.3):
     - boost
     - DoubleConversion
     - fast_float
@@ -3383,7 +3384,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNSVG (15.13.0):
+  - RNSVG (15.14.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -3410,10 +3411,10 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNSVG/common (= 15.13.0)
+    - RNSVG/common (= 15.14.0)
     - SocketRocket
     - Yoga
-  - RNSVG/common (15.13.0):
+  - RNSVG/common (15.14.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -3640,6 +3641,7 @@ DEPENDENCIES:
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - lottie-ios (from `../node_modules/lottie-ios`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
+  - OpenSSL-Universal (= 3.3.3001)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
   - RCTRequired (from `../node_modules/react-native/Libraries/Required`)
@@ -3773,6 +3775,7 @@ SPEC REPOS:
     - GoogleUtilities
     - libwebp
     - nanopb
+    - OpenSSL-Universal
     - OpenTelemetrySwiftApi
     - PLCrashReporter
     - PromisesObjC
@@ -4094,6 +4097,7 @@ SPEC CHECKSUMS:
   lottie-ios: a881093fab623c467d3bce374367755c272bdd59
   lottie-react-native: 7f85f11bee4ec576a90335093d2240071967ae08
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  OpenSSL-Universal: 6082b0bf950e5636fe0d78def171184e2b3899c2
   OpenTelemetrySwiftApi: aaee576ed961e0c348af78df58b61300e95bd104
   PLCrashReporter: db59ef96fa3d25f3650040d02ec2798cffee75f2
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
@@ -4191,7 +4195,7 @@ SPEC CHECKSUMS:
   RNFS: 89de7d7f4c0f6bafa05343c578f61118c8282ed8
   RNGestureHandler: a52292df4f8fc7daab354ad2c37be401d4c3bed8
   RNKeychain: e2dde9548dd1fc98c48130d243af5f7b02ab71d0
-  RNLocalize: a16f9c3aade79b247632a4bbb56623c9741e4fa3
+  RNLocalize: ffcbffa3b5f9f5eb017cb3c9c6b7b6fa0b6c66e8
   RNNotifee: 5e3b271e8ea7456a36eec994085543c9adca9168
   RNPermissions: 117c47e8d3119761b53f39ec8ea9476c3c336573
   RNReactNativeHapticFeedback: d39b9a5b334ce26f49ca6abe9eea8b3938532aee
@@ -4199,7 +4203,7 @@ SPEC CHECKSUMS:
   RNScreens: 8132b09d1edf29ba411894b19bb05f25277b2c64
   RNSentry: f232a12978fd4ca0bb134c5c1849b554721decef
   RNShare: bd5eab5012ac84948cfe093ae0ed79a56a3388af
-  RNSVG: 940dde1beb1ad95699c711596627a663977037be
+  RNSVG: 05138c285c3a8b54fc01061fb1438385832fe7f7
   RNVectorIcons: 0567525e0a344458329daa09068cf9e8090ec791
   RNWorklets: 4fdb5474f2117fa53d2000c5c6a7f68e4f4f6e95
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
@@ -4214,6 +4218,6 @@ SPEC CHECKSUMS:
   Yoga: c6dc84349a2b99e1900fe5729f5c34df75c009f2
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 311b3762668ea1e6cd186097432248bf053380d1
+PODFILE CHECKSUM: 2ab008bece2661010ed3f07340b69afb42bbd4da
 
 COCOAPODS: 1.16.2
