@@ -68,17 +68,4 @@ dependencies {
     }
 }
 
-/** ✅ React Native Vector Icons config **/
-project.ext.vectoricons = [
-    iconFontNames: [
-        'AntDesign.ttf',
-        'Feather.ttf',
-        'FontAwesome.ttf',
-        'Ionicons.ttf',
-        'MaterialIcons.ttf',
-        'Octicons.ttf',
-        'SimpleLineIcons.ttf',
-    ]
-]
-
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
