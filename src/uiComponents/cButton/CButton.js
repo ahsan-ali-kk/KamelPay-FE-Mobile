@@ -4,9 +4,23 @@ import styles from "./CButton.style";
 import {themes} from "../../theme/colors";
 import KamlepayIcon from '../../assets/icons/KamelPayIcon';
 
+const defaultProps = {
+    title: '',
+    onPress: () => null,
+    colorType: 'primary',
+    type: 'normal',
+    activeOpacity: 0.5,
+    loading: false,
+    disabled: false,
+    loaderProps: {
+        size: 20,
+        color: themes['light'].colors.tertiary,
+    },
+};
+
 const CButton = props => {
     const {title, children, loading, disabled, loaderProps, buttonText, activeOpacity, onPress, buttonStyle, theme,
-        colorType, type, iconType = 'custom', iconName, rightIconName, iconStyle} = props;
+        colorType, type, iconType = 'custom', iconName, rightIconName, iconStyle} = {...defaultProps, ...props};
 
     let backgroundColor = colorType;
     let borderColor = colorType;
@@ -19,6 +33,7 @@ const CButton = props => {
     } else {
         textColor = 'tertiary'
     }
+
     return(
         <TouchableOpacity activeOpacity={activeOpacity}
                           onPress={onPress}
@@ -60,18 +75,6 @@ const CButton = props => {
 };
 
 
-CButton.defaultProps = {
-    title: '',
-    onPress: () => null,
-    colorType: 'primary',
-    type: 'normal',
-    activeOpacity: 0.5,
-    loading: false,
-    disabled: false,
-    loaderProps: {
-        size: 20,
-        color: themes['light'].colors.tertiary,
-    },
-};
+
 
 export default React.memo(CButton);
