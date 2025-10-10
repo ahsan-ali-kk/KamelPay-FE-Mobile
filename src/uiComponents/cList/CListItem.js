@@ -6,7 +6,7 @@ import KamelPayIcon from "../../assets/icons/KamelPayIcon";
 import {nameFirstLetter} from "../../utils/methods";
 
 function CListItem(props) {
-    const {style, titleStyle, listImageContainer, listImage, onPress, source, title, localSource, numberOfLines = 2,
+    const {style, titleStyle, listImageContainer, listImage, onPress, source, title = '', localSource, numberOfLines = 2,
         iconRadius = 26, resizeMode = 'cover', defaultSource, lastItem = false, description, renderActionButtons,
         children, rightIconName, leftIconName, avatarText, avatarStyle, avatarTextStyle, avatarBadge, avatarBadgeStyle, subTitleStyle} = props;
     return (
@@ -41,9 +41,5 @@ function CListItem(props) {
     )
 }
 
-CListItem.defaultProps = {
-    title: '',
-    item: {}
-};
 
 export default CListItem;

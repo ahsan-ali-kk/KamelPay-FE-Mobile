@@ -7,12 +7,26 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+
+const defaultProps = {
+    title: '',
+    onPress: () => null,
+    activeOpacity: 0.5,
+    loading: false,
+    disabled: false,
+    loaderProps: {
+        size: 20,
+        color: themes['light'].colors.tertiary,
+    },
+};
+
+
 const IconButton = props => {
     const {loading, disabled, loaderProps, activeOpacity, onPress, type,
         buttonStyle,
         iconName,
         buttonType = 'normal',
-        buttonIconStyle, children, badge, materialCommunityIcons, ionicons, materialIcons} = props;
+        buttonIconStyle, children, badge, materialCommunityIcons, ionicons, materialIcons} = {...defaultProps, ...props};
 
     let style;
     let iconStyle;
@@ -59,18 +73,6 @@ const IconButton = props => {
                    </Fragment>
                 )
             });
-};
-
-IconButton.defaultProps = {
-    title: '',
-    onPress: () => null,
-    activeOpacity: 0.5,
-    loading: false,
-    disabled: false,
-    loaderProps: {
-        size: 20,
-        color: themes['light'].colors.tertiary,
-    },
 };
 
 export default React.memo(IconButton);

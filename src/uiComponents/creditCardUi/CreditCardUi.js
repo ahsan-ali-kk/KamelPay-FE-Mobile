@@ -375,10 +375,4 @@ function CreditCardUi(props) {
     )
 }
 
-CreditCardUi.defaultProps = {
-    // number: '',
-    // valid: '',
-    // name: '',
-};
-
 export default memo(CreditCardUi);

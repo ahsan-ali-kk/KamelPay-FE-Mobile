@@ -1,11 +1,6 @@
 import React  from 'react';
 import {Text, Animated, NativeModules, Platform} from 'react-native';
 
-Text.defaultProps = {
-    ...(Text.defaultProps || {}),
-    allowFontScaling: false,
-};
-
 const CText = (props) => {
     return <Animated.Text
         allowFontScaling={false}

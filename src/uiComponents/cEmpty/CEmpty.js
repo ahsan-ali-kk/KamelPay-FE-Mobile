@@ -3,7 +3,7 @@ import { View } from "react-native";
 import styles from "./CEmptyStyle";
 import {ProgressiveImage, CText} from '../index';
 
-function CEmpty({text, style, subText, icon, iconStyle, resizeMode}) {
+function CEmpty({text = 'Empty', style, subText, icon, iconStyle, resizeMode}) {
     return (
         <View style={[styles.container, style]}>
             <ProgressiveImage
@@ -16,9 +16,6 @@ function CEmpty({text, style, subText, icon, iconStyle, resizeMode}) {
     );
 }
 
-CEmpty.defaultProps = {
-    style: {},
-    text: 'Empty'
-};
+
 
 export default React.memo(CEmpty)

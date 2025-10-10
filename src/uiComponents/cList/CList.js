@@ -4,9 +4,19 @@ import {CEmpty, CLoading} from '../../uiComponents';
 import styles from './CListStyle';
 import {themes as Theme} from "../../theme/colors";
 
+
+const defaultProps = {
+    style: {},
+    contentContainerStyle: {},
+    data: [],
+    loading: false,
+    onRefreshLoading: false,
+    onRefreshHandler: null
+};
+
 function CList(props) {
     const {data, loading, contentContainerStyle, onRefreshLoading, onRefreshHandler, isShowFooter, onEndReached,
-        scrollEventThrottle, onEndThreshold, emptyOptions, numColumns, listContainerStyle, loadingStyle, loadingText} = props;
+        scrollEventThrottle, onEndThreshold, emptyOptions, numColumns, listContainerStyle, loadingStyle, loadingText} = {...defaultProps, ...props};
     const renderFooterFunc = () => {
         if (isShowFooter) {
             return (
@@ -48,14 +58,6 @@ function CList(props) {
     );
 }
 
-CList.defaultProps = {
-    style: {},
-    contentContainerStyle: {},
-    data: [],
-    loading: false,
-    onRefreshLoading: false,
-    onRefreshHandler: null
-};
 
 
 export default CList;

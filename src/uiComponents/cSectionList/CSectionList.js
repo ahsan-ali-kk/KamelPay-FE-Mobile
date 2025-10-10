@@ -4,9 +4,19 @@ import {CEmpty, CLoading} from '../../uiComponents';
 import styles from './CSectionList.style';
 import {themes as Theme} from "../../theme/colors";
 
+
+const defaultProps = {
+    style: {},
+    contentContainerStyle: {},
+    data: [],
+    loading: false,
+    onRefreshLoading: false,
+    onRefreshHandler: null
+};
+
 function CSectionList(props) {
     const {data, loading, contentContainerStyle, onRefreshLoading, onRefreshHandler, isShowFooter,
-        onEndReached, scrollEventThrottle, onEndThreshold, emptyOptions, renderSectionHeader} = props;
+        onEndReached, scrollEventThrottle, onEndThreshold, emptyOptions, renderSectionHeader} = {...defaultProps, ...props};
     const renderFooterFunc = () => {
         if (isShowFooter) {
             return (
@@ -44,14 +54,6 @@ function CSectionList(props) {
     );
 }
 
-CSectionList.defaultProps = {
-    style: {},
-    contentContainerStyle: {},
-    data: [],
-    loading: false,
-    onRefreshLoading: false,
-    onRefreshHandler: null
-};
 
 
 export default CSectionList;

@@ -8,10 +8,17 @@ import {CText} from "../index";
 import Style from "../popup/PopupStyle";
 import {MappedElement} from "../../utils/methods";
 
+const defaultProps = {
+    text: '',
+    onPress: () => null,
+    type: 'primary',
+};
+
+
 const AlertView = props => {
     const {loading = false, title = '', text = '', subText = '', viewStyle, onPress, iconStyle, type = '', iconName,
         textStyle, showIcon = true, buttonProps, viewContentStyle, actions, buttonContainerStyle, buttonLastType,
-        description, descriptionTextStyle, children, listData, disabled} = props;
+        description, descriptionTextStyle, children, listData, disabled} = {...defaultProps, ...props};
 
     const getPropWithType = (value) => {
         switch (value) {
@@ -127,10 +134,5 @@ const AlertView = props => {
     )
 };
 
-AlertView.defaultProps = {
-    text: '',
-    onPress: () => null,
-    type: 'primary',
-};
 
 export default React.memo(AlertView);

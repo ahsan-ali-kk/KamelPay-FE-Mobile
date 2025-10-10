@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {View, TouchableOpacity, ActivityIndicator, TextInput} from 'react-native';
+import {View, TouchableOpacity, ActivityIndicator} from 'react-native';
 import KamelPayIcon from '../../assets/icons/KamelPayIcon';
 import GlobalStyle from "../../assets/stylings/GlobalStyle";
 import {themes} from "../../theme/colors";
@@ -7,9 +7,27 @@ import ProgressiveImage from "../progressiveImage/ProgressiveImage";
 import MaskInput from 'react-native-mask-input';
 import CText from '../cText/CText';
 
-TextInput.defaultProps = {
-    ...(TextInput.defaultProps || {}),
-    allowFontScaling: false,
+
+const defaultProps = {
+    inputContainerStyle: {},
+    inputLabelStyle: {},
+    iconButtonStyle: {},
+    inputInnerContainerStyle: {},
+    iconStyle: {},
+    inputErrorStyle: {},
+    toggleIconFunc: () => null,
+
+    toggleRightIconFunc: () => null,
+    rightButton: () => null,
+    rightIconButtonStyle: {},
+    rightIconName: '',
+
+    toggleLeftIconFunc: () => null,
+    leftIconButtonStyle: {},
+    leftIconName: '',
+
+    inputLabel: '',
+    error: '',
 };
 
 const CInput = React.forwardRef((props, ref) => {
@@ -21,7 +39,7 @@ const CInput = React.forwardRef((props, ref) => {
         onPress, selectedCountry, textStyle, disabled,
         leftIconName, toggleLeftIconFunc, leftIconButtonStyle, iconStyle, inputErrorStyle, error,
         toggleRightIconFunc, rightIconButtonStyle, rightIconName, rightButton, style, value,
-        countryView, countryViewLoading = false, placeholder, showCountryCurrency, prefixView} = props;
+        countryView, countryViewLoading = false, placeholder, showCountryCurrency, prefixView} = {...defaultProps, ...props};
 
     const renderLabel = () => {
         return (
@@ -129,26 +147,5 @@ const CInput = React.forwardRef((props, ref) => {
     ) : null
 });
 
-CInput.defaultProps = {
-    inputContainerStyle: {},
-    inputLabelStyle: {},
-    iconButtonStyle: {},
-    inputInnerContainerStyle: {},
-    iconStyle: {},
-    inputErrorStyle: {},
-    toggleIconFunc: () => null,
-
-    toggleRightIconFunc: () => null,
-    rightButton: () => null,
-    rightIconButtonStyle: {},
-    rightIconName: '',
-
-    toggleLeftIconFunc: () => null,
-    leftIconButtonStyle: {},
-    leftIconName: '',
-
-    inputLabel: '',
-    error: '',
-};
 
 export default React.memo(CInput);

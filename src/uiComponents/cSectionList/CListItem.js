@@ -3,8 +3,14 @@ import {View, TouchableOpacity, Image} from 'react-native';
 import {ProgressiveImage, CText} from '../../uiComponents';
 import Styles from "./CSectionList.style";
 
+
+const defaultProps = {
+    title: '',
+    item: {}
+};
+
 function CListItem(props) {
-    const {onPress, source, title, localSource, numberOfLines = 2, iconRadius = 26, resizeMode = 'cover', defaultSource, lastItem = false, description} = props;
+    const {onPress, source, title, localSource, numberOfLines = 2, iconRadius = 26, resizeMode = 'cover', defaultSource, lastItem = false, description} = {...defaultProps, ...props};
     return (
         <TouchableOpacity style={[Styles.listItem, lastItem && Styles.lastListItem]} onPress={onPress}>
             {localSource ?  <View style={[Styles.listItemIcon, {borderRadius: iconRadius}]}>
@@ -29,9 +35,5 @@ function CListItem(props) {
 
 }
 
-CListItem.defaultProps = {
-    title: '',
-    item: {}
-};
 
 export default CListItem;

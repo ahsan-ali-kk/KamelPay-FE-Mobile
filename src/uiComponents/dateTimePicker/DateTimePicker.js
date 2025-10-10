@@ -14,9 +14,26 @@ export const ErrorView = ({message}) => {
     return message ? <CText style={GlobalStyle.errorTextStyle}>{message}</CText> : null;
 };
 
-function DateTimePicker({isShow = true, type, inputContainer, isVisible, value, error, onChange, placeHolder, label, activeOpacity,
+
+
+
+const defaultProps = {
+    label: '',
+    value: '',
+    placeHolder: 'Tap to select',
+    error: '',
+    activeOpacity: 0.5,
+    isVisible: false,
+    loading: false,
+    disabled: false,
+    onChange: () => null
+};
+
+function DateTimePicker(props) {
+
+    const {isShow = true, type, inputContainer, isVisible, value, error, onChange, placeHolder, label, activeOpacity,
                             loading, disabled, minimumDate, maximumDate = null, mode = 'date', subLabel, textStyle,
-                            inputLabelStyle, displayFormat = 'MM-DD-YYYY'}) {
+                            inputLabelStyle, displayFormat = 'MM-DD-YYYY'} = {...defaultProps, ...props}
 
     // const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
@@ -99,16 +116,5 @@ function DateTimePicker({isShow = true, type, inputContainer, isVisible, value, 
     ) : null;
 }
 
-DateTimePicker.defaultProps = {
-    label: '',
-    value: '',
-    placeHolder: 'Tap to select',
-    error: '',
-    activeOpacity: 0.5,
-    isVisible: false,
-    loading: false,
-    disabled: false,
-    onChange: () => null
-};
 
 export default DateTimePicker;

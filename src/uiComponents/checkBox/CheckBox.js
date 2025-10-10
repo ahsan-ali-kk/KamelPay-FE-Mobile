@@ -4,8 +4,18 @@ import {CText} from '../index';
 import Style from './CheckBox.style';
 import AntDesign from "react-native-vector-icons/AntDesign";
 
-const CheckBox = ({hideCheckBox, title, value, onChange, disabled, activeOpacity, clickAbleText, clickAbleTextFunc,
-                      checkBoxTitleStyle, checkBoxTitleContainerStyle, checkBoxContainerStyle, checkBoxTitleInnerContainerStyle}) => {
+const defaultProps = {
+    title: '',
+    onChange: () => null,
+    activeOpacity: 0.5,
+    value: false,
+    disabled: false,
+};
+
+const CheckBox = (props) => {
+
+    const {hideCheckBox, title, value, onChange, disabled, activeOpacity, clickAbleText, clickAbleTextFunc,
+                      checkBoxTitleStyle, checkBoxTitleContainerStyle, checkBoxContainerStyle, checkBoxTitleInnerContainerStyle} = {...defaultProps, ...props};
     return (
         <TouchableOpacity style={[Style.checkBoxContainer, checkBoxContainerStyle]}
                           disabled={disabled}
@@ -29,11 +39,5 @@ const CheckBox = ({hideCheckBox, title, value, onChange, disabled, activeOpacity
 };
 
 
-CheckBox.defaultProps = {
-    title: '',
-    onChange: () => null,
-    activeOpacity: 0.5,
-    value: false,
-    disabled: false,
-};
+
 export default memo(CheckBox);
