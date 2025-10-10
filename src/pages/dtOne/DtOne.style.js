@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {I18nManager, StyleSheet} from "react-native";
 import {themes as theme, themes} from "../../theme/colors";
 import {getLayoutDirection} from "../../utils/methods";
 
@@ -52,9 +52,8 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     skuItemContent: {
-        marginLeft: 15
-        // marginLeft: getLayoutDirection() ? 0 : 15,
-        // marginRight: getLayoutDirection() ? 15 : 0,
+        marginLeft: I18nManager.isRTL ? 0 : 15,
+        marginRight: I18nManager.isRTL ? 15 : 0,
     },
 
     listItem: {

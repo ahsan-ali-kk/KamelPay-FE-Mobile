@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {I18nManager, StyleSheet} from "react-native";
 import {themes as theme, themes} from "../../theme/colors";
 import {getLayoutDirection} from "../../utils/methods";
 
@@ -77,7 +77,7 @@ export default StyleSheet.create({
         top: -3,
         left: -5,
         transform: [
-            { scaleX: getLayoutDirection() ? -1 : 0 }
+            { scaleX: I18nManager.isRTL ? -1 : 0 }
         ]
     },
     subscriptionBannerBottomRightVector: {
@@ -87,7 +87,7 @@ export default StyleSheet.create({
         bottom: 0,
         right: -3,
         transform: [
-            { scaleX: getLayoutDirection() ? -1 : 0 }
+            { scaleX: I18nManager.isRTL ? -1 : 0 }
         ]
     },
     subscriptionBannerContent: {

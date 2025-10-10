@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {I18nManager, StyleSheet} from 'react-native';
 import {themes as theme, themes} from "../../theme/colors";
 // import {getLayoutDirection} from "../../utils/methods";
 
@@ -40,9 +40,8 @@ export default StyleSheet.create({
         height: 26,
         borderRadius: 26,
         overflow: 'hidden',
-        // marginLeft: getLayoutDirection() ? 20 : 0,
-        // marginRight: getLayoutDirection() ? 0 : 20,
-        marginRight: 20
+        marginLeft: I18nManager.isRTL? 20 : 0,
+        marginRight: I18nManager.isRTL? 0 : 20,
     },
     listItemIconImage: {
         width: '100%',

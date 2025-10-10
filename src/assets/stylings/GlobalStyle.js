@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {I18nManager, StyleSheet} from 'react-native';
 import {themes as theme, themes} from "../../theme/colors";
 // import {getLayoutDirection} from "../../utils/methods";
 
@@ -66,17 +66,16 @@ export default StyleSheet.create({
     inputLeftIconButton: {
         padding: 5,
         borderRadius: 100,
-        marginLeft: 10,
-        // marginLeft: getLayoutDirection() ? 0 : 10,
-        // marginRight: getLayoutDirection() ? 10 : 0,
+        marginLeft: I18nManager.isRTL ? 0 : 10,
+        marginRight: I18nManager.isRTL ? 10 : 0,
     },
 
     inputIconButton: {
         zIndex: 1,
         padding: 5,
         marginLeft: 10,
-        // marginLeft: getLayoutDirection() ? 0 : 10,
-        // marginRight: getLayoutDirection() ? 10 : 0,
+        marginLeft: I18nManager.isRTL ? 0 : 10,
+        marginRight: I18nManager.isRTL ? 10 : 0,
     },
     inputIcon: {
         fontSize: 16,
@@ -111,8 +110,8 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRightWidth: 1,
-        // borderRightWidth: getLayoutDirection() ? 0 : 1,
-        // borderLeftWidth: getLayoutDirection() ? 1 : 0,
+        borderRightWidth: I18nManager.isRTL ? 0 : 1,
+        borderLeftWidth: I18nManager.isRTL ? 1 : 0,
         borderColor: themes['light'].colors.primaryLighten,
         paddingRight: 15,
     },
@@ -130,9 +129,8 @@ export default StyleSheet.create({
         fontFamily: theme.font.regular,
         fontWeight: '400',
         fontSize: 14,
-        marginLeft: 15,
-        // marginLeft: getLayoutDirection() ? 0 : 15,
-        // marginRight: getLayoutDirection() ? 15 : 0,
+        marginLeft: I18nManager.isRTL ? 0 : 15,
+        marginRight: I18nManager.isRTL ? 15 : 0,
     },
 
     countryCurrencyText: {
@@ -410,8 +408,8 @@ export default StyleSheet.create({
     },
     toggleViewText: {
         flex: 1,
-        // marginLeft: getLayoutDirection() ? 15 : 0,
-        // marginRight: getLayoutDirection() ? 0 : 15,
+        marginLeft: I18nManager.isRTL ? 15 : 0,
+        marginRight: I18nManager.isRTL ? 0 : 15,
         marginRight: 15,
         fontSize: 14,
         fontFamily: themes.font.regular,

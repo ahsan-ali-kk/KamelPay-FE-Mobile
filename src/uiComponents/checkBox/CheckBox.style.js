@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { I18nManager, StyleSheet } from "react-native";
 import {themes} from "../../theme/colors";
 // import {getLayoutDirection} from "../../utils/methods";
 
@@ -35,8 +35,8 @@ export default StyleSheet.create({
     },
     checkBoxTitleContainer: {
         flex: 1,
-        // marginLeft: getLayoutDirection() ? 0 : 10,
-        // marginRight: getLayoutDirection() ? 10 : 0,
+        marginLeft: I18nManager.isRTL? 0 : 10,
+        marginRight: I18nManager.isRTL? 10 : 0,
         // flexDirection: 'row',
         alignItems: 'center',
         flexDirection: 'row',

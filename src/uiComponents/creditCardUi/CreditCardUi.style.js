@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {I18nManager, StyleSheet} from "react-native";
 import {themes as theme, themes} from "../../theme/colors";
 // import {getLayoutDirection} from "../../utils/methods";
 
@@ -58,8 +58,8 @@ export default StyleSheet.create({
         fontSize: 16,
         fontFamily: themes.font.regular,
         marginRight: 10,
-        // marginLeft: getLayoutDirection() ? 10 : 0,
-        // marginRight: getLayoutDirection() ? 0 : 10,
+        marginLeft: I18nManager.isRTL ? 10 : 0,
+        marginRight: I18nManager.isRTL ? 0 : 10,
         textAlign: 'left'
     },
     cardHeaderImage: {
