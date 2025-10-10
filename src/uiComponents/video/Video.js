@@ -2,8 +2,8 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Styles from './Video.style';
 import { TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import VideoPlayer from 'react-native-video-controls';
-import AntIcons from 'react-native-vector-icons/AntDesign';
-import Octicons from 'react-native-vector-icons/Octicons';
+import { AntDesign } from '@react-native-vector-icons/ant-design';
+import { Octicons } from '@react-native-vector-icons/octicons';
 import {themes} from "../../theme/colors";
 
 const Video = (props) => {
@@ -50,7 +50,7 @@ const Video = (props) => {
     const renderPlayButton = () => {
         return !isBuffering && !isLoading && isPaused ? <TouchableOpacity style={Styles.playButton}
                                              onPress={() => togglePlayOrPause()}>
-           <AntIcons name='playcircleo' style={Styles.playButtonIcon} />
+           <AntDesign name='playcircleo' style={Styles.playButtonIcon} />
        </TouchableOpacity>  : null
     };
 

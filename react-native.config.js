@@ -5,6 +5,6 @@ module.exports = {
     },
     assets: [
         './src/assets/fonts',
-        './src/assets/icons/icomoon.ttf'
+        './src/assets/icons'
     ],
 };

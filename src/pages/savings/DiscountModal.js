@@ -4,7 +4,7 @@ import {CButton, CText, ProgressiveImage, CModal} from "../../uiComponents";
 import GlobalStyle from "../../assets/stylings/GlobalStyle";
 import {useTranslation} from "react-i18next";
 import KamelpayIcon from "../../assets/icons/KamelPayIcon";
-import Feather from "react-native-vector-icons/Feather";
+import Feather from "@react-native-vector-icons/feather";
 import Style from "./DiscountModal.style";
 import moment from 'moment';
 import Clipboard from '@react-native-clipboard/clipboard';

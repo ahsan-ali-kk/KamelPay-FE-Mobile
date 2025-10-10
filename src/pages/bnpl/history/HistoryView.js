@@ -9,7 +9,7 @@ import {View} from "react-native";
 import GlobalStyle from "../../../assets/stylings/GlobalStyle";
 import {CText, ProgressiveImage, CButton} from "../../../uiComponents";
 import RemittanceStyles from "../../topUp/TopUp.style";
-import Feather from "react-native-vector-icons/Feather";
+import Feather from "@react-native-vector-icons/feather";
 import TrackOrder from "./TrackOrder";
 import {generateInstallmentPlan} from "../helper";
 

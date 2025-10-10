@@ -7,7 +7,8 @@ import Styles from '../../Auth.style';
 import GlobalStyle from "../../../../assets/stylings/GlobalStyle";
 import {themes} from "../../../../theme/colors";
 import OTPInputView from '../../../../lib/react-native-otp-input'
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@react-native-vector-icons/ionicons';
+
 
 function CForm({submit, loginRoute, loading, resendCode, isLoggedIn}) {
     return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import Styles from './Header.style';
 import KamelPayIcon from '../../assets/icons/KamelPayIcon';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import { AntDesign } from '@react-native-vector-icons/ant-design';
 import { useNavigation } from '@react-navigation/native';
 import {useSelector} from "react-redux";
 import {openWhatsApp} from "../../utils/methods";
@@ -43,7 +43,7 @@ function Header(props) {
     const backButton = () => {
         return hideBackButton ? (
             <TouchableOpacity style={Styles.headerButton} onPress={() => backPress()}>
-                <AntDesign name="arrowleft" style={[Styles.headerButtonIcon,
+                <AntDesign name="arrow-left" style={[Styles.headerButtonIcon,
                     {transform: [{ scaleX: false ? -1 : 1 }]}]}/>
             </TouchableOpacity>
         ) : <View style={{width: 24}}/>

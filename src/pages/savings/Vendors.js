@@ -8,7 +8,7 @@ import Styles from "./Savings.style";
 import {themes} from "../../theme/colors";
 import {useTranslation} from "react-i18next";
 import {getVendorDetails, getVendors, toggleSubscriptionModal} from "../../store/actions/Savings.action";
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import { SimpleLineIcons } from '@react-native-vector-icons/simple-line-icons';
 import SubscribeModal from "./SubscribeModal";
 import {calculateKM} from "../../utils/methods";
 

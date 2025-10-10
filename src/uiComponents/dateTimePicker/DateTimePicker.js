@@ -1,7 +1,7 @@
 import React, {Fragment, useCallback, useState} from 'react';
 import {TouchableOpacity, View, ActivityIndicator, Platform} from 'react-native';
 import GlobalStyle from "../../assets/stylings/GlobalStyle";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@react-native-vector-icons/ionicons';
 import Styles from "./DateTimePickerStyle";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from "moment";

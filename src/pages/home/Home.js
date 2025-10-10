@@ -57,7 +57,7 @@ import {
     clearPersonalLoanEligibility,
     getPersonalLoanPromoAndOffer
 } from "../../store/actions/PersonalLoan.action";
-import Feather from 'react-native-vector-icons/Feather'
+import { Feather } from '@react-native-vector-icons/feather';
 import {checkCreditPayEligibility, clearCreditPayEligibility} from "../../store/actions/CreditPay.action";
 import GlobalStyle from "../../assets/stylings/GlobalStyle";
 import { checkKPWalletTransferEligibility, clearKPWalletTransferEligibility } from '../../store/actions/KPWalletTransfer.action';

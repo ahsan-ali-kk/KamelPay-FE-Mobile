@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Animated, Platform, UIManager } from "rea
 import styles from './CSegmented.style';
 import CText from "../cText/CText";
 import GlobalStyle from "../../assets/stylings/GlobalStyle";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from "@react-native-vector-icons/ionicons";
 import {useTranslation} from "react-i18next";
 if (Platform.OS === "android") {
     UIManager.setLayoutAnimationEnabledExperimental &&

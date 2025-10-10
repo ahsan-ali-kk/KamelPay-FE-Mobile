@@ -3,10 +3,8 @@ import {TouchableOpacity, ActivityIndicator, View } from 'react-native';
 import Styles from "./IconButton.style";
 import {themes} from "../../theme/colors";
 import KamlepayIcon from '../../assets/icons/KamelPayIcon';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import { MaterialIcons } from '@react-native-vector-icons/material-icons';
+import { Ionicons } from '@react-native-vector-icons/ionicons';
 
 const defaultProps = {
     title: '',
@@ -64,7 +62,7 @@ const IconButton = props => {
                    <Fragment>
                        <View style={Styles.buttonContainer}>
                            {iconName ? <KamlepayIcon name={iconName} style={[iconStyle, buttonIconStyle]}/> : null}
-                           {materialCommunityIcons ? <MaterialCommunityIcons name={materialCommunityIcons} style={[iconStyle, buttonIconStyle]}/> : null}
+                           {/* {materialCommunityIcons ? <MaterialCommunityIcons name={materialCommunityIcons} style={[iconStyle, buttonIconStyle]}/> : null} */}
                            {ionicons ? <Ionicons name={ionicons} style={[iconStyle, buttonIconStyle]}/> : null}
                            {materialIcons ? <MaterialIcons name={materialIcons} style={[iconStyle, buttonIconStyle]}/> : null}
                            {badge ? <View style={Styles.badge}/> : null}

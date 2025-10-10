@@ -17,7 +17,7 @@ import OTPInputView from "../../../../lib/react-native-otp-input";
 import { themes } from "../../../../theme/colors";
 import GlobalStyle from "../../../../assets/stylings/GlobalStyle";
 import { FIND_USER_SEGMENT } from "../helper";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { MaterialIcons } from '@react-native-vector-icons/material-icons';
 import { QrBarcodeScanner } from "../../../../containers";
 import Popup from "../../../../uiComponents/popup/Popup";
 

@@ -8,7 +8,7 @@ import ASStyles from "../PersonalLoan.style";
 import {formatAmount, FormatNumberWithCommas, MappedElement} from "../../../utils/methods";
 import Popup from "../../../uiComponents/popup/Popup";
 import {foundBracket} from "../helper";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import { AntDesign } from '@react-native-vector-icons/ant-design';
 
 function CForm(props) {
 

@@ -33,7 +33,7 @@ import {
 } from "../home/Home";
 import AddNewCardView from "./addCard/AddNewCardView";
 import {getCardById} from "../../store/actions/Auth.action";
-import Feather from "react-native-vector-icons/Feather";
+import Feather from "@react-native-vector-icons/feather";
 import Clipboard from "@react-native-clipboard/clipboard";
 import Share from "react-native-share";
 const windowWidth = Dimensions.get('window').width;

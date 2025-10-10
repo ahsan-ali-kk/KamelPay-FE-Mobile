@@ -6,7 +6,8 @@ import KamelPayIcon from '../../assets/icons/KamelPayIcon';
 import {MappedElement} from "../../utils/methods";
 import {themes} from "../../theme/colors";
 import posed from "react-native-pose";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { FontAwesome } from '@react-native-vector-icons/fontawesome';
+
 
 const windowWidth = Dimensions.get("window").width;
 const tabWidth = windowWidth / 3;

@@ -2,7 +2,7 @@ import {whatsAppNumber} from "../../../utils/intercepter";
 import {Alert, Linking, TouchableOpacity} from "react-native";
 import Popup from "../../../uiComponents/popup/Popup";
 import Styles from "../Auth.style";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+// import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import KamelpayIcon from "../../../assets/icons/KamelPayIcon";
 import {CText} from "../../../uiComponents";
 import React from "react";
@@ -167,7 +167,7 @@ const JOURNEY_BEGIN = {
 
 const ScanBox = ({ onPress, title, description, type, loading }) => (
     <TouchableOpacity style={Styles.scanBox} disabled={loading} activeOpacity={0.7} onPress={onPress}>
-        {type === "PASSPORT" ? <MaterialCommunityIcons name="passport"
+        {/* {type === "PASSPORT" ? <MaterialCommunityIcons name="passport"
                                                        style={Styles.scanBoxIcon}
                                                        size={40}  /> : null}
         {type === "EMIRATES_ID" ? <KamelpayIcon name="emirates-ID"
@@ -175,7 +175,7 @@ const ScanBox = ({ onPress, title, description, type, loading }) => (
                                                 size={40}/> : null}
         {type === "LIVENESS" ? <MaterialCommunityIcons name="camera-plus"
                                                        style={Styles.scanBoxIcon}
-                                                       size={40}/> : null}
+                                                       size={40}/> : null} */}
         <CText style={Styles.scanBoxText}>{title}</CText>
         <CText style={Styles.scanBoxDescription}>{description}</CText>
     </TouchableOpacity>

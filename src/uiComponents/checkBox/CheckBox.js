@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import {CText} from '../index';
 import Style from './CheckBox.style';
-import AntDesign from "react-native-vector-icons/AntDesign";
+import { AntDesign } from '@react-native-vector-icons/ant-design';
 
 const defaultProps = {
     title: '',

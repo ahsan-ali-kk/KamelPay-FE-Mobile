@@ -2,7 +2,7 @@ import {TouchableOpacity, View} from "react-native";
 import GlobalStyle from "../../assets/stylings/GlobalStyle";
 import Styles from "./Counter.style";
 import {CText} from "../index";
-import Feather from "react-native-vector-icons/Feather";
+import Feather from "@react-native-vector-icons/feather";
 import React, {memo} from "react";
 
 const Counter = (props) => {

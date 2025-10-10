@@ -2,7 +2,7 @@ import React, {useState, memo} from "react";
 import { useTranslation } from "react-i18next";
 import {View, TouchableOpacity} from "react-native";
 import {CText} from "../index";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from "@react-native-vector-icons/ionicons";
 import Styles from "../../pages/settings/Settings.style";
 import {toggleLanguageModal} from "../../store/actions/Global.action";
 import {useDispatch} from "react-redux";

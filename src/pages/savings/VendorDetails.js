@@ -9,7 +9,7 @@ import GlobalStyle from "../../assets/stylings/GlobalStyle";
 import List from "./List";
 import {MappedElement} from "../../utils/methods";
 import {getVendorDetails, setFavouriteVendor} from "../../store/actions/Savings.action";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { MaterialIcons } from '@react-native-vector-icons/material-icons';
 
 
 function VendorDetails(props) {

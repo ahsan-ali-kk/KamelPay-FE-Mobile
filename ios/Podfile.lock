@@ -91,7 +91,7 @@ PODS:
   - EXImageLoader (6.0.0):
     - ExpoModulesCore
     - React-Core
-  - Expo (54.0.12):
+  - Expo (54.0.13):
     - boost
     - DoubleConversion
     - ExpoModulesCore
@@ -129,9 +129,9 @@ PODS:
     - ExpoModulesCore
     - ZXingObjC/OneD
     - ZXingObjC/PDF417
-  - ExpoFileSystem (19.0.16):
+  - ExpoFileSystem (19.0.17):
     - ExpoModulesCore
-  - ExpoFont (14.0.8):
+  - ExpoFont (14.0.9):
     - ExpoModulesCore
   - ExpoImageManipulator (14.0.7):
     - EXImageLoader
@@ -139,7 +139,7 @@ PODS:
     - SDWebImageWebPCoder
   - ExpoKeepAwake (15.0.7):
     - ExpoModulesCore
-  - ExpoModulesCore (3.0.20):
+  - ExpoModulesCore (3.0.21):
     - boost
     - DoubleConversion
     - fast_float
@@ -2233,6 +2233,13 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
+  - react-native-vector-icons-ant-design (12.3.0)
+  - react-native-vector-icons-feather (12.3.0)
+  - react-native-vector-icons-fontawesome (12.3.0)
+  - react-native-vector-icons-ionicons (12.3.0)
+  - react-native-vector-icons-material-icons (12.3.0)
+  - react-native-vector-icons-octicons (20.3.0)
+  - react-native-vector-icons-simple-line-icons (12.3.0)
   - react-native-video (6.17.0):
     - boost
     - DoubleConversion
@@ -3080,7 +3087,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNLocalize (3.5.3):
+  - RNLocalize (3.5.4):
     - boost
     - DoubleConversion
     - fast_float
@@ -3443,7 +3450,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNVectorIcons (10.3.0):
+  - RNWorklets (0.6.1):
     - boost
     - DoubleConversion
     - fast_float
@@ -3470,9 +3477,10 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
+    - RNWorklets/worklets (= 0.6.1)
     - SocketRocket
     - Yoga
-  - RNWorklets (0.6.0):
+  - RNWorklets/worklets (0.6.1):
     - boost
     - DoubleConversion
     - fast_float
@@ -3499,40 +3507,10 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNWorklets/worklets (= 0.6.0)
+    - RNWorklets/worklets/apple (= 0.6.1)
     - SocketRocket
     - Yoga
-  - RNWorklets/worklets (0.6.0):
-    - boost
-    - DoubleConversion
-    - fast_float
-    - fmt
-    - glog
-    - hermes-engine
-    - RCT-Folly
-    - RCT-Folly/Fabric
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-hermes
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - RNWorklets/worklets/apple (= 0.6.0)
-    - SocketRocket
-    - Yoga
-  - RNWorklets/worklets/apple (0.6.0):
+  - RNWorklets/worklets/apple (0.6.1):
     - boost
     - DoubleConversion
     - fast_float
@@ -3688,6 +3666,13 @@ DEPENDENCIES:
   - react-native-rsa-native (from `../node_modules/react-native-rsa-native`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
+  - "react-native-vector-icons-ant-design (from `../node_modules/@react-native-vector-icons/ant-design`)"
+  - "react-native-vector-icons-feather (from `../node_modules/@react-native-vector-icons/feather`)"
+  - "react-native-vector-icons-fontawesome (from `../node_modules/@react-native-vector-icons/fontawesome`)"
+  - "react-native-vector-icons-ionicons (from `../node_modules/@react-native-vector-icons/ionicons`)"
+  - "react-native-vector-icons-material-icons (from `../node_modules/@react-native-vector-icons/material-icons`)"
+  - "react-native-vector-icons-octicons (from `../node_modules/@react-native-vector-icons/octicons`)"
+  - "react-native-vector-icons-simple-line-icons (from `../node_modules/@react-native-vector-icons/simple-line-icons`)"
   - react-native-video (from `../node_modules/react-native-video`)
   - react-native-view-shot (from `../node_modules/react-native-view-shot`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -3746,7 +3731,6 @@ DEPENDENCIES:
   - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
-  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - RNWorklets (from `../node_modules/react-native-worklets`)
   - SocketRocket (~> 0.7.1)
   - SplashView (from `../node_modules/react-native-splash-view`)
@@ -3924,6 +3908,20 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-slider:
     :path: "../node_modules/@react-native-community/slider"
+  react-native-vector-icons-ant-design:
+    :path: "../node_modules/@react-native-vector-icons/ant-design"
+  react-native-vector-icons-feather:
+    :path: "../node_modules/@react-native-vector-icons/feather"
+  react-native-vector-icons-fontawesome:
+    :path: "../node_modules/@react-native-vector-icons/fontawesome"
+  react-native-vector-icons-ionicons:
+    :path: "../node_modules/@react-native-vector-icons/ionicons"
+  react-native-vector-icons-material-icons:
+    :path: "../node_modules/@react-native-vector-icons/material-icons"
+  react-native-vector-icons-octicons:
+    :path: "../node_modules/@react-native-vector-icons/octicons"
+  react-native-vector-icons-simple-line-icons:
+    :path: "../node_modules/@react-native-vector-icons/simple-line-icons"
   react-native-video:
     :path: "../node_modules/react-native-video"
   react-native-view-shot:
@@ -4040,8 +4038,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-share"
   RNSVG:
     :path: "../node_modules/react-native-svg"
-  RNVectorIcons:
-    :path: "../node_modules/react-native-vector-icons"
   RNWorklets:
     :path: "../node_modules/react-native-worklets"
   SplashView:
@@ -4071,14 +4067,14 @@ SPEC CHECKSUMS:
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   EXConstants: a95804601ee4a6aa7800645f9b070d753b1142b3
   EXImageLoader: 189e3476581efe3ad4d1d3fb4735b7179eb26f05
-  Expo: 10b403688417ead4479d99447a32c1a088f50b94
+  Expo: ba0f0777cd119b894626053dc84fa7f7266346f3
   ExpoAsset: 9ba6fbd677fb8e241a3899ac00fa735bc911eadf
   ExpoCamera: e75f6807a2c047f3338bbadd101af4c71a1d13a5
-  ExpoFileSystem: f4bf6bac4ede3b6671c22777f01102a02a028412
-  ExpoFont: 86ceec09ffed1c99cfee36ceb79ba149074901b5
+  ExpoFileSystem: b79eadbda7b7f285f378f95f959cc9313a1c9c61
+  ExpoFont: cf9d90ec1d3b97c4f513211905724c8171f82961
   ExpoImageManipulator: ead6e7cca441603bfaecc898a69a093adef8b4ef
   ExpoKeepAwake: 1a2e820692e933c94a565ec3fbbe38ac31658ffe
-  ExpoModulesCore: 0ed1e19acc0053ed21d564031d92bf3b77c354f3
+  ExpoModulesCore: 2a5800e6272f3ace33171be26cc2f347fed01871
   ExpoTextExtractor: 79faef58f2c7f5156368440ca151fc0317464430
   fast_float: b32c788ed9c6a8c584d114d0047beda9664e7cc6
   FBLazyVector: 778b815a6fb3fa1599f581ffb9a5e85fad313c1d
@@ -4146,6 +4142,13 @@ SPEC CHECKSUMS:
   react-native-rsa-native: a7931cdda1f73a8576a46d7f431378c5550f0c38
   react-native-safe-area-context: 4df6c897ab5bd841a5bba6f734785c0c9ef4c206
   react-native-slider: e005853a9391f5f0cacb9e957453bca982608eb9
+  react-native-vector-icons-ant-design: 3764a6096f8d760e0bb6766ea762a5545f6dba1c
+  react-native-vector-icons-feather: 14d6f3e1af2acefb0b4d976b226bb15b19e1db58
+  react-native-vector-icons-fontawesome: c41fd08991989b71fe79c68ebb3ee30ac221178e
+  react-native-vector-icons-ionicons: ad07e944a092a5cf71b8b569d8f5ce2bf674c415
+  react-native-vector-icons-material-icons: eff7417eb1ac6c740ab802837ad34b8233fded34
+  react-native-vector-icons-octicons: cc1b6b6586a0c734a49b7929ca8027ff72b372cb
+  react-native-vector-icons-simple-line-icons: 3b3e7690172dc8fc3024534f6ce0919932dcac84
   react-native-video: 8681d42fce8dd45b1b7e7d9b54c9c054c99229ae
   react-native-view-shot: 2a3fb8aadfc702b79a168576c9b93d29f33ff1f3
   react-native-webview: 6a11548e3714dbf97a93003f5c95dd6fcc10234b
@@ -4195,7 +4198,7 @@ SPEC CHECKSUMS:
   RNFS: 89de7d7f4c0f6bafa05343c578f61118c8282ed8
   RNGestureHandler: a52292df4f8fc7daab354ad2c37be401d4c3bed8
   RNKeychain: e2dde9548dd1fc98c48130d243af5f7b02ab71d0
-  RNLocalize: ffcbffa3b5f9f5eb017cb3c9c6b7b6fa0b6c66e8
+  RNLocalize: 31a034cac08491425d58746389ea2399e06d1927
   RNNotifee: 5e3b271e8ea7456a36eec994085543c9adca9168
   RNPermissions: 117c47e8d3119761b53f39ec8ea9476c3c336573
   RNReactNativeHapticFeedback: d39b9a5b334ce26f49ca6abe9eea8b3938532aee
@@ -4204,8 +4207,7 @@ SPEC CHECKSUMS:
   RNSentry: f232a12978fd4ca0bb134c5c1849b554721decef
   RNShare: bd5eab5012ac84948cfe093ae0ed79a56a3388af
   RNSVG: 05138c285c3a8b54fc01061fb1438385832fe7f7
-  RNVectorIcons: 0567525e0a344458329daa09068cf9e8090ec791
-  RNWorklets: 4fdb5474f2117fa53d2000c5c6a7f68e4f4f6e95
+  RNWorklets: 7fb44cd32a491df4a4832cce2f3b0aaaf813956d
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   Sentry: b53951377b78e21a734f5dc8318e333dbfc682d7

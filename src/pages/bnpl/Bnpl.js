@@ -7,7 +7,7 @@ import LatestSubCategories from "./latestSubCategories/LatestSubCategories";
 import {RefreshControl, TouchableOpacity, View, ActivityIndicator} from "react-native";
 import Banner from "./Banner";
 import GlobalStyle from "../../assets/stylings/GlobalStyle";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+// import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {CButton, CText} from "../../uiComponents";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -114,11 +114,11 @@ function Bnpl(props) {
                     <CText style={Styles.fabButtonBadgeText}>{count}</CText>
                 </View> : null}
 
-                {reduxState.cartProductsLoading ? <ActivityIndicator
+                {/* {reduxState.cartProductsLoading ? <ActivityIndicator
                     color={themes['light'].colors.tertiary}
                 /> : <MaterialCommunityIcons
                     style={Styles.fabButtonIcon}
-                    name={'cart'}/>}
+                    name={'cart'}/>} */}
 
 
             </TouchableOpacity>
